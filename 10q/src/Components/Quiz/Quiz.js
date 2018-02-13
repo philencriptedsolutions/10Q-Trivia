@@ -13,8 +13,8 @@ class Quiz extends Component {
     super(props)
     this.state = {
       response:{},
-      questionNumber:0,
-      canContinue:true,
+      questionNumber:0
+      in:true;
     }
   }
 
@@ -28,15 +28,14 @@ class Quiz extends Component {
   }
 
   submitAnswer(answerSelected){
-    const { canContinue } = this.state.props;
-    this.socket.emit("answer selected", canContinue);
+    this.socket.emit("answer selected", in => this.setState({ in }));
   }
 
   render(){
     const { question, answer, completedNum } = this.state.response;
     let whatShows;
 
-    if( question && !(answer) && !( completedNum ) ) {
+    if( question && !(answer) && !( completedNum ) {
       whatShows = < Question questionObject={ this.state.response }/>;
     } else if( !( question ) && answer && !( completedNum ) ) {
       whatShows = < Answer answerObject={ this.state.response }/>;
@@ -51,7 +50,6 @@ class Quiz extends Component {
         <Header/>
        { this.state.admin ? ( <div><button onClick={ () => this.handleGameStart }></button>Make Game Button Clickable</div> ) : null }
        { whatShows }
-
       </div>
     )
   }

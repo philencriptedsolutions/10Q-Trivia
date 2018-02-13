@@ -10,7 +10,7 @@ const cors = require("cors");
 
 // DATABASE DEP
 const massive = require("massive");
-// const mainCtrl = require("./mainCtrl");
+const userCtrl = require("./Controllers/user/userCtrl");
 
 //INITIALIZE APP
 const app = express();
@@ -77,32 +77,25 @@ io.on("connection", socket => {
   });
 
   //onClick of answer-choice button activate this.socket.emit("answer choice", choice)
-  socket.on("answer choice", (user_id, question_id, choice) => {
-    console.log(choice);
-    app
-      .get("db")
-      .add_answer([user_id, question_id, choice])
-      .then(answered => {
-        //can compare user answered choice with the correct_answer choice from the above response in front end to decide whether to remove functionality or not
-        io.emit("chosen answer", answered);
-      })
-      .catch(console.log);
-  });
+  // socket.on("answer choice", (user_id, question_id, choice) => {
+  //   console.log(choice);
+  //   app
+  //     .get("db")
+  //     .add_answer([user_id, question_id, choice])
+  //     .then(answered => {
+  //       //can compare user answered choice with the correct_answer choice from the above response in front end to decide whether to remove functionality or not
+  //       io.emit("chosen answer", answered);
+  //     })
+  //     .catch(console.log);
+  // });
 
   //client disconnected
   socket.on("disconnect", () => console.log("Client disconnected"));
 });
 
-app.get("/api/register", (req, res) => {
-  const { first_name, last_name, email, img, balance, uid } = req.body;
-  app
-    .get("db")
-    .add_user([first_name, last_name, email, img, balance, uid])
-    .then(user => {
-      res.status(200).json(user);
-    })
-    .catch(err => res.status(500).json(err));
-});
+app.post("/api/register", userCtrl.addUser);
+app.get("/api/login", userCtrl.getUser);
+app.put("/api/profile/update", userCtrl.updateUser);
 
 http.listen(PORT || 3001, () => {
   console.log(`Listening on port: ${PORT}`);
