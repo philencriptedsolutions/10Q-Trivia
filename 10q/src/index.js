@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 //Redux store
-import store from "./store";
+import store from "./ducks/store";
 
 const muiTheme = getMuiTheme({
   palette: {

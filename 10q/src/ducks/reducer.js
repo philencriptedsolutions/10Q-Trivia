@@ -2,38 +2,52 @@ import axios from 'axios';
 
 //  ACTION TYPES
 
-        //This is a dummy action
-        const TEST_ACTION = 'TEST_ACTION';
+const REGISTER_USER = 'REGISTER_USER';
+const LOGIN_USER = 'LOGIN_USER';
 
 //  INITIAL STATE
 const initialState = {
-
+    user :{},
+    isAuthenticated: false
 }
 
 //  ACTION CREATORS
-
-    //This is a dummy action
-    export function testAction() {
+    export function register(google_id) {
         return {
-            type: TEST_ACTION,
-            payload: axios
-                .get('/api/test')
-                .then(response => response.data)
-                .catch(err => err)
+          type: REGISTER_USER,
+          payload: axios
+            .post("/api/register", { google_id })
+            .then(response => response.data[0])
+            .catch(console.log)
+        };
+    }
+    export function login(google_id) {
+        return {
+          type: LOGIN_USER,
+          payload: axios
+            .post("/api/login", { google_id })
+            .then(response => response.data[0])
+            .catch(console.log)
         };
     }
 
 //  REDUCER
-    //This is a dummy reducer
-export default function reducer(state = initialState, action){
+export default function loginReducer(state = initialState, action){
     console.log(action.type);
     switch (action.type) {
-        case `${TEST_ACTION}_PENDING`:
-            return Object.assign({}, state, { isLoading: false, testData: action.payload });
-        case `${TEST_ACTION}_FULFILLED`:
-            return Object.assign({}, state, { isLoading: false,testData: action.payload})
-        case `${TEST_ACTION}_REJECTED`:
-            return Object.assign({}, state, { isLoading: false, didErr: true })
+        case `${REGISTER_USER}_PENDING`:
+            return Object.assign({}, state, { isLoading: true });
+        case `${REGISTER_USER}_FULFILLED`:
+            return Object.assign({}, state, { isLoading: false, user: action.payload, isAuthenticated: true });
+        case `${REGISTER_USER}_REJECTED`:
+            return Object.assign({}, state, { isLoading: false, didErr: true });
+
+        case `${LOGIN_USER}_PENDING`:
+            return Object.assign({}, state, { isLoading: true });
+        case `${LOGIN_USER}_FULFILLED`:
+            return Object.assign({}, state, { isLoading: false, user: action.payload, isAuthenticated: true });
+        case `${LOGIN_USER}_REJECTED`:
+            return Object.assign({}, state, { isLoading: false, didErr: true });
 
         default:
             return state;
