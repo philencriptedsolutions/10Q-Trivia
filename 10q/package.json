@@ -11,14 +11,15 @@
     "express-session": "^1.15.6",
     "firebase": "^4.9.1",
     "massive": "^4.6.4",
+    "material-ui": "^0.20.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
     "redux": "^3.7.2",
-    "socket.io": "^2.0.4",
-    "redux-promise-middleware": "^5.0.0"
+    "redux-promise-middleware": "^5.0.0",
+    "socket.io": "^2.0.4"
   },
   "proxy": "http://localhost:3001",
   "scripts": {
