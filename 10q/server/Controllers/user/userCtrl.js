@@ -9,6 +9,16 @@ module.exports = {
       })
       .catch(err => res.status(500).json(err));
   },
+  getUser: (req, res) => {
+    const { uid } = req.body;
+    const db = req.app.get("db");
+    db
+      .get_user([uid])
+      .then(user => {
+        res.status(200).json(user);
+      })
+      .catch(err => res.status(500).json(err));
+  },
   updateUser: (req, res) => {
     const { username, img, uid } = req.body;
     const db = req.app.get("db");

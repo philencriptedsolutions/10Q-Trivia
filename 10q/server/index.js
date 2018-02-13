@@ -93,7 +93,8 @@ io.on("connection", socket => {
   socket.on("disconnect", () => console.log("Client disconnected"));
 });
 
-app.get("/api/register", userCtrl.addUser);
+app.post("/api/register", userCtrl.addUser);
+app.get("/api/login", userCtrl.getUser);
 app.put("/api/profile/update", userCtrl.updateUser);
 
 http.listen(PORT || 3001, () => {
