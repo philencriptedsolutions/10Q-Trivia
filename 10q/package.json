@@ -21,6 +21,7 @@
     "redux-promise-middleware": "^5.0.0",
     "socket.io": "^2.0.4"
   },
+  "proxy": "http://localhost:3001",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
