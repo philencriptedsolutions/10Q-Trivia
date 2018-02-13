@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {Switch, Route} from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
 
-import Login from './Login';
-import Quiz from './Quiz';
-import Dashboard from './Dashboard';
+import Login from '../src/Components/Login/Login';
+import Quiz from '../src/Components/Quiz/Quiz';
+import Dashboard from '../src/Components/Dashboard/Dashboard';
 
 class App extends Component {
   render() {

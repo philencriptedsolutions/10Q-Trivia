@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import { fire as firebase, provider } from '../../../fire';
+import { fire as firebase, provider } from '../../../src/fire';
 //import './Login.css';
  
 class Login extends Component {

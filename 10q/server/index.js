@@ -15,13 +15,14 @@ const massive = require("massive");
 //INITIALIZE APP
 const app = express();
 
+const questionCtrl = require("./Controllers/question/questionCtrl");
+
 //SOCKET.IO
 // const socket = require("socket.io");
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
-let socketCount = 0;
-// CONSTS FOR FUNCTIONS
-// const {} = require("./mainCtrl");
+let playerCount = 0;
+let difficulty = 0;
 
 //MASSIVE CONNECTION TO DB
 massive(CONNECTION_STRING)
@@ -47,7 +48,7 @@ app.use(cors());
 // );
 
 io.on("connection", socket => {
-  socketCount++;
+  playerCount++;
   console.log("Client connected: ", socket);
   socket.on("disconnect", () => console.log("Client disconnected"));
 });
