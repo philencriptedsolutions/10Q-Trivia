@@ -1,1 +1,2 @@
-SELECT * FROM questions;
+SELECT * FROM questions
+WHERE difficulty = $1;
