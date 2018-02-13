@@ -16,7 +16,7 @@ class Dashboard extends Component {
   }
 
   handleGameClick(){
-    this.props.history.push(`/EditBio/${this.props.userid}`);
+    this.props.history.push(`/Game/${this.props.userid}`);
   }
 
   render(){
