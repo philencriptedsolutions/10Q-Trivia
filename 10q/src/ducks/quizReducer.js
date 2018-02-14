@@ -8,12 +8,11 @@ const END_OF_GAME = "END_OF_GAME";
 
 //  INITIAL STATE
 const initialState = {
-    user :{},
-    question:{},
-    isAuthenticated: false,
     endOfGame: false,
     isQuestion: false,
     isAnswer: false,
+    question: {},
+    isAuthenticated: false,
 }
 
 //  ACTION CREATORS
@@ -41,10 +40,10 @@ export default function quizReducer(state = initialState, action){
 
     switch (action.type) {
         case `${NEW_QUESTION}`:
-            return Object.assign({}, state, { question: action.payload, isQuestion:true });
+            return Object.assign({}, state, { question: action.payload, isQuestion: true });
 
         case `${NEW_ANSWER}`:
-            return Object.assign({}, state, { isAnswer:action.payload, isQuestion:false  });
+            return Object.assign({}, state, { isAnswer: true, isQuestion: false });
 
         case `${END_OF_GAME}`:
             return Object.assign({}, state, { endOfGame: true, isQuestion: false, isAnswer: false, })
