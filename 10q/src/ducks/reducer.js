@@ -12,11 +12,11 @@ const initialState = {
 }
 
 //  ACTION CREATORS
-    export function register(google_id) {
+    export function register(first_name, last_name, email, img, balance, uid) {
         return {
           type: REGISTER_USER,
           payload: axios
-            .post("/api/register", { google_id })
+            .post("/api/register", { first_name, last_name, email, img, balance, uid})
             .then(response => response.data[0])
             .catch(console.log)
         };

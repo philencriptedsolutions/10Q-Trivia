@@ -7,18 +7,6 @@ import Quiz from '../src/Components/Quiz/Quiz';
 import Dashboard from '../src/Components/Dashboard/Dashboard';
 
 class App extends Component {
-  constructor(props){
-    super(props);
-
-    this.state ={
-      user:{}
-    }
-    this.handleSaveUser = this.handleSaveUser.bind(this);
-  }
-
-  handleSaveUser( userObj ){
-    this.setState({ user: userObj });
-  }
 
   render() {
     return (
@@ -32,6 +20,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;
