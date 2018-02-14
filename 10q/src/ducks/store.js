@@ -10,4 +10,4 @@ import { combineReducers } from 'redux'
 
 const reducers = combineReducers({ loginReducer, quizReducer });
 
-export default createStore(  reducers, applyMiddleware(reduxPromiseMiddleware()) );
+export default createStore(reducers, applyMiddleware(reduxPromiseMiddleware()));

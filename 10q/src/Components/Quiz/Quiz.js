@@ -1,7 +1,5 @@
 import React , { Component } from 'react';
 import openSocket from "socket.io-client";
-import { connect } from 'react-redux';
-import { saveNewQuestion, changeToAnswerView } from '../../ducks/quizReducer';
 //import './Quiz.css';
 
 import Question from '../SubComponents/Question/Question';
@@ -64,6 +62,4 @@ class Quiz extends Component {
     )
   }
 }
-const mapStateToProps = state => state;
-
-export default connect( mapStateToProps, {  saveNewQuestion, changeToAnswerView })( Quiz );
+export default Quiz;
