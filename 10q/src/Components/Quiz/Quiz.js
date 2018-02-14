@@ -8,6 +8,7 @@ import Question from '../SubComponents/Question/Question';
 import Host from '../SubComponents/Host/Host';
 import Answer from '../SubComponents/Answer/Answer';
 import Completed from '../SubComponents/Completed/Completed';
+import Header from '../SubComponents/Header/Header';
 
 class Quiz extends Component {
   constructor(props){
@@ -33,7 +34,7 @@ class Quiz extends Component {
     const { question, answer, completedNum } = this.state.response;
     let whatShows;
 
-    if( question && !(answer) && !( completedNum ) ) {
+    if( question && !(answer) && !( completedNum ) {
       whatShows = < Question questionObject={ this.state.response }/>;
     } else if( !( question ) && answer && !( completedNum ) ) {
       whatShows = < Answer answerObject={ this.state.response }/>;
@@ -45,9 +46,9 @@ class Quiz extends Component {
 
     return (
       <div className="Quiz">
+        <Header/>
        { this.state.admin ? ( <div><button onClick={ () => this.handleGameStart }></button>Make Game Button Clickable</div> ) : null }
        { whatShows }
-
       </div>
     )
   }

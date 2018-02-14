@@ -10,7 +10,7 @@ const cors = require("cors");
 
 // DATABASE DEP
 const massive = require("massive");
-// const mainCtrl = require("./mainCtrl");
+const userCtrl = require("./Controllers/user/userCtrl");
 
 //INITIALIZE APP
 const app = express();
@@ -71,16 +71,9 @@ io.on("connection", socket => {
   socket.on("disconnect", () => console.log("Client disconnected"));
 });
 
-app.get("/api/register", (req, res) => {
-  const { first_name, last_name, email, img, balance, uid } = req.body;
-  app
-    .get("db")
-    .add_user([first_name, last_name, email, img, balance, uid])
-    .then(user => {
-      res.status(200).json(user);
-    })
-    .catch(err => res.status(500).json(err));
-});
+app.post("/api/register", userCtrl.addUser);
+app.get("/api/login", userCtrl.getUser);
+app.put("/api/profile/update", userCtrl.updateUser);
 
 http.listen(PORT || 3001, () => {
   console.log(`Listening on port: ${PORT}`);
