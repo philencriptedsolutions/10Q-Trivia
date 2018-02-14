@@ -28,16 +28,16 @@ const muiTheme = getMuiTheme({
     //alternateTextColor: changes Default Raised Button Background, Primary Raised Button Text, Secondary Raised Button Text
     alternateTextColor: "#0e89f3",
     //shadowColor: changes shadow color
-    shadowColor: "#fafafa"
+    shadowColor: "#0e89f3"
   }
 });
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-        <MuiThemeProvider muiTheme={muiTheme}>
-            <App />
-        </MuiThemeProvider>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <App />
+      </MuiThemeProvider>
     </Router>
   </Provider>,
   document.getElementById("root")
