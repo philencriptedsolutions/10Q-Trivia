@@ -21,16 +21,14 @@ class Quiz extends Component {
   componentDidMount() {
     this.socket = openSocket();
     this.socket.on("new question", question =>
-      this.setState({ response: question })
+      this.props.saveNewQuestion(question)
     );
-    this.socket.on("update question number", questionNumber => {
-      this.setState({ questionNumber });
-    });
+    this.socket.on("new answer", newinfo => this.props.changeToAnswerView());
   }
 
   submitAnswer(answerSelected) {
-    //  Here we can check to see if their selected answer is the same as the right asnwer.
-    //  It should also only fire off after the time out.
+    // Here we can check to see if their selected answer is the same as the right asnwer.
+    // It should also only fire off after the time out.
     const { canContinue } = this.state.props;
     this.socket.emit("answer selected", canContinue);
   }
