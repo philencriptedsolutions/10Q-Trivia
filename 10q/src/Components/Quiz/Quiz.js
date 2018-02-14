@@ -1,5 +1,7 @@
 import React , { Component } from 'react';
 import openSocket from "socket.io-client";
+import { connect } from 'react-redux';
+import { saveNewQuestion, changeToAnswerView } from '../../ducks/quizReducer';
 //import './Quiz.css';
 
 import Question from '../SubComponents/Question/Question';
@@ -11,24 +13,21 @@ import Header from '../SubComponents/Header/Header';
 class Quiz extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      response:{},
-      questionNumber:0
-      in:true;
-    }
+    
   }
 
   componentDidMount(){
     this.socket = openSocket();
-    this.socket.on("new question", question => this.setState({ response : question }));
-    this.socket.on("update question number", questionNumber => {
-      this.setState({ questionNumber });
-    });
-
+    this.socket.on("new question", question => this.props.saveNewQuestion( question ));
+    this.socket.on("new answer", newinfo =>  this.props.changeToAnswerView() );
   }
 
   submitAnswer(answerSelected){
-    this.socket.emit("answer selected", in => this.setState({ in }));
+  
+    // Here we can check to see if their selected answer is the same as the right asnwer.
+    // It should also only fire off after the time out.  
+    const { canContinue } = this.state.props;
+    this.socket.emit("answer selected", canContinue);
   }
 
   render(){
@@ -54,4 +53,6 @@ class Quiz extends Component {
     )
   }
 }
-export default Quiz;
+const mapStateToProps = state => state;
+
+export default connect( mapStateToProps, {  saveNewQuestion, changeToAnswerView })( Quiz );

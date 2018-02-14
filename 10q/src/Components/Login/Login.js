@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { fire as firebase, provider } from "../../../src/fire";
-import { login, register } from "../../ducks/reducer";
-import { connect } from "react-redux";
+import React , { Component } from 'react';
+import { fire as firebase, provider } from '../../../src/fire';
+import { login, register } from '../../ducks/reducer';
+import { connect } from 'react-redux';
 //import './Login.css';
 
 class Login extends Component {
@@ -11,31 +11,30 @@ class Login extends Component {
     this.signInWithGoogle = this.signInWithGoogle.bind(this);
   }
 
-  signInWithGoogle() {
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(result => {
-        var newUser = result.additionalUserInfo.isNewUser;
-        var google_id = result.user.uid;
+  signInWithGoogle(){
+    
+    firebase.auth().signInWithPopup(provider).then((result) => {
+      const { given_name, family_name, email, picture, isNewUser} = result.additionalUserInfo.profile;
+      let google_id = result.user.uid;
+      let first_name = given_name;
+      let last_name = family_name;
+      let img = picture;
+      let uid = google_id;
 
-        console.log(result);
-
-        if (newUser) {
-          this.props.register(google_id).then(result => {
-            firebase.auth().onAuthStateChanged(user => {
-              if (user) {
-                this.props.history.push("/Dashboard");
-              }
-            });
+      if(isNewUser){ 
+        this.props.register(first_name, last_name, email, img, balance, uid).then(result => {
+          firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+              this.props.history.push('/Quiz'); 
+            }
           });
-        } else if (!newUser) {
-          this.props.login(google_id).then(result => {
-            firebase.auth().onAuthStateChanged(user => {
-              if (user) {
-                this.props.history.push("/Dashboard");
-              }
-            });
+        })
+      } else if(!isNewUser) {
+          this.props.login(google_id).then(result =>{
+          firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+              this.props.history.push('/Quiz'); 
+            }
           });
         }
       })

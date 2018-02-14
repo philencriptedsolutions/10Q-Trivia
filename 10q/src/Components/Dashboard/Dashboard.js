@@ -11,14 +11,15 @@ class Dashboard extends Component {
     }
     this.handleGameClick = this.handleGameClick.bind(this);
     this.handleProfileClick = this.handleProfileClick.bind(this);
+    this.handleGameStart = this.handleGameStart.bind(this);
   }
 
   handleProfileClick(){
-    this.props.history.push(`/Profile/${this.props.userid}`);
+    this.props.history.push(`/Profile/`);
   }
 
   handleGameClick(){
-    this.props.history.push(`/Game/${this.props.userid}`);
+    this.props.history.push(`/Game`);
   }
   
   handleGameStart(){
