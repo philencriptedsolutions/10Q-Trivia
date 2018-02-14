@@ -1,0 +1,22 @@
+.header-main {
+  margin: 0;
+  padding: 0;
+}
+
+.header-bar {
+  height: 30px !important;
+}
+
+.menu-item-container {
+  text-decoration: none;
+}
+
+.menu-item {
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: lighter;
+}
+
+.menu-item-wrapper:focus {
+  cursor: pointer;
+}

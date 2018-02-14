@@ -44,12 +44,12 @@ io.on("connection", socket => {
     app
       .get("db")
       .get_questions([difficulty])
-      .then(questions => {
+      .then(question => {
         io.emit("new question", {
           isQuestion: true,
           isAnswer: false,
           isCompleted: false,
-          response: questions
+          question
         });
       })
       .catch(console.log);
@@ -75,8 +75,6 @@ io.on("connection", socket => {
       }, 10000);
     }
   });
-
- 
 
   //client disconnected
   socket.on("disconnect", () => console.log("Client disconnected"));
