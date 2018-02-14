@@ -1,0 +1,26 @@
+.Login {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    height: 80vh;
+    background-color: #0e89f3 !important;
+}
+
+#loginbutton {
+
+    text-align: center !important;
+    color: #0e89f3 !important;
+    background-color:#fff !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+    cursor: pointer  !important;
+    width: 175px !important;
+}
+
+.Logo{
+    width: 175px;
+    height: 175px;
+    margin: 0 0 40px 0;
+}
+

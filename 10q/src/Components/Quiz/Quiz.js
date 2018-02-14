@@ -9,6 +9,14 @@ import Completed from '../SubComponents/Completed/Completed';
 import Header from '../SubComponents/Header/Header';
 
 class Quiz extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      response:{},
+      questionNumber:0,
+      in:true
+    }
+  }
 
   componentDidMount(){
     this.socket = openSocket();
