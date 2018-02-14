@@ -51,7 +51,7 @@ class Header extends Component {
           iconElementLeft={<NavigationMenu />}
           iconClassNameLeft="header-burger"
           iconClassNameRight="header-logo"
-          onLeftIconButtonClick={() => this.toggleDrawer()}
+          onLeftIconButtonClick={this.toggleDrawer}
         />
 
         <Drawer
@@ -59,7 +59,7 @@ class Header extends Component {
           open={this.state.opened}
           docked={false}
           width={60}
-          onRequestChange={() => this.toggleDrawer()}
+          onRequestChange={this.toggleDrawer}
         >
           <MenuItem>
             <NavLink to="/Quiz">
