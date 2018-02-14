@@ -36,7 +36,8 @@ class Quiz extends Component {
   //   const { canContinue } = this.state.props;
   //   this.socket.emit("answer selected", canContinue);
   // }
-  
+  // BUTTON TO EMIT NEXT QUESTION
+
 
   render() {
     console.log("props", this.props);
@@ -74,5 +75,5 @@ class Quiz extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { saveNewQuestion, changeToAnswerView  })( Quiz );
+export default connect(mapStateToProps, { saveNewQuestion, changeToAnswerView, changeToEndOfGame  })( Quiz );
 

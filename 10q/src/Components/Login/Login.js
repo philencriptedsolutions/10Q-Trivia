@@ -17,12 +17,14 @@ class Login extends Component {
   signInWithGoogle(){
     
     firebase.auth().signInWithPopup(provider).then((result) => {
-      const { given_name, family_name, email, picture, isNewUser} = result.additionalUserInfo.profile;
+      console.log(result);
+      const { given_name, family_name, email, picture} = result.additionalUserInfo.profile;
       let google_id = result.user.uid;
       let first_name = given_name;
       let last_name = family_name;
       let img = picture;
-      let uid = google_id;
+      let uid = result.user.uid;
+      let isNewUser = result.additionalUserInfo.isNewUser;
       let balance =0;
 
         if (isNewUser) {
@@ -36,7 +38,7 @@ class Login extends Component {
               });
             });
         } else if (!isNewUser) {
-          this.props.login(google_id).then(result => {
+          this.props.login(uid).then(result => {
             firebase.auth().onAuthStateChanged(user => {
               if (user) {
                 this.props.history.push("/Quiz");
