@@ -34,17 +34,6 @@ massive(CONNECTION_STRING)
 app.use(json());
 app.use(cors());
 
-// app.use(
-//    session({
-//        secret: SECRET,
-//        saveUninitialized: false,
-//        resave: false,
-//        cookie: {
-//            maxAge: 1000
-//        }
-//    })
-// );
-
 io.on("connection", socket => {
   //client joined
   playerCount++;
@@ -59,6 +48,7 @@ io.on("connection", socket => {
         io.emit("new question", {
           isQuestion: true,
           isAnswer: false,
+          isCompleted: false,
           response: questions
         });
       })
@@ -67,27 +57,26 @@ io.on("connection", socket => {
     if (difficulty < 10) {
       difficulty++;
       console.log(difficulty);
+      setTimeout(() => {
+        io.emit("new answer", {
+          isQuestion: false,
+          isAnswer: true,
+          isCompleted: false
+        });
+      }, 10000);
     } else {
       console.log("THIS IS THE END");
+      setTimeout(() => {
+        io.emit("new answer", {
+          isQuestion: false,
+          isAnswer: true,
+          isCompleted: true
+        });
+      }, 10000);
     }
-
-    setTimeout(() => {
-      io.emit("new answer", { isQuestion: false, isAnswer: true });
-    }, 10000);
   });
 
-  //onClick of answer-choice button activate this.socket.emit("answer choice", choice)
-  // socket.on("answer choice", (user_id, question_id, choice) => {
-  //   console.log(choice);
-  //   app
-  //     .get("db")
-  //     .add_answer([user_id, question_id, choice])
-  //     .then(answered => {
-  //       //can compare user answered choice with the correct_answer choice from the above response in front end to decide whether to remove functionality or not
-  //       io.emit("chosen answer", answered);
-  //     })
-  //     .catch(console.log);
-  // });
+ 
 
   //client disconnected
   socket.on("disconnect", () => console.log("Client disconnected"));

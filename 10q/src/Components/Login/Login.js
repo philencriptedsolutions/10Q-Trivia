@@ -6,57 +6,60 @@ import RaisedButton from 'material-ui/RaisedButton';
 import './Login.css';
 import placeHolder from './placeHolder.png'
 import '../../App.css';
- 
-class Login extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-    }
-    this.signInWithGoogle = this.signInWithGoogle.bind(this);
 
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.signInWithGoogle = this.signInWithGoogle.bind(this);
   }
 
   signInWithGoogle(){
     
     firebase.auth().signInWithPopup(provider).then((result) => {
-      var newUser = result.additionalUserInfo.isNewUser;
-      var google_id = result.user.uid;
-      
-      console.log(result);
+      const { given_name, family_name, email, picture, isNewUser} = result.additionalUserInfo.profile;
+      let google_id = result.user.uid;
+      let first_name = given_name;
+      let last_name = family_name;
+      let img = picture;
+      let uid = google_id;
+      let balance =0;
 
-      if(newUser){ 
-        this.props.register(google_id).then(result => {
-          firebase.auth().onAuthStateChanged(user => {
-            if(user) {
-              this.props.history.push('/Dashboard'); 
-            }
+        if (isNewUser) {
+          this.props
+            .register(first_name, last_name, email, img, balance, uid)
+            .then(result => {
+              firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                  this.props.history.push("/Quiz");
+                }
+              });
+            });
+        } else if (!isNewUser) {
+          this.props.login(google_id).then(result => {
+            firebase.auth().onAuthStateChanged(user => {
+              if (user) {
+                this.props.history.push("/Quiz");
+              }
+            });
           });
-        })
-      } else if(!newUser) {
-          this.props.login(google_id).then(result =>{
-          firebase.auth().onAuthStateChanged(user => {
-            if(user) {
-              this.props.history.push('/Dashboard'); 
-            }
-          });
-        })
-      }
-
-    }).catch(console.log);
+        }
+      })
+      .catch(console.log);
   }
 
-  render(){
+  render() {
     return (
       <div className="Login">
         {/* THE LOGO WILL GO HERE*/}
         <img src= {placeHolder} className="Logo" alt="Logo" height="42" width="42"/>
         <RaisedButton id="loginbutton" onClick={() => this.signInWithGoogle()} >Login/ Register</RaisedButton >
+        
       </div>
-    )
+    );
   }
 }
 
-
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, {  register, login })(Login);
+export default connect(mapStateToProps, { register, login })(Login);
