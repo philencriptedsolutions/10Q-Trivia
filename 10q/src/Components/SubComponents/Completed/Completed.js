@@ -1,5 +1,6 @@
 import React , { Component } from 'react';
-//import './Completed.css';
+import Header from '../../SubComponents/Header/Header'
+import './Completed.css';
  
 class Completed extends Component {
   constructor(props){
@@ -10,8 +11,16 @@ class Completed extends Component {
   }
   render(){
     return (
-      <div className="Completed">
-        <span>This means the last question was submitted and you've reached the end of the question.</span>
+      
+      <div className="completed">
+        <div className='question-card'>
+          <div className='winner'>
+            <div className='text'>
+              You Win!
+            </div>
+          </div>
+        
+        </div>
       </div>
     )
   }

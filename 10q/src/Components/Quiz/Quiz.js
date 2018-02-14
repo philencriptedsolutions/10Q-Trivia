@@ -25,47 +25,48 @@ class Quiz extends Component {
     
   }
 
-  submitAnswer(answerSelected){
+  // submitAnswer(answerSelected){
     
     // Here we can check to see if their selected answer is the same as the right asnwer.
     // It should also only fire off after the time out.  
-    const { canContinue } = this.state.props;
-    this.socket.emit("answer selected", canContinue);
-  }
+  //   const { canContinue } = this.state.props;
+  //   this.socket.emit("answer selected", canContinue);
+  // }
 
   render(){
-    console.log("props",this.props);
-    const { isQuestion, isAnswer, endOfGame } = this.props.quizReducer;
-    let whatShows, host;
+    // console.log("props",this.props);
+    // const { isQuestion, isAnswer, endOfGame } = this.props.quizReducer;
+    // let whatShows, host;
 
-    if( host ){
-      host = (
-        <Host>
-          "This is where the Live Streaming is gonna happen"
-        </Host>
-      );
-    } else {
-      host = (<Host>
-          {`The Game Starts in 4 seconds`}
-        </Host>);
-    }
+    // if( host ){
+    //   host = (
+    //     <Host>
+    //       "This is where the Live Streaming is gonna happen"
+    //     </Host>
+    //   );
+    // } else {
+    //   host = (<Host>
+    //       {`The Game Starts in 4 seconds`}
+    //     </Host>);
+    // }
 
-    if( isQuestion && !( endOfGame ) ){
-      whatShows = < Question questionObject={ this.state.response }/>;
-    } else if(  isAnswer && !( endOfGame ) ) {
-      whatShows = < Answer answerObject={ this.state.response }/>;
-    } else if( endOfGame ) {
-      whatShows = < Completed completedObject={ this.state.reponse }/>;
-    } else {
-      whatShows = null;
-    }
+    // if( isQuestion && !( endOfGame ) ){
+    //   whatShows = < Question questionObject={ this.state.response }/>;
+    // } else if(  isAnswer && !( endOfGame ) ) {
+    //   whatShows = < Answer answerObject={ this.state.response }/>;
+    // } else if( endOfGame ) {
+    //   whatShows = < Completed completedObject={ this.state.reponse }/>;
+    // } else {
+    //   whatShows = null;
+    // }
 
     return (
       <div className="Quiz">
         <Header/>
-       { host }
+       {/* { host }
        { this.props.loginReducer.user.uid === 1 ? ( <div><button onClick={ () => this.handleGameStart }></button>Make Game Button Clickable</div> ) : null }
-       { whatShows }
+       { whatShows } */}
+       <Completed/>
       </div>
     )
   }
