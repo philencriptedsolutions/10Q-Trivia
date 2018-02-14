@@ -59,6 +59,7 @@ io.on("connection", socket => {
         io.emit("new question", {
           isQuestion: true,
           isAnswer: false,
+          isCompleted: false,
           response: questions
         });
       })
@@ -67,13 +68,23 @@ io.on("connection", socket => {
     if (difficulty < 10) {
       difficulty++;
       console.log(difficulty);
+      setTimeout(() => {
+        io.emit("new answer", {
+          isQuestion: false,
+          isAnswer: true,
+          isCompleted: false
+        });
+      }, 10000);
     } else {
       console.log("THIS IS THE END");
+      setTimeout(() => {
+        io.emit("new answer", {
+          isQuestion: false,
+          isAnswer: true,
+          isCompleted: true
+        });
+      }, 10000);
     }
-
-    setTimeout(() => {
-      io.emit("new answer", { isQuestion: false, isAnswer: true });
-    }, 10000);
   });
 
   //onClick of answer-choice button activate this.socket.emit("answer choice", choice)
