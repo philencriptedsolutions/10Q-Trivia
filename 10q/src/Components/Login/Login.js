@@ -11,23 +11,16 @@ class Login extends Component {
     this.signInWithGoogle = this.signInWithGoogle.bind(this);
   }
 
-  signInWithGoogle() {
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(result => {
-        const {
-          given_name,
-          family_name,
-          email,
-          picture,
-          isNewUser
-        } = result.additionalUserInfo.profile;
-        let google_id = result.user.uid;
-        let first_name = given_name;
-        let last_name = family_name;
-        let img = picture;
-        let uid = google_id;
+  signInWithGoogle(){
+    
+    firebase.auth().signInWithPopup(provider).then((result) => {
+      const { given_name, family_name, email, picture, isNewUser} = result.additionalUserInfo.profile;
+      let google_id = result.user.uid;
+      let first_name = given_name;
+      let last_name = family_name;
+      let img = picture;
+      let uid = google_id;
+      let balance =0;
 
         if (isNewUser) {
           this.props
