@@ -22,6 +22,7 @@ class Login extends Component {
       let last_name = family_name;
       let img = picture;
       let uid = google_id;
+      let balance =0;
 
       if(isNewUser){ 
         this.props.register(first_name, last_name, email, img, balance, uid).then(result => {
