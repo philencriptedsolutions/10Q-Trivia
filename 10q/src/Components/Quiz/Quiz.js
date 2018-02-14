@@ -15,7 +15,15 @@ class Quiz extends Component {
 
   componentDidMount(){
     this.socket = openSocket();
-    this.socket.on("new question", response => this.props.saveNewQuestion( response.question ));
+    this.socket.on("new question", response => {
+      if( response.isQuestion === true ){ 
+        this.props.saveNewQuestion( response.question );
+      } else if ( response.isAnswer === true ){
+        this.props.changeToAnswerView();
+      } else if ( response.isCompleted === true ){
+        this.props.changeToEndOfGame();
+      }
+    });
     this.socket.on("new answer", newinfo =>  this.props.changeToAnswerView() );
     
   }
