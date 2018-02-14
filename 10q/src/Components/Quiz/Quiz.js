@@ -13,8 +13,8 @@ class Quiz extends Component {
     super(props)
     this.state = {
       response:{},
-      questionNumber:0
-      in:true;
+      questionNumber:0,
+      in:true
     }
   }
 

@@ -2,7 +2,10 @@ import React , { Component } from 'react';
 import { fire as firebase, provider } from '../../../src/fire';
 import {  login, register } from '../../ducks/reducer';
 import { connect } from 'react-redux';
-//import './Login.css';
+import RaisedButton from 'material-ui/RaisedButton';
+import './Login.css';
+import placeHolder from './placeHolder.png'
+import '../../App.css';
  
 class Login extends Component {
   constructor(props){
@@ -46,7 +49,8 @@ class Login extends Component {
     return (
       <div className="Login">
         {/* THE LOGO WILL GO HERE*/}
-        <button id="loginbutton" onClick={() => this.signInWithGoogle()}> Login or Register </button>
+        <img src= {placeHolder} className="Logo" alt="Logo" height="42" width="42"/>
+        <RaisedButton id="loginbutton" onClick={() => this.signInWithGoogle()} >Login/ Register</RaisedButton >
       </div>
     )
   }
