@@ -1,20 +1,21 @@
-import React , { Component } from 'react';
+import React, { Component } from "react";
 import openSocket from "socket.io-client";
 import { connect } from 'react-redux';
 import { saveNewQuestion, changeToAnswerView, changeToEndOfGame } from '../../ducks/quizReducer';
 //import './Quiz.css';
 
-import Question from '../SubComponents/Question/Question';
-import Host from '../SubComponents/Host/Host';
-import Answer from '../SubComponents/Answer/Answer';
-import Completed from '../SubComponents/Completed/Completed';
-import Header from '../SubComponents/Header/Header';
+import Question from "../SubComponents/Question/Question";
+import Host from "../SubComponents/Host/Host";
+import Answer from "../SubComponents/Answer/Answer";
+import Completed from "../SubComponents/Completed/Completed";
+import Header from "../SubComponents/Header/Header";
 
 
 class Quiz extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     this.socket = openSocket();
+
     this.socket.on("new question", response => {
       if( response.isQuestion === true ){ 
         this.props.saveNewQuestion( response.question );
@@ -36,23 +37,16 @@ class Quiz extends Component {
   //   this.socket.emit("answer selected", canContinue);
   // }
   
-  
 
-  render(){
-    console.log("props",this.props);
+  render() {
+    console.log("props", this.props);
     const { isQuestion, isAnswer, endOfGame } = this.props.quizReducer;
     let whatShows, host;
 
-    if( host ){
-      host = (
-        <Host>
-          "This is where the Live Streaming is gonna happen"
-        </Host>
-      );
+    if (host) {
+      host = <Host>"This is where the Live Streaming is gonna happen"</Host>;
     } else {
-      host = (<Host>
-          {`The Game Starts in 4 seconds`}
-        </Host>);
+      host = <Host>{`The Game Starts in 4 seconds`}</Host>;
     }
 
     if( isQuestion && !( endOfGame ) ){
@@ -67,14 +61,18 @@ class Quiz extends Component {
 
     return (
       <div className="Quiz">
+
         <Header/>
        { host }
        { this.props.loginReducer.user.uid === 1 && ( <div><button onClick={ () => this.handleGameStart }>Make Game Button Clickable</button></div> )}
        { whatShows }
+
       </div>
-    )
+    );
   }
 }
+
 const mapStateToProps = state => state;
 
 export default connect(mapStateToProps, { saveNewQuestion, changeToAnswerView  })( Quiz );
+
