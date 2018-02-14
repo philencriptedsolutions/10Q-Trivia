@@ -7,7 +7,9 @@ const LOGIN_USER = 'LOGIN_USER';
 
 //  INITIAL STATE
 const initialState = {
-    user :{},
+    user :{
+        uid:1
+    },
     isAuthenticated: false
 }
 
