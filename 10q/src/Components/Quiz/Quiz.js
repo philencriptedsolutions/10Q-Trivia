@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import openSocket from "socket.io-client";
 import { connect } from 'react-redux';
 import { saveNewQuestion, changeToAnswerView, changeToEndOfGame } from '../../ducks/quizReducer';
-//import './Quiz.css';
+import './Quiz.css';
 
 import Question from "../SubComponents/Question/Question";
 import Host from "../SubComponents/Host/Host";
@@ -12,7 +12,11 @@ import Header from "../SubComponents/Header/Header";
 
 
 class Quiz extends Component {
+  constructor(props){
+    super(props)
 
+    this.goToNextQuestion = this.goToNextQuestion.bind(this);
+  }
   componentDidMount() {
     this.socket = openSocket();
 
@@ -29,14 +33,13 @@ class Quiz extends Component {
     
   }
 
-  // submitAnswer(answerSelected){
-    
-  //   // Here we can check to see if their selected answer is the same as the right asnwer.
-  //   // It should also only fire off after the time out.  
-  //   const { canContinue } = this.state.props;
-  //   this.socket.emit("answer selected", canContinue);
-  // }
-  // BUTTON TO EMIT NEXT QUESTION
+  goToNextQuestion(){
+    this.socket.emit( "next question" );
+  }
+
+
+  // also need to do the logic where the question needs to check if the selected answer matches up with the right answer. 
+  // maybe do this on the question component where they select an answer and at the time-out it does as comparison, but its added to the redux store. 
 
 
   render() {
@@ -44,6 +47,7 @@ class Quiz extends Component {
     const { isQuestion, isAnswer, endOfGame } = this.props.quizReducer;
     let whatShows, host;
 
+    
     if (host) {
       host = <Host>"This is where the Live Streaming is gonna happen"</Host>;
     } else {
@@ -62,12 +66,17 @@ class Quiz extends Component {
 
     return (
       <div className="Quiz">
-
         <Header/>
-       { host }
-       { this.props.loginReducer.user.uid === 1 && ( <div><button onClick={ () => this.handleGameStart }>Make Game Button Clickable</button></div> )}
-       { whatShows }
+        <div className="quiz-container" >
 
+          { host }
+          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={(e) => this.goToNextQuestion(e) }>Go to Next Question</button></div> )}
+          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={(e) => this.goToNextQuestion(e) }>Start LiveStream</button></div> )}
+          { whatShows }
+
+        </div>
+       
+  
       </div>
     );
   }
