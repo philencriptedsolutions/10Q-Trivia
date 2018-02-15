@@ -1,4 +1,6 @@
 import Avatar from "material-ui/Avatar";
+import { connect } from "react-redux";
+import { changeToWrong } from "../../../ducks/quizReducer";
 import React, { Component } from "react";
 import "./Question.css";
 
@@ -12,11 +14,22 @@ class Question extends Component {
   }
 
   handleChoice(val) {
-    this.setState = {
-      userChoice: val
-    };
+    console.log(val);
+    this.setState(
+      {
+        userChoice: val
+      },
+      () => {
+        if (this.state.userChoice !== this.props.question[0].correct_answer)
+          this.props.changeToWrong();
+      }
+    );
   }
+
   render() {
+    const { question = [], wrong } = this.props;
+    const { userChoice } = this.state;
+    console.log(question);
     return (
       <div className="question-main">
         <div className="question-card">
@@ -25,34 +38,55 @@ class Question extends Component {
             size={62.5}
             className="host-avatar"
           />
-          <h4 className="question-text">
-            {/* {this.props.question.question} */}
-            What is Stevens favorite accessory?
-          </h4>
+          <h4 className="question-text">{question[0].question}</h4>
           <div className="choices-container">
             <button
+              disabled={userChoice || wrong}
               className="question-button"
-              onClick={() => this.handleChoice("Tory Burch Purse")}
+              style={
+                userChoice === question[0].first_answer
+                  ? {
+                      backgroundColor: "#0e89f3",
+                      color: "#ffffff"
+                    }
+                  : {}
+              }
+              value={question[0].first_answer}
+              onClick={e => this.handleChoice(e.target.value)}
             >
-              Backwards hat
-              {/* label={this.props.question.first_answer} */}
-              {/* onClick={()=>this.handleChoice(this.props.question.first_answer)} */}
+              {question[0].first_answer}
             </button>
             <button
+              disabled={userChoice || wrong}
               className="question-button"
-              onClick={() => this.handleChoice("Tory Burch Purse")}
+              style={
+                userChoice === question[0].second_answer
+                  ? {
+                      backgroundColor: "#0e89f3",
+                      color: "#ffffff"
+                    }
+                  : {}
+              }
+              value={question[0].second_answer}
+              onClick={e => this.handleChoice(e.target.value)}
             >
-              Monocle
-              {/* label={this.props.question.second_answer} */}
-              {/* onClick={()=>this.handleChoice(this.props.question.second_answer)} */}
+              {question[0].second_answer}
             </button>
             <button
+              disabled={userChoice || wrong}
               className="question-button"
-              onClick={() => this.handleChoice("Tory Burch Purse")}
+              style={
+                userChoice === question[0].third_answer
+                  ? {
+                      backgroundColor: "#0e89f3",
+                      color: "#ffffff"
+                    }
+                  : {}
+              }
+              value={question[0].third_answer}
+              onClick={e => this.handleChoice(e.target.value)}
             >
-              Tory Burch Purse
-              {/* label={this.props.question.third_answer} */}
-              {/* onClick={()=>this.handleChoice(this.props.question.third_answer)} */}
+              {question[0].third_answer}
             </button>
           </div>
         </div>
@@ -60,4 +94,12 @@ class Question extends Component {
     );
   }
 }
-export default Question;
+
+const mapStateToProps = state => {
+  return {
+    question: state.quizReducer.question,
+    wrong: state.quizReducer.wrong
+  };
+};
+
+export default connect(mapStateToProps, { changeToWrong })(Question);
