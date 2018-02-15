@@ -73,8 +73,7 @@ class Quiz extends Component {
           { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={(e) => this.goToNextQuestion(e) }>Go to Next Question</button></div> )}
           { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={(e) => this.goToNextQuestion(e) }>Start LiveStream</button></div> )}
           { whatShows }
-        
-
+          <Answer />
         </div>
        
   
