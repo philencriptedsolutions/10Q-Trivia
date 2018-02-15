@@ -19,15 +19,14 @@
 }
 
 .host-avatar {
-  margin: 10px 0 10px 0 !important;
+  margin: 10px 0 0 0 !important;
 }
 
 .question-text {
-  font-size: 25px;
+  font-size: 20px;
   text-align: center;
   line-height: 30px;
   width: 275px;
-  height: 85px;
   color: #0e89f3;
   font-weight: bolder;
 }
@@ -59,4 +58,10 @@
 .question-button:focus {
   background: #0e89f3;
   color: #ffffff;
+}
+
+.question-button:disabled {
+  background: #646464;
+  color: #ffffff;
+  border: 0px solid #ffffff;
 }

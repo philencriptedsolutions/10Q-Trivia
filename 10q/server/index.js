@@ -67,6 +67,7 @@ io.on("connection", socket => {
     } else {
       console.log("THIS IS THE END");
       setTimeout(() => {
+        difficulty = 1;
         io.emit("new answer", {
           isQuestion: false,
           isAnswer: true,
