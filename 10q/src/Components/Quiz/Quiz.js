@@ -17,20 +17,20 @@ class Quiz extends Component {
     this.socket = openSocket();
 
     this.socket.on("new question", response => {
-      if( response.isQuestion === true ){ 
-        this.props.saveNewQuestion( response.question );
-      } else if ( response.isAnswer === true ){
+      if (response.isQuestion === true) {
+        this.props.saveNewQuestion(response.question);
+      } else if (response.isAnswer === true) {
         this.props.changeToAnswerView();
-      } else if ( response.isCompleted === true ){
+      } else if (response.isCompleted === true) {
         this.props.changeToEndOfGame();
       }
     });
-    this.socket.on("new answer", newinfo =>  this.props.changeToAnswerView() );
-    
+    this.socket.on("new answer", newinfo => this.props.changeToAnswerView());
+
   }
 
   // submitAnswer(answerSelected){
-    
+
   //   // Here we can check to see if their selected answer is the same as the right asnwer.
   //   // It should also only fire off after the time out.  
   //   const { canContinue } = this.state.props;
@@ -50,11 +50,11 @@ class Quiz extends Component {
       host = <Host>{`The Game Starts in 4 seconds`}</Host>;
     }
 
-    if( isQuestion && !( endOfGame ) ){
-      whatShows = < Question questionObject={ this.props.quizReducer.question }/>;
-    } else if(  isAnswer && !( endOfGame ) ) {
-      whatShows = < Answer answerObject={ this.props.quizReducer.question }/>;
-    } else if( endOfGame ) {
+    if (isQuestion && !(endOfGame)) {
+      whatShows = < Question questionObject={this.props.quizReducer.question} />;
+    } else if (isAnswer && !(endOfGame)) {
+      whatShows = < Answer answerObject={this.props.quizReducer.question} />;
+    } else if (endOfGame) {
       whatShows = < Completed />;
     } else {
       whatShows = null;
@@ -63,10 +63,11 @@ class Quiz extends Component {
     return (
       <div className="Quiz">
 
-        <Header/>
-       { host }
-       { this.props.loginReducer.user.uid === 1 && ( <div><button onClick={ () => this.handleGameStart }>Make Game Button Clickable</button></div> )}
-       { whatShows }
+        <Header />
+        {host}
+        {this.props.loginReducer.user.uid === 1 && (<div><button onClick={() => this.handleGameStart}>Make Game Button Clickable</button></div>)}
+        {whatShows}
+        <Answer />
 
       </div>
     );
@@ -75,5 +76,5 @@ class Quiz extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { saveNewQuestion, changeToAnswerView, changeToEndOfGame  })( Quiz );
+export default connect(mapStateToProps, { saveNewQuestion, changeToAnswerView, changeToEndOfGame })(Quiz);
 
