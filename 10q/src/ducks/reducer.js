@@ -15,19 +15,22 @@ const initialState = {
 
 //  ACTION CREATORS
     export function register(first_name, last_name, email, img, balance, uid) {
+        console.log( "REGISTER FIRED" + first_name, last_name, email, img, balance, uid );
         return {
           type: REGISTER_USER,
           payload: axios
             .post("/api/register", { first_name, last_name, email, img, balance, uid})
-            .then(response => response.data[0])
+            .then(response => {
+                console.log( response.data[0])
+                return response.data[0]})
             .catch(console.log)
         };
     }
-    export function login(google_id) {
+    export function login(uid) {
         return {
           type: LOGIN_USER,
           payload: axios
-            .post("/api/login", { google_id })
+            .post("/api/login", { uid })
             .then(response => response.data[0])
             .catch(console.log)
         };

@@ -37,7 +37,7 @@ app.use(cors());
 io.on("connection", socket => {
   //client joined
   playerCount++;
-  console.log("Client connected: ", socket);
+  // console.log("Client connected: ", socket);
 
   //onClick of button in front-end activate this.socket.emit("next question")
   socket.on("next question", () => {
@@ -81,7 +81,7 @@ io.on("connection", socket => {
 });
 
 app.post("/api/register", userCtrl.addUser);
-app.get("/api/login", userCtrl.getUser);
+app.post("/api/login", userCtrl.getUser);
 app.put("/api/profile/update", userCtrl.updateUser);
 
 http.listen(PORT || 3001, () => {
