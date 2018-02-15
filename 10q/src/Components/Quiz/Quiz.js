@@ -36,10 +36,7 @@ class Quiz extends Component {
   goToNextQuestion(){
     this.socket.emit( "next question" );
   }
-
-
-  // also need to do the logic where the question needs to check if the selected answer matches up with the right answer. 
-  // maybe do this on the question component where they select an answer and at the time-out it does as comparison, but its added to the redux store. 
+ 
 
 
   render() {
@@ -70,8 +67,8 @@ class Quiz extends Component {
         <div className="quiz-container" >
 
           { host }
-          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={(e) => this.goToNextQuestion(e) }>Go to Next Question</button></div> )}
-          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={(e) => this.goToNextQuestion(e) }>Start LiveStream</button></div> )}
+          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={ this.goToNextQuestion }>Go to Next Question</button></div> )}
+          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={ this.goToNextQuestion }>Start LiveStream</button></div> )}
           { whatShows }
 
         </div>
