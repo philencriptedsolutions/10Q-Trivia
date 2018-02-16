@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import {
   saveNewQuestion,
   changeToAnswerView,
-  changeToEndOfGame
+  changeToEndOfGame,
+  changeToWrong,
+  handleAnswer
 } from "../../ducks/quizReducer";
 import "./Quiz.css";
 
@@ -38,7 +40,16 @@ class Quiz extends Component {
         this.props.changeToEndOfGame();
       }
     });
-    this.socket.on("new answer", newinfo => this.props.changeToAnswerView());
+    this.socket.on("new answer", newinfo => {
+      if (
+        this.props.quizReducer.userChoice !==
+        this.props.quizReducer.question[0].correct_answer
+      ) {
+        this.props.changeToWrong();
+      }
+      this.props.handleAnswer("");
+      this.props.changeToAnswerView();
+    });
     this.socket.on("new user", playerList => {
       this.setState({
         playerList
@@ -94,14 +105,14 @@ class Quiz extends Component {
         <div className="quiz-container">
           <div className="admin-control">
             {host}
-            {this.props.loginReducer.user.user_id === 1 && (
+            {this.props.loginReducer.user.user_id === 8 && (
               <div>
                 <button onClick={this.goToNextQuestion}>
                   Go to Next Question
                 </button>
               </div>
             )}
-            {this.props.loginReducer.user.user_id === 1 && (
+            {this.props.loginReducer.user.user_id === 8 && (
               <div>
                 <button onClick={this.goToNextQuestion}>
                   Start LiveStream
@@ -122,5 +133,7 @@ const mapStateToProps = state => state;
 export default connect(mapStateToProps, {
   saveNewQuestion,
   changeToAnswerView,
-  changeToEndOfGame
+  changeToWrong,
+  changeToEndOfGame,
+  handleAnswer
 })(Quiz);

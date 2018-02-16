@@ -5,6 +5,7 @@
 
 .header-bar {
   height: 30px !important;
+  background-color: transparent !important;
 }
 
 .menu-item-container {

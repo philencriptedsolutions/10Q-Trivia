@@ -36,10 +36,10 @@ class Answer extends Component {
           />
           <h4 className="answer-text">{this.props.question[0].question}</h4>
           <div className="choices-container">
-            {!this.props.wrong ? (
-              <div> You got it correct</div>
-            ) : (
+            {this.props.wrong ? (
               <div>You are incorrect </div>
+            ) : (
+              <div> You got it correct</div>
             )}
 
             {/* <button

@@ -4,6 +4,7 @@ const NEW_QUESTION = "NEW_QUESTION";
 const NEW_ANSWER = "NEW_ANSWER";
 const END_OF_GAME = "END_OF_GAME";
 const CHANGE_WRONG = "CHANGE_WRONG";
+const HANDLE_ANSWER = "HANDLE_ANSWER";
 
 //  INITIAL STATE
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
   isAnswer: false,
   question: {},
   isAuthenticated: false,
-  wrong: false
+  wrong: false,
+  userChoice: ""
 };
 
 //  ACTION CREATORS
@@ -42,6 +44,13 @@ export function changeToWrong() {
   };
 }
 
+export function handleAnswer(choice) {
+  return {
+    type: HANDLE_ANSWER,
+    payload: choice
+  };
+}
+
 //  REDUCER
 export default function quizReducer(state = initialState, action) {
   switch (action.type) {
@@ -62,6 +71,11 @@ export default function quizReducer(state = initialState, action) {
       });
     case `${CHANGE_WRONG}`:
       return Object.assign({}, state, { wrong: action.payload });
+    case `${HANDLE_ANSWER}`:
+      return Object.assign({}, state, {
+        userChoice: action.payload
+      });
+
     default:
       return state;
   }
