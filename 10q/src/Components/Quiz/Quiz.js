@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import openSocket from "socket.io-client";
 import { connect } from "react-redux";
-import {
-  saveNewQuestion,
-  changeToAnswerView,
-  changeToEndOfGame
-} from "../../ducks/quizReducer";
+import { saveNewQuestion, changeToAnswerView, changeToEndOfGame } from "../../ducks/quizReducer";
 import "./Quiz.css";
 
 import Question from "../SubComponents/Question/Question";
@@ -17,10 +13,13 @@ import Chat from "../SubComponents/Chat/Chat";
 
 class Quiz extends Component {
   constructor(props) {
-    super(props);
-
+    super(props)
+    this.state = {
+      live: false
+    }
     this.socket = openSocket();
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
+    this.startLiveStream = this.startLiveStream.bind(this);
   }
 
   componentDidMount() {
@@ -41,18 +40,25 @@ class Quiz extends Component {
     this.socket.emit("next question");
   }
 
+  startLiveStream(){
+    setTimeout(() => {
+      this.setState({
+        live:true 
+      })
+    }, 6000);
+    
+  }
+
+
   render() {
     const { isQuestion, isAnswer, endOfGame } = this.props.quizReducer;
+    const { live } = this.state;
     let whatShows, host;
 
-    if (host) {
-      host = (
-        <Host socket={this.socket}>
-          "This is where the Live Streaming is gonna happen"
-        </Host>
-      );
+    if (live) {
+      host = <Host>"This is where the Live Streaming is gonna happen"</Host>;
     } else {
-      host = <Host socket={this.socket}>{`The Game Starts in 4 seconds`}</Host>;
+      host = <p>Game Starts in 4 seconds!</p>;
     }
 
     if (isQuestion && !endOfGame) {
@@ -78,25 +84,14 @@ class Quiz extends Component {
     return (
       <div className="Quiz">
         <Header />
-        <div className="quiz-container">
-          <div className="admin-control">
-            {host}
-            {this.props.loginReducer.user.user_id === 1 && (
-              <div>
-                <button onClick={this.goToNextQuestion}>
-                  Go to Next Question
-                </button>
-              </div>
-            )}
-            {this.props.loginReducer.user.user_id === 1 && (
-              <div>
-                <button onClick={this.goToNextQuestion}>
-                  Start LiveStream
-                </button>
-              </div>
-            )}
-          </div>
-          {whatShows}
+        <div className="host-container">
+        { host }
+        </div>
+        <div className="quiz-container" >
+          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={ this.goToNextQuestion }>Go to Next Question</button></div> )}
+          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={ this.startLiveStream }>Start LiveStream</button></div> )}
+          { whatShows }
+
         </div>
         <Chat socket={this.socket} />
       </div>
