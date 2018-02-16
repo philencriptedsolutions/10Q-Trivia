@@ -1,44 +1,19 @@
 import Avatar from "material-ui/Avatar";
 import SocialPeople from "material-ui/svg-icons/social/people";
 import { connect } from "react-redux";
-import { changeToWrong } from "../../../ducks/quizReducer";
+import { changeToWrong, handleAnswer } from "../../../ducks/quizReducer";
 import React, { Component } from "react";
 import "./Question.css";
 
 class Question extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userChoice: "",
-      playerList: 0
-    };
-    this.handleChoice = this.handleChoice.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.socket.on("new user", playerList => {
-      this.setState({
-        playerList
-      });
-    });
-  }
-
-  handleChoice(val) {
-    console.log(val);
-    this.setState(
-      {
-        userChoice: val
-      },
-      () => {
-        if (this.state.userChoice !== this.props.question[0].correct_answer)
-          this.props.changeToWrong();
-      }
-    );
-  }
-
   render() {
-    const { question = [], wrong } = this.props;
-    const { userChoice, playerList } = this.state;
+    const {
+      question = [],
+      wrong,
+      playerList,
+      handleAnswer,
+      userChoice
+    } = this.props;
     console.log(question);
     return (
       <div className="question-main">
@@ -71,7 +46,7 @@ class Question extends Component {
                   : {}
               }
               value={question[0].first_answer}
-              onClick={e => this.handleChoice(e.target.value)}
+              onClick={e => handleAnswer(e.target.value)}
             >
               {question[0].first_answer}
             </button>
@@ -87,7 +62,7 @@ class Question extends Component {
                   : {}
               }
               value={question[0].second_answer}
-              onClick={e => this.handleChoice(e.target.value)}
+              onClick={e => handleAnswer(e.target.value)}
             >
               {question[0].second_answer}
             </button>
@@ -103,7 +78,7 @@ class Question extends Component {
                   : {}
               }
               value={question[0].third_answer}
-              onClick={e => this.handleChoice(e.target.value)}
+              onClick={e => handleAnswer(e.target.value)}
             >
               {question[0].third_answer}
             </button>
@@ -117,8 +92,11 @@ class Question extends Component {
 const mapStateToProps = state => {
   return {
     question: state.quizReducer.question,
-    wrong: state.quizReducer.wrong
+    wrong: state.quizReducer.wrong,
+    userChoice: state.quizReducer.userChoice
   };
 };
 
-export default connect(mapStateToProps, { changeToWrong })(Question);
+export default connect(mapStateToProps, { changeToWrong, handleAnswer })(
+  Question
+);

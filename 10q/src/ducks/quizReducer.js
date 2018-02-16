@@ -4,27 +4,28 @@ const NEW_QUESTION = "NEW_QUESTION";
 const NEW_ANSWER = "NEW_ANSWER";
 const END_OF_GAME = "END_OF_GAME";
 const CHANGE_WRONG = "CHANGE_WRONG";
+const HANDLE_ANSWER = "HANDLE_ANSWER";
 
 //  INITIAL STATE
 const initialState = {
-  endOfGame: false,
   isQuestion: false,
   isAnswer: false,
   isAuthenticated: false,
-  wrong: false
+  wrong: false,
+  userChoice: ""
 };
 
 //  ACTION CREATORS
-export function saveNewQuestion(question) {
+export function saveNewQuestion(isQuestion, isAnswer, question) {
   return {
     type: NEW_QUESTION,
-    payload: question
+    payload: { isQuestion, isAnswer, question }
   };
 }
-export function changeToAnswerView() {
+export function changeToAnswerView(isQuestion, isAnswer) {
   return {
     type: NEW_ANSWER,
-    payload: true
+    payload: { isQuestion, isAnswer }
   };
 }
 export function changeToEndOfGame() {
@@ -41,17 +42,28 @@ export function changeToWrong() {
   };
 }
 
+export function handleAnswer(choice) {
+  return {
+    type: HANDLE_ANSWER,
+    payload: choice
+  };
+}
+
 //  REDUCER
 export default function quizReducer(state = initialState, action) {
   switch (action.type) {
     case `${NEW_QUESTION}`:
       return Object.assign({}, state, {
-        question: action.payload,
-        isQuestion: true
+        isQuestion: action.payload.isQuestion,
+        isAnswer: action.payload.isAnswer,
+        question: action.payload.question
       });
 
     case `${NEW_ANSWER}`:
-      return Object.assign({}, state, { isAnswer: true, isQuestion: false });
+      return Object.assign({}, state, {
+        isQuestion: action.payload.isQuestion,
+        isAnswer: action.payload.isAnswer
+      });
 
     case `${END_OF_GAME}`:
       return Object.assign({}, state, {
@@ -61,6 +73,11 @@ export default function quizReducer(state = initialState, action) {
       });
     case `${CHANGE_WRONG}`:
       return Object.assign({}, state, { wrong: action.payload });
+    case `${HANDLE_ANSWER}`:
+      return Object.assign({}, state, {
+        userChoice: action.payload
+      });
+
     default:
       return state;
   }

@@ -8,8 +8,7 @@ class Answer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userChoice: "",
-      playerList: 0
+      userChoice: ""
     };
     this.handleChoice = this.handleChoice.bind(this);
   }
@@ -21,7 +20,8 @@ class Answer extends Component {
   }
 
   render() {
-    const { userChoice, playerList } = this.state;
+    const { playerList } = this.props;
+    const { userChoice } = this.state;
     return (
       <div className="answer-main">
         <div className="players-list">
@@ -36,10 +36,10 @@ class Answer extends Component {
           />
           <h4 className="answer-text">{this.props.question[0].question}</h4>
           <div className="choices-container">
-            {!this.props.wrong ? (
-              <div> You got it correct</div>
-            ) : (
+            {this.props.wrong ? (
               <div>You are incorrect </div>
+            ) : (
+              <div> You got it correct</div>
             )}
 
             {/* <button
