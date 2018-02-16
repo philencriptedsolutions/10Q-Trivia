@@ -10,7 +10,6 @@ const HANDLE_ANSWER = "HANDLE_ANSWER";
 const initialState = {
   isQuestion: false,
   isAnswer: false,
-  question: {},
   isAuthenticated: false,
   wrong: false,
   userChoice: ""

@@ -42,7 +42,7 @@
   width: 100%;
 }
 
-.chat-line > span {
+.chat-line>span {
   color: #f85f6b;
   font-weight: bold;
   font-size: 14px;
@@ -67,4 +67,22 @@
 .chat-send:active,
 .chat-send:focus {
   color: #f85f6b !important;
+}
+
+@media (min-width: 538px) {
+  .chat-input-container {
+    width: 500px !important;
+  }
+  .chat-box {
+    margin: auto;
+    height: 150px;
+    width: 400px;
+    border: #fff;
+    margin: 12.5px 0 0 0;
+    overflow-y: scroll;
+  }
+}
+
+@media (min-width: 768px) {
+  
 }
