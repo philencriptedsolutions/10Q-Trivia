@@ -14,8 +14,11 @@ import Header from "../SubComponents/Header/Header";
 class Quiz extends Component {
   constructor(props) {
     super(props)
-
+    this.state = {
+      live: false
+    }
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
+    this.startLiveStream = this.startLiveStream.bind(this);
   }
   componentDidMount() {
     this.socket = openSocket();
@@ -36,19 +39,27 @@ class Quiz extends Component {
   goToNextQuestion() {
     this.socket.emit("next question");
   }
- 
+
+  startLiveStream(){
+    setTimeout(() => {
+      this.setState({
+        live:true 
+      })
+    }, 6000);
+    
+  }
 
 
   render() {
     console.log("props", this.props);
     const { isQuestion, isAnswer, endOfGame } = this.props.quizReducer;
+    const { live } = this.state;
     let whatShows, host;
 
-
-    if (host) {
+    if (live) {
       host = <Host>"This is where the Live Streaming is gonna happen"</Host>;
     } else {
-      host = <Host>{`The Game Starts in 4 seconds`}</Host>;
+      host = <p>Game Starts in 4 seconds!</p>;
     }
 
     if (isQuestion && !(endOfGame)) {
@@ -64,11 +75,12 @@ class Quiz extends Component {
     return (
       <div className="Quiz">
         <Header />
+        <div className="host-container">
+        { host }
+        </div>
         <div className="quiz-container" >
-
-          { host }
           { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={ this.goToNextQuestion }>Go to Next Question</button></div> )}
-          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={ this.goToNextQuestion }>Start LiveStream</button></div> )}
+          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={ this.startLiveStream }>Start LiveStream</button></div> )}
           { whatShows }
 
         </div>

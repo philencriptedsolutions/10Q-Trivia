@@ -5743,6 +5743,10 @@ react-transition-group@^1.2.1:
     prop-types "^15.5.6"
     warning "^3.0.0"
 
+react-video-cover@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-video-cover/-/react-video-cover-1.1.0.tgz#312da272436bfa5301fa098af57cbdf565a8fe89"
+
 react@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"

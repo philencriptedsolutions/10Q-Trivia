@@ -28,7 +28,7 @@ const muiTheme = getMuiTheme({
     //alternateTextColor: changes Default Raised Button Background, Primary Raised Button Text, Secondary Raised Button Text
     alternateTextColor: "#0e89f3",
     //shadowColor: changes shadow color
-    shadowColor: "#0e89f3"
+    shadowColor: "transparent"
   }
 });
 
