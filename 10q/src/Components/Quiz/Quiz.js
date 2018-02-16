@@ -1,25 +1,30 @@
 import React, { Component } from "react";
 import openSocket from "socket.io-client";
-import { connect } from 'react-redux';
-import { saveNewQuestion, changeToAnswerView, changeToEndOfGame } from '../../ducks/quizReducer';
-import './Quiz.css';
+import { connect } from "react-redux";
+import {
+  saveNewQuestion,
+  changeToAnswerView,
+  changeToEndOfGame
+} from "../../ducks/quizReducer";
+import "./Quiz.css";
 
 import Question from "../SubComponents/Question/Question";
 import Host from "../SubComponents/Host/Host";
 import Answer from "../SubComponents/Answer/Answer";
 import Completed from "../SubComponents/Completed/Completed";
 import Header from "../SubComponents/Header/Header";
-
+import Chat from "../SubComponents/Chat/Chat";
 
 class Quiz extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
+    this.socket = openSocket();
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
   }
-  componentDidMount() {
-    this.socket = openSocket();
 
+  componentDidMount() {
+    this.socket.emit("user connected", this.props.loginReducer.user.first_name);
     this.socket.on("new question", response => {
       if (response.isQuestion === true) {
         this.props.saveNewQuestion(response.question);
@@ -30,33 +35,42 @@ class Quiz extends Component {
       }
     });
     this.socket.on("new answer", newinfo => this.props.changeToAnswerView());
-
   }
 
   goToNextQuestion() {
     this.socket.emit("next question");
   }
- 
-
 
   render() {
-    console.log("props", this.props);
     const { isQuestion, isAnswer, endOfGame } = this.props.quizReducer;
     let whatShows, host;
 
-
     if (host) {
-      host = <Host>"This is where the Live Streaming is gonna happen"</Host>;
+      host = (
+        <Host socket={this.socket}>
+          "This is where the Live Streaming is gonna happen"
+        </Host>
+      );
     } else {
-      host = <Host>{`The Game Starts in 4 seconds`}</Host>;
+      host = <Host socket={this.socket}>{`The Game Starts in 4 seconds`}</Host>;
     }
 
-    if (isQuestion && !(endOfGame)) {
-      whatShows = < Question questionObject={this.props.quizReducer.question} />;
-    } else if (isAnswer && !(endOfGame)) {
-      whatShows = < Answer answerObject={this.props.quizReducer.question} />;
+    if (isQuestion && !endOfGame) {
+      whatShows = (
+        <Question
+          questionObject={this.props.quizReducer.question}
+          socket={this.socket}
+        />
+      );
+    } else if (isAnswer && !endOfGame) {
+      whatShows = (
+        <Answer
+          answerObject={this.props.quizReducer.question}
+          socket={this.socket}
+        />
+      );
     } else if (endOfGame) {
-      whatShows = < Completed />;
+      whatShows = <Completed socket={this.socket} />;
     } else {
       whatShows = null;
     }
@@ -64,16 +78,27 @@ class Quiz extends Component {
     return (
       <div className="Quiz">
         <Header />
-        <div className="quiz-container" >
-
-          { host }
-          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={ this.goToNextQuestion }>Go to Next Question</button></div> )}
-          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={ this.goToNextQuestion }>Start LiveStream</button></div> )}
-          { whatShows }
-
+        <div className="quiz-container">
+          <div className="admin-control">
+            {host}
+            {this.props.loginReducer.user.user_id === 1 && (
+              <div>
+                <button onClick={this.goToNextQuestion}>
+                  Go to Next Question
+                </button>
+              </div>
+            )}
+            {this.props.loginReducer.user.user_id === 1 && (
+              <div>
+                <button onClick={this.goToNextQuestion}>
+                  Start LiveStream
+                </button>
+              </div>
+            )}
+          </div>
+          {whatShows}
         </div>
-
-
+        <Chat socket={this.socket} />
       </div>
     );
   }
@@ -81,5 +106,8 @@ class Quiz extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { saveNewQuestion, changeToAnswerView, changeToEndOfGame })(Quiz);
-
+export default connect(mapStateToProps, {
+  saveNewQuestion,
+  changeToAnswerView,
+  changeToEndOfGame
+})(Quiz);

@@ -1,4 +1,5 @@
 import Avatar from "material-ui/Avatar";
+import SocialPeople from "material-ui/svg-icons/social/people";
 import { connect } from "react-redux";
 import { changeToWrong } from "../../../ducks/quizReducer";
 import React, { Component } from "react";
@@ -8,9 +9,18 @@ class Question extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userChoice: ""
+      userChoice: "",
+      playerList: 0
     };
     this.handleChoice = this.handleChoice.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.socket.on("new user", playerList => {
+      this.setState({
+        playerList
+      });
+    });
   }
 
   handleChoice(val) {
@@ -28,10 +38,14 @@ class Question extends Component {
 
   render() {
     const { question = [], wrong } = this.props;
-    const { userChoice } = this.state;
+    const { userChoice, playerList } = this.state;
     console.log(question);
     return (
       <div className="question-main">
+        <div className="players-list">
+          <SocialPeople />
+          {playerList}
+        </div>
         <div className="question-card">
           <Avatar
             src="https://pickaface.net/gallery/avatar/totage5611dac58af1e.png"
