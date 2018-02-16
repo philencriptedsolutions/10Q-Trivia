@@ -12,8 +12,8 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-    width: 300px !important;
-    height: 375px !important;
+    width: 300px;
+    height: 375px;
     margin: 10px 0 0 0 !important;
     background: #ffffff !important;
     border-radius: 20px !important;
@@ -45,10 +45,10 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-    width: 425px !important;
-    height: 400px !important;
-    background: #ffffff !important;
-    border-radius: 20px !important;
+    width: 425px ;
+    height: 400px ;
+    background: #ffffff;
+    border-radius: 20px;
 
 
    }
@@ -69,9 +69,9 @@
   }
 
 @media (min-width: 768px) {
- .text{
-    color: yellow;
- }
+
+
+    
   }
 
   

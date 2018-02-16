@@ -118,7 +118,7 @@ class Quiz extends Component {
         <div className="host-container">{host}</div>
         <div className="quiz-container">
           <div className="admin-control">
-            {user.user_id === 8 &&
+            {user.user_id === 1 &&
               level < 10 && (
                 <div>
                   <button onClick={this.goToNextQuestion}>
@@ -126,7 +126,7 @@ class Quiz extends Component {
                   </button>
                 </div>
               )}
-            {user.user_id === 8 && (
+            {user.user_id === 1 && (
               <div>
                 <button onClick={this.startLiveStream}>Start LiveStream</button>
                 {user.user_id === 8 && level === 10 ? (
