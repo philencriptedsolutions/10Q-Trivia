@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import SocialPeople from "material-ui/svg-icons/social/people";
 import Avatar from "material-ui/Avatar";
-import './Answer.css';
-import {connect} from 'react-redux';
-
+import "./Answer.css";
+import { connect } from "react-redux";
 
 class Answer extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      userChoice: ""
+      userChoice: "",
+      playerList: 0
     };
     this.handleChoice = this.handleChoice.bind(this);
   }
@@ -19,25 +20,27 @@ class Answer extends Component {
     };
   }
 
-
   render() {
+    const { userChoice, playerList } = this.state;
     return (
       <div className="answer-main">
+        <div className="players-list">
+          <SocialPeople />
+          {playerList}
+        </div>
         <div className="answer-card">
           <Avatar
             src="https://pickaface.net/gallery/avatar/totage5611dac58af1e.png"
             size={62.5}
             className="host-avatar"
           />
-          <h4 className="answer-text">
-            {this.props.question[0].question}
-            
-          </h4>
+          <h4 className="answer-text">{this.props.question[0].question}</h4>
           <div className="choices-container">
-            {!this.props.wrong ? (<div > You got it correct</div>)
-              : <div>You are incorrect </div>}
-
-
+            {!this.props.wrong ? (
+              <div> You got it correct</div>
+            ) : (
+              <div>You are incorrect </div>
+            )}
 
             {/* <button
               className="answer-button"
@@ -63,19 +66,17 @@ class Answer extends Component {
             {/* label={this.props.question.third_answer} */}
             {/* onClick={()=>this.handleChoice(this.props.question.third_answer)} */}
             {/* </button> */}
-
-            
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => {
   return {
     wrong: state.quizReducer.wrong,
-    question: state.quizReducer.question,
-  }
-}
+    question: state.quizReducer.question
+  };
+};
 export default connect(mapStateToProps)(Answer);

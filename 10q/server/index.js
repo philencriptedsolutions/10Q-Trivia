@@ -16,10 +16,10 @@ const userCtrl = require("./Controllers/user/userCtrl");
 const app = express();
 
 //SOCKET.IO
-// const socket = require("socket.io");
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 let playerCount = 0;
+let playerList = [];
 let difficulty = 1;
 
 //MASSIVE CONNECTION TO DB
@@ -28,7 +28,6 @@ massive(CONNECTION_STRING)
     app.set("db", db);
   })
   .catch(console.log);
-// console.log("HIT");
 
 //BASIC MIDDLEWARES
 app.use(json());
@@ -36,8 +35,12 @@ app.use(cors());
 
 io.on("connection", socket => {
   //client joined
-  playerCount++;
-  // console.log("Client connected: ", socket);
+  socket.on("user connected", username => {
+    playerCount++;
+    socket.username = username;
+    playerList.push(username);
+    io.emit("new user", playerCount);
+  });
 
   //onClick of button in front-end activate this.socket.emit("next question")
   socket.on("next question", () => {
@@ -56,7 +59,6 @@ io.on("connection", socket => {
 
     if (difficulty < 10) {
       difficulty++;
-      console.log(difficulty);
       setTimeout(() => {
         io.emit("new answer", {
           isQuestion: false,
@@ -65,7 +67,6 @@ io.on("connection", socket => {
         });
       }, 10000);
     } else {
-      console.log("THIS IS THE END");
       setTimeout(() => {
         difficulty = 1;
         io.emit("new answer", {
@@ -77,8 +78,16 @@ io.on("connection", socket => {
     }
   });
 
+  socket.on("send message", message => {
+    io.emit("receive message", message);
+  });
+
   //client disconnected
-  socket.on("disconnect", () => console.log("Client disconnected"));
+  socket.on("disconnect", () => {
+    playerCount--;
+    playerList = playerList.filter(user => user !== socket.username);
+    io.emit("new user", playerCount);
+  });
 });
 
 app.post("/api/register", userCtrl.addUser);
