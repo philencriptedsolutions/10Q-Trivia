@@ -11,7 +11,7 @@ const initialState = {
   isQuestion: false,
   isAnswer: false,
   question: [{
-    question:'What is Stevens favorite accessory?',
+    question: 'In the original Jurassic Park movie, what was the name of the island the dinosaurs were housed in?',
     first_answer: 'Backwards hat',
     second_answer: 'Monocle',
     third_answer: 'Tory Burch Purse',

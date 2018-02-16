@@ -57,7 +57,7 @@ class Question extends Component {
           />
 
         
-          <h4 className="question-text">{question[0].question}</h4>
+          <p className="question-text">{question[0].question}</p>
           <div className="choices-container">
             <button
               disabled={userChoice || wrong}
