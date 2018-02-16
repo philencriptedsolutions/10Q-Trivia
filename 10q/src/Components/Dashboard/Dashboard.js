@@ -1,6 +1,7 @@
 import React , { Component } from 'react';
 //import './Dashboard.css';
 import { connect } from 'react-redux';
+import Timer from '../SubComponents/Timer/Timer'
 
  
 class Dashboard extends Component {
@@ -29,7 +30,8 @@ class Dashboard extends Component {
   render(){
     return (
       <div className="Dashboard">
-        <button onClick={() => this.handleProfileClick}>Profile</button><br/>
+        <Timer/>
+        <button onClick={() => this.handleProfileClick}>Profile </button><br/>
         { this.state.gameIsStarting ? ( <div><button onClick={ () => this.handleGameClick }>Go To Game</button></div> ) : null }<br/>
         { this.state.admin ? ( <div><button onClick={ () => this.handleGameStart }></button>Make Game Button Clickable</div> ) : null }
       </div>
