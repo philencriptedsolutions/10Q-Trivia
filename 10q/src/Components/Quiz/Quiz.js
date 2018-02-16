@@ -139,9 +139,7 @@ class Quiz extends Component {
             )}
           </div>
           {whatShows}
-        </div> */}
-        <Question questionObject={this.props.quizReducer.question}
-          socket={this.socket}/>
+        </div>
         <Chat socket={this.socket} />
       </div>
     );
