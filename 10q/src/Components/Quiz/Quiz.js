@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import openSocket from "socket.io-client";
-import { connect } from 'react-redux';
-import { saveNewQuestion, changeToAnswerView, changeToEndOfGame } from '../../ducks/quizReducer';
-import './Quiz.css';
+import { connect } from "react-redux";
+import {
+  saveNewQuestion,
+  changeToAnswerView,
+  changeToEndOfGame
+} from "../../ducks/quizReducer";
+import "./Quiz.css";
 
 import Question from "../SubComponents/Question/Question";
 import Host from "../SubComponents/Host/Host";
 import Answer from "../SubComponents/Answer/Answer";
 import Completed from "../SubComponents/Completed/Completed";
 import Header from "../SubComponents/Header/Header";
-
+import Chat from "../SubComponents/Chat/Chat";
 
 class Quiz extends Component {
   constructor(props) {
@@ -17,12 +21,13 @@ class Quiz extends Component {
     this.state = {
       live: false
     }
+    this.socket = openSocket();
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
     this.startLiveStream = this.startLiveStream.bind(this);
   }
-  componentDidMount() {
-    this.socket = openSocket();
 
+  componentDidMount() {
+    this.socket.emit("user connected", this.props.loginReducer.user.first_name);
     this.socket.on("new question", response => {
       if (response.isQuestion === true) {
         this.props.saveNewQuestion(response.question);
@@ -33,7 +38,6 @@ class Quiz extends Component {
       }
     });
     this.socket.on("new answer", newinfo => this.props.changeToAnswerView());
-
   }
 
   goToNextQuestion() {
@@ -51,7 +55,6 @@ class Quiz extends Component {
 
 
   render() {
-    console.log("props", this.props);
     const { isQuestion, isAnswer, endOfGame } = this.props.quizReducer;
     const { live } = this.state;
     let whatShows, host;
@@ -62,12 +65,22 @@ class Quiz extends Component {
       host = <p>Game Starts in 4 seconds!</p>;
     }
 
-    if (isQuestion && !(endOfGame)) {
-      whatShows = < Question questionObject={this.props.quizReducer.question} />;
-    } else if (isAnswer && !(endOfGame)) {
-      whatShows = < Answer answerObject={this.props.quizReducer.question} />;
+    if (isQuestion && !endOfGame) {
+      whatShows = (
+        <Question
+          questionObject={this.props.quizReducer.question}
+          socket={this.socket}
+        />
+      );
+    } else if (isAnswer && !endOfGame) {
+      whatShows = (
+        <Answer
+          answerObject={this.props.quizReducer.question}
+          socket={this.socket}
+        />
+      );
     } else if (endOfGame) {
-      whatShows = < Completed />;
+      whatShows = <Completed socket={this.socket} />;
     } else {
       whatShows = null;
     }
@@ -84,8 +97,7 @@ class Quiz extends Component {
           { whatShows }
 
         </div>
-
-
+        <Chat socket={this.socket} />
       </div>
     );
   }
@@ -93,5 +105,8 @@ class Quiz extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { saveNewQuestion, changeToAnswerView, changeToEndOfGame })(Quiz);
-
+export default connect(mapStateToProps, {
+  saveNewQuestion,
+  changeToAnswerView,
+  changeToEndOfGame
+})(Quiz);

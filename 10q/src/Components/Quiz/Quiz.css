@@ -1,3 +1,9 @@
+.Quiz {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
 .quiz-container {
     margin: 60px 0px 0px 0px;
     max-width: 500px;
@@ -10,4 +16,9 @@
     z-index:-1; 
     left: 0px; 
     top:0;
+  margin: 10px 0px 0px 0px;
+}
+
+.admin-control {
+  position: absolute;
 }
