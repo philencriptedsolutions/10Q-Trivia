@@ -1,10 +1,7 @@
-
-
 .people-icon {
   color: #0e89f3 !important;
 }
 
-  
 .players-list {
   height: 20px;
   width: 90%;
@@ -12,8 +9,6 @@
   display: flex;
   align-self: flex-start;
 }
-
- 
 
 .question-main {
   margin: 0;
@@ -72,7 +67,6 @@
   outline: none;
 }
 
-
 /* .question-wrapper{
   display: flex;
 	flex-direction: row;
@@ -92,4 +86,28 @@
   background: #646464;
   color: #ffffff;
   border: 0px solid #ffffff;
+}
+
+@media (min-width: 538px) {
+  .question-card {
+    width: 425px;
+  }
+  .question-text {
+    width: 350px;
+  }
+  .question-button {
+    width: 350px;
+  }
+}
+
+@media (min-width: 768px) {
+  .question-card {
+    width: 550px !important;
+  }
+  .question-text {
+    width: 480px;
+  }
+  .question-button {
+    width: 475px;
+  }
 }

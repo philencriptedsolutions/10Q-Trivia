@@ -49,3 +49,33 @@
 .chat-send:focus {
   color: #f85f6b !important;
 }
+
+
+@media (min-width: 538px) {
+
+  .chat-input-container {
+    width: 500px;
+  }
+
+  .chat-box {
+    margin: auto;
+    height: 150px;
+    width: 400px;
+    border: #fff;
+   
+    margin: 12.5px 0 0 0;
+    overflow-y: scroll;
+   
+  
+  }
+
+
+
+
+  }
+
+@media (min-width: 768px) {
+
+
+
+  }
