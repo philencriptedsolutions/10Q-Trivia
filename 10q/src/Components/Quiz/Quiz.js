@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import openSocket from "socket.io-client";
 import { connect } from "react-redux";
-<<<<<<< HEAD
 import {
   saveNewQuestion,
   changeToAnswerView,
@@ -9,9 +8,6 @@ import {
   changeToWrong,
   handleAnswer
 } from "../../ducks/quizReducer";
-=======
-import { saveNewQuestion, changeToAnswerView, changeToEndOfGame } from "../../ducks/quizReducer";
->>>>>>> master
 import "./Quiz.css";
 
 import Question from "../SubComponents/Question/Question";
@@ -83,13 +79,12 @@ class Quiz extends Component {
     });
   }
 
-  startLiveStream(){
+  startLiveStream() {
     setTimeout(() => {
       this.setState({
-        live:true 
-      })
+        live: true
+      });
     }, 6000);
-    
   }
 
   render() {
@@ -103,7 +98,7 @@ class Quiz extends Component {
     } else {
       host = <p>Game Starts in 4 seconds!</p>;
     }
-    
+
     if (isCompleted) {
       whatShows = <Completed playerList={playerList} />;
     } else if (isQuestion && !isAnswer) {
@@ -120,9 +115,7 @@ class Quiz extends Component {
       <div className="Quiz">
         <Header />
 
-        <div className="host-container">
-        { host }
-        </div>
+        <div className="host-container">{host}</div>
         <div className="quiz-container">
           <div className="admin-control">
             {host}
@@ -146,7 +139,6 @@ class Quiz extends Component {
             )}
           </div>
           {whatShows}
-
         </div>
         <Chat socket={this.socket} />
       </div>
