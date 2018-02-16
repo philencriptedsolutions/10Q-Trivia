@@ -42,22 +42,35 @@ class Quiz extends Component {
   }
 
   render() {
-    // console.log("props", this.props);
     const { isQuestion, isAnswer, endOfGame } = this.props.quizReducer;
     let whatShows, host;
 
     if (host) {
-      host = <Host>"This is where the Live Streaming is gonna happen"</Host>;
+      host = (
+        <Host socket={this.socket}>
+          "This is where the Live Streaming is gonna happen"
+        </Host>
+      );
     } else {
-      host = <Host>{`The Game Starts in 4 seconds`}</Host>;
+      host = <Host socket={this.socket}>{`The Game Starts in 4 seconds`}</Host>;
     }
 
     if (isQuestion && !endOfGame) {
-      whatShows = <Question questionObject={this.props.quizReducer.question} />;
+      whatShows = (
+        <Question
+          questionObject={this.props.quizReducer.question}
+          socket={this.socket}
+        />
+      );
     } else if (isAnswer && !endOfGame) {
-      whatShows = <Answer answerObject={this.props.quizReducer.question} />;
+      whatShows = (
+        <Answer
+          answerObject={this.props.quizReducer.question}
+          socket={this.socket}
+        />
+      );
     } else if (endOfGame) {
-      whatShows = <Completed />;
+      whatShows = <Completed socket={this.socket} />;
     } else {
       whatShows = null;
     }
