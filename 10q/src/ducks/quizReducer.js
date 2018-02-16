@@ -8,7 +8,6 @@ const HANDLE_ANSWER = "HANDLE_ANSWER";
 
 //  INITIAL STATE
 const initialState = {
-  endOfGame: false,
   isQuestion: false,
   isAnswer: false,
   question: {},
@@ -18,16 +17,16 @@ const initialState = {
 };
 
 //  ACTION CREATORS
-export function saveNewQuestion(question) {
+export function saveNewQuestion(isQuestion, isAnswer, question) {
   return {
     type: NEW_QUESTION,
-    payload: question
+    payload: { isQuestion, isAnswer, question }
   };
 }
-export function changeToAnswerView() {
+export function changeToAnswerView(isQuestion, isAnswer) {
   return {
     type: NEW_ANSWER,
-    payload: true
+    payload: { isQuestion, isAnswer }
   };
 }
 export function changeToEndOfGame() {
@@ -56,12 +55,16 @@ export default function quizReducer(state = initialState, action) {
   switch (action.type) {
     case `${NEW_QUESTION}`:
       return Object.assign({}, state, {
-        question: action.payload,
-        isQuestion: true
+        isQuestion: action.payload.isQuestion,
+        isAnswer: action.payload.isAnswer,
+        question: action.payload.question
       });
 
     case `${NEW_ANSWER}`:
-      return Object.assign({}, state, { isAnswer: true, isQuestion: false });
+      return Object.assign({}, state, {
+        isQuestion: action.payload.isQuestion,
+        isAnswer: action.payload.isAnswer
+      });
 
     case `${END_OF_GAME}`:
       return Object.assign({}, state, {

@@ -22,25 +22,34 @@ class Quiz extends Component {
     super(props);
 
     this.state = {
-      playerList: 0
+      playerList: 0,
+      level: 0,
+      isCompleted: false
     };
 
     this.socket = openSocket();
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
+    this.goToCompleted = this.goToCompleted.bind(this);
   }
 
   componentDidMount() {
     this.socket.emit("user connected", this.props.loginReducer.user.first_name);
+
     this.socket.on("new question", response => {
       if (response.isQuestion === true) {
-        this.props.saveNewQuestion(response.question);
-      } else if (response.isAnswer === true) {
-        this.props.changeToAnswerView();
-      } else if (response.isCompleted === true) {
-        this.props.changeToEndOfGame();
+        this.props.saveNewQuestion(
+          response.isQuestion,
+          response.isAnswer,
+          response.question
+        );
       }
     });
-    this.socket.on("new answer", newinfo => {
+
+    this.socket.on("new answer", response => {
+      this.setState({
+        level: this.state.level + 1
+      });
+      console.log(this.state.level);
       if (
         this.props.quizReducer.userChoice !==
         this.props.quizReducer.question[0].correct_answer
@@ -48,8 +57,9 @@ class Quiz extends Component {
         this.props.changeToWrong();
       }
       this.props.handleAnswer("");
-      this.props.changeToAnswerView();
+      this.props.changeToAnswerView(response.isQuestion, response.isAnswer);
     });
+
     this.socket.on("new user", playerList => {
       this.setState({
         playerList
@@ -61,40 +71,38 @@ class Quiz extends Component {
     this.socket.emit("next question");
   }
 
+  goToCompleted() {
+    this.setState({
+      isCompleted: true
+    });
+  }
+
   render() {
-    const { isQuestion, isAnswer, endOfGame } = this.props.quizReducer;
+    const { isQuestion, isAnswer, question } = this.props.quizReducer;
+    const { user } = this.props.loginReducer;
+    const { level, playerList, isCompleted } = this.state;
     let whatShows, host;
 
-    if (host) {
+    if (!isQuestion && !isAnswer && host) {
       host = (
         <Host socket={this.socket}>
           "This is where the Live Streaming is gonna happen"
         </Host>
       );
-    } else {
+    } else if (!isQuestion && !isAnswer && !host) {
       host = (
-        <Host
-          playerList={this.state.playerList}
-        >{`The Game Starts in 4 seconds`}</Host>
+        <Host playerList={playerList}>{`The Game Starts in 4 seconds`}</Host>
       );
     }
 
-    if (isQuestion && !endOfGame) {
+    if (isCompleted) {
+      whatShows = <Completed playerList={playerList} />;
+    } else if (isQuestion && !isAnswer) {
       whatShows = (
-        <Question
-          questionObject={this.props.quizReducer.question}
-          playerList={this.state.playerList}
-        />
+        <Question questionObject={question} playerList={playerList} />
       );
-    } else if (isAnswer && !endOfGame) {
-      whatShows = (
-        <Answer
-          answerObject={this.props.quizReducer.question}
-          playerList={this.state.playerList}
-        />
-      );
-    } else if (endOfGame) {
-      whatShows = <Completed playerList={this.state.playerList} />;
+    } else if (isAnswer && !isQuestion) {
+      whatShows = <Answer answerObject={question} playerList={playerList} />;
     } else {
       whatShows = null;
     }
@@ -105,21 +113,26 @@ class Quiz extends Component {
         <div className="quiz-container">
           <div className="admin-control">
             {host}
-            {this.props.loginReducer.user.user_id === 8 && (
-              <div>
-                <button onClick={this.goToNextQuestion}>
-                  Go to Next Question
-                </button>
-              </div>
-            )}
-            {this.props.loginReducer.user.user_id === 8 && (
+            {user.user_id === 8 &&
+              level < 10 && (
+                <div>
+                  <button onClick={this.goToNextQuestion}>
+                    Go to Next Question
+                  </button>
+                </div>
+              )}
+            {user.user_id === 8 && (
               <div>
                 <button onClick={this.goToNextQuestion}>
                   Start LiveStream
                 </button>
+                {user.user_id === 8 && level === 10 ? (
+                  <button onClick={this.goToCompleted}>Finish</button>
+                ) : null}
               </div>
             )}
           </div>
+
           {whatShows}
         </div>
         <Chat socket={this.socket} />
