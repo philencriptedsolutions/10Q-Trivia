@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import openSocket from "socket.io-client";
 import { connect } from "react-redux";
-import {
-  saveNewQuestion,
-  changeToAnswerView,
-  changeToEndOfGame
-} from "../../ducks/quizReducer";
+import { saveNewQuestion, changeToAnswerView, changeToEndOfGame } from "../../ducks/quizReducer";
 import "./Quiz.css";
 
 import Question from "../SubComponents/Question/Question";
