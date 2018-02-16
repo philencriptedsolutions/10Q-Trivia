@@ -9,6 +9,7 @@ import Drawer from "material-ui/Drawer";
 import MenuItem from "material-ui/MenuItem";
 import NavigationMenu from "material-ui/svg-icons/navigation/menu";
 import "./Header.css";
+import Logo from "./work3.png";
 
 class Header extends Component {
   constructor(props) {
@@ -43,14 +44,13 @@ class Header extends Component {
   }
 
   render() {
+    const img = <img src={Logo} className="logo-img" alt="10Q" />;
     return (
       <div className="header-main">
         <AppBar
-          //iconElementRight={`Logo`}
+          iconElementRight={img}
           className="header-bar"
           iconElementLeft={<NavigationMenu />}
-          iconClassNameLeft="header-burger"
-          iconClassNameRight="header-logo"
           onLeftIconButtonClick={this.toggleDrawer}
         />
 

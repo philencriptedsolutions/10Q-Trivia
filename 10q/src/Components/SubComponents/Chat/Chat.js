@@ -40,6 +40,7 @@ class Chat extends Component {
   handleChat(val) {
     val.preventDefault();
     this.props.socket.emit("send message", {
+      img: this.props.user.img,
       user: this.props.user.first_name,
       message: this.state.message
     });
@@ -51,6 +52,7 @@ class Chat extends Component {
   confirmTyping(event) {
     if (event.keyCode === 13) {
       this.props.socket.emit("send message", {
+        img: this.props.user.img,
         user: this.props.user.first_name,
         message: this.state.message
       });
@@ -66,10 +68,15 @@ class Chat extends Component {
     let chatBox = this.state.messageList.map((message, index) => {
       return (
         <div className="chat-line" key={index}>
-          <span>{message.user} :</span> {message.message}
+          <div className="img-container">
+            <img className="chat-img" src={message.img} alt="" />
+          </div>
+          <span>{message.user} :</span>
+          {message.message}
         </div>
       );
     });
+
     return (
       <div className="chat-main">
         <div className="chat-box">{chatBox}</div>

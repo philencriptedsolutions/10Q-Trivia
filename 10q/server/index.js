@@ -50,8 +50,6 @@ io.on("connection", socket => {
       .then(question => {
         io.emit("new question", {
           isQuestion: true,
-          isAnswer: false,
-          isCompleted: false,
           question
         });
       })
@@ -62,8 +60,7 @@ io.on("connection", socket => {
       setTimeout(() => {
         io.emit("new answer", {
           isQuestion: false,
-          isAnswer: true,
-          isCompleted: false
+          isAnswer: true
         });
       }, 10000);
     } else {
@@ -71,8 +68,7 @@ io.on("connection", socket => {
         difficulty = 1;
         io.emit("new answer", {
           isQuestion: false,
-          isAnswer: true,
-          isCompleted: true
+          isAnswer: true
         });
       }, 10000);
     }
