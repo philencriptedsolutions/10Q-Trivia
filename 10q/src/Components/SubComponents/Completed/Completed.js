@@ -4,22 +4,8 @@ import Header from "../../SubComponents/Header/Header";
 import "./Completed.css";
 
 class Completed extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      playerList: 0
-    };
-  }
-
-  componentDidMount() {
-    this.props.socket.on("new user", playerList => {
-      this.setState({
-        playerList
-      });
-    });
-  }
   render() {
-    const { playerList } = this.state;
+    const { playerList } = this.props;
     return (
       <div className="completed">
         <div className="players-list">

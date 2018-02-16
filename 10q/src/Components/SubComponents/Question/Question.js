@@ -9,18 +9,9 @@ class Question extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userChoice: "",
-      playerList: 0
+      userChoice: ""
     };
     this.handleChoice = this.handleChoice.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.socket.on("new user", playerList => {
-      this.setState({
-        playerList
-      });
-    });
   }
 
   handleChoice(val) {
@@ -37,8 +28,8 @@ class Question extends Component {
   }
 
   render() {
-    const { question = [], wrong } = this.props;
-    const { userChoice, playerList } = this.state;
+    const { question = [], wrong, playerList } = this.props;
+    const { userChoice } = this.state;
     console.log(question);
     return (
       <div className="question-main">

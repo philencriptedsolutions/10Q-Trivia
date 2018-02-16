@@ -19,6 +19,10 @@ class Quiz extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      playerList: 0
+    };
+
     this.socket = openSocket();
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
   }
@@ -35,6 +39,11 @@ class Quiz extends Component {
       }
     });
     this.socket.on("new answer", newinfo => this.props.changeToAnswerView());
+    this.socket.on("new user", playerList => {
+      this.setState({
+        playerList
+      });
+    });
   }
 
   goToNextQuestion() {
@@ -52,25 +61,29 @@ class Quiz extends Component {
         </Host>
       );
     } else {
-      host = <Host socket={this.socket}>{`The Game Starts in 4 seconds`}</Host>;
+      host = (
+        <Host
+          playerList={this.state.playerList}
+        >{`The Game Starts in 4 seconds`}</Host>
+      );
     }
 
     if (isQuestion && !endOfGame) {
       whatShows = (
         <Question
           questionObject={this.props.quizReducer.question}
-          socket={this.socket}
+          playerList={this.state.playerList}
         />
       );
     } else if (isAnswer && !endOfGame) {
       whatShows = (
         <Answer
           answerObject={this.props.quizReducer.question}
-          socket={this.socket}
+          playerList={this.state.playerList}
         />
       );
     } else if (endOfGame) {
-      whatShows = <Completed socket={this.socket} />;
+      whatShows = <Completed playerList={this.state.playerList} />;
     } else {
       whatShows = null;
     }

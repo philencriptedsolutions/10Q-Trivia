@@ -8,8 +8,7 @@ class Answer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userChoice: "",
-      playerList: 0
+      userChoice: ""
     };
     this.handleChoice = this.handleChoice.bind(this);
   }
@@ -21,7 +20,8 @@ class Answer extends Component {
   }
 
   render() {
-    const { userChoice, playerList } = this.state;
+    const { playerList } = this.props;
+    const { userChoice } = this.state;
     return (
       <div className="answer-main">
         <div className="players-list">
