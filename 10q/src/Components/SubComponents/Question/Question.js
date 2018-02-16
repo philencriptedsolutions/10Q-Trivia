@@ -42,16 +42,21 @@ class Question extends Component {
     console.log(question);
     return (
       <div className="question-main">
-        <div className="players-list">
-          <SocialPeople />
-          {playerList}
-        </div>
         <div className="question-card">
+        
+        
+        
+          <div className="players-list">
+            <SocialPeople className="people-icon"/>
+            <i className="player-list">{playerList}</i>
+          </div>
           <Avatar
             src="https://pickaface.net/gallery/avatar/totage5611dac58af1e.png"
             size={62.5}
             className="host-avatar"
           />
+
+        
           <h4 className="question-text">{question[0].question}</h4>
           <div className="choices-container">
             <button

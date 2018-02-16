@@ -1,3 +1,26 @@
+
+
+.people-icon {
+  color: #0e89f3 !important;
+}
+
+
+
+
+ /* float: left;
+  top:0vh; 
+  left:0vw; */
+  
+.players-list {
+  height: 20px;
+  width: 90%;
+  margin: 10px 5% 0 5%;
+  display: flex;
+  align-self: flex-start;
+}
+
+ 
+
 .question-main {
   margin: 0;
   padding: 0;
@@ -19,7 +42,7 @@
 }
 
 .host-avatar {
-  margin: 10px 0 0 0 !important;
+  /* margin: 10px 0 0 0 !important; */
 }
 
 .question-text {
@@ -53,6 +76,16 @@
   margin: 2.5px 0 2.5px 0;
   outline: none;
 }
+
+
+/* .question-wrapper{
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: baseline;
+	align-content: stretch;
+} */
 
 .question-button:active,
 .question-button:focus {

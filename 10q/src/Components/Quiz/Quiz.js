@@ -55,30 +55,30 @@ class Quiz extends Component {
       host = <Host socket={this.socket}>{`The Game Starts in 4 seconds`}</Host>;
     }
 
-    if (isQuestion && !endOfGame) {
-      whatShows = (
-        <Question
-          questionObject={this.props.quizReducer.question}
-          socket={this.socket}
-        />
-      );
-    } else if (isAnswer && !endOfGame) {
-      whatShows = (
-        <Answer
-          answerObject={this.props.quizReducer.question}
-          socket={this.socket}
-        />
-      );
-    } else if (endOfGame) {
-      whatShows = <Completed socket={this.socket} />;
-    } else {
-      whatShows = null;
-    }
+    // if (isQuestion && !endOfGame) {
+    //   whatShows = (
+    //     <Question
+    //       questionObject={this.props.quizReducer.question}
+    //       socket={this.socket}
+    //     />
+    //   );
+    // } else if (isAnswer && !endOfGame) {
+    //   whatShows = (
+    //     <Answer
+    //       answerObject={this.props.quizReducer.question}
+    //       socket={this.socket}
+    //     />
+    //   );
+    // } else if (endOfGame) {
+    //   whatShows = <Completed socket={this.socket} />;
+    // } else {
+    //   whatShows = null;
+    // }
 
     return (
       <div className="Quiz">
         <Header />
-        <div className="quiz-container">
+        {/* <div className="quiz-container">
           <div className="admin-control">
             {host}
             {this.props.loginReducer.user.user_id === 1 && (
@@ -97,7 +97,9 @@ class Quiz extends Component {
             )}
           </div>
           {whatShows}
-        </div>
+        </div> */}
+        <Question questionObject={this.props.quizReducer.question}
+          socket={this.socket}/>
         <Chat socket={this.socket} />
       </div>
     );

@@ -10,7 +10,13 @@ const initialState = {
   endOfGame: false,
   isQuestion: false,
   isAnswer: false,
-  question: {},
+  question: [{
+    question:'What is Stevens favorite accessory?',
+    first_answer: 'Backwards hat',
+    second_answer: 'Monocle',
+    third_answer: 'Tory Burch Purse',
+    correct_answer: 'Backwards hat'
+  }],
   isAuthenticated: false,
   wrong: false
 };
