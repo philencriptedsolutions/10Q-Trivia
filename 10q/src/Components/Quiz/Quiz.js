@@ -23,27 +23,19 @@ import Chat from "../SubComponents/Chat/Chat";
 
 class Quiz extends Component {
   constructor(props) {
-<<<<<<< HEAD
     super(props);
 
     this.state = {
       playerList: 0,
       level: 0,
-      isCompleted: false
+      isCompleted: false,
+      live: false
     };
 
     this.socket = openSocket();
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
     this.goToCompleted = this.goToCompleted.bind(this);
-=======
-    super(props)
-    this.state = {
-      live: false
-    }
-    this.socket = openSocket();
-    this.goToNextQuestion = this.goToNextQuestion.bind(this);
     this.startLiveStream = this.startLiveStream.bind(this);
->>>>>>> master
   }
 
   componentDidMount() {
@@ -85,30 +77,12 @@ class Quiz extends Component {
     this.socket.emit("next question");
   }
 
-<<<<<<< HEAD
   goToCompleted() {
     this.setState({
       isCompleted: true
     });
   }
 
-  render() {
-    const { isQuestion, isAnswer, question } = this.props.quizReducer;
-    const { user } = this.props.loginReducer;
-    const { level, playerList, isCompleted } = this.state;
-    let whatShows, host;
-
-    if (!isQuestion && !isAnswer && host) {
-      host = (
-        <Host socket={this.socket}>
-          "This is where the Live Streaming is gonna happen"
-        </Host>
-      );
-    } else if (!isQuestion && !isAnswer && !host) {
-      host = (
-        <Host playerList={playerList}>{`The Game Starts in 4 seconds`}</Host>
-      );
-=======
   startLiveStream(){
     setTimeout(() => {
       this.setState({
@@ -118,19 +92,18 @@ class Quiz extends Component {
     
   }
 
-
   render() {
-    const { isQuestion, isAnswer, endOfGame } = this.props.quizReducer;
-    const { live } = this.state;
+    const { isQuestion, isAnswer, question } = this.props.quizReducer;
+    const { user } = this.props.loginReducer;
+    const { level, playerList, isCompleted, live } = this.state;
     let whatShows, host;
 
     if (live) {
       host = <Host>"This is where the Live Streaming is gonna happen"</Host>;
     } else {
       host = <p>Game Starts in 4 seconds!</p>;
->>>>>>> master
     }
-
+    
     if (isCompleted) {
       whatShows = <Completed playerList={playerList} />;
     } else if (isQuestion && !isAnswer) {
@@ -146,7 +119,10 @@ class Quiz extends Component {
     return (
       <div className="Quiz">
         <Header />
-<<<<<<< HEAD
+
+        <div className="host-container">
+        { host }
+        </div>
         <div className="quiz-container">
           <div className="admin-control">
             {host}
@@ -169,18 +145,8 @@ class Quiz extends Component {
               </div>
             )}
           </div>
-
           {whatShows}
-=======
-        <div className="host-container">
-        { host }
-        </div>
-        <div className="quiz-container" >
-          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={ this.goToNextQuestion }>Go to Next Question</button></div> )}
-          { this.props.loginReducer.user.user_id === 1 && ( <div><button onClick={ this.startLiveStream }>Start LiveStream</button></div> )}
-          { whatShows }
 
->>>>>>> master
         </div>
         <Chat socket={this.socket} />
       </div>

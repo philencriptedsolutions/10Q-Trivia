@@ -9,8 +9,8 @@
 .header-bar {
   height: 30px !important;
   background-color: transparent !important;
-<<<<<<< HEAD
   width: 92.5vw !important;
+  border: none !important;
 }
 
 h1 {
@@ -21,9 +21,6 @@ h1 {
 .logo-img {
   width: 30px;
   height: 25px;
-=======
-  border: none !important;
->>>>>>> master
 }
 
 .menu-item-container {
