@@ -23,8 +23,13 @@ class Chat extends Component {
     this.props.socket.on("receive message", messages => {
       this.addMessage(messages);
     });
+    
   }
-
+  componentDidUpdate(){
+    const height = this.divElement.scrollHeight;
+    this.divElement.scrollTop = height;
+  }
+  
   addMessage(message) {
     this.setState({
       messageList: [...this.state.messageList, message]
@@ -79,7 +84,7 @@ class Chat extends Component {
 
     return (
       <div className="chat-main">
-        <div className="chat-box">{chatBox}</div>
+        <div className="chat-box" ref={ (divElement) => this.divElement = divElement} >{chatBox}</div>
         <div className="chat-input-container">
           <TextField
             onChange={e => this.userTyping(e.target.value)}

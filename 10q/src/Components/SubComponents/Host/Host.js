@@ -4,7 +4,6 @@ import "./Host.css";
 
 class Host extends Component {
   render() {
-    const { playerList } = this.props;
     return (
       <div className="Host">
         <VideoCover
