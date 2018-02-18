@@ -94,6 +94,7 @@ class Chat extends Component {
             underlineFocusStyle={{ borderColor: "#f85f6b" }}
             inputStyle={{ color: "#ffffff" }}
             value={this.state.message}
+            id="text-field"
           />
           <ContentSend onClick={this.handleChat} className="chat-send" />
         </div>
