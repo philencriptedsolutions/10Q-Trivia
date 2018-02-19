@@ -9,7 +9,6 @@
 }
 
 .chat-box {
-  margin: auto;
   height: 150px;
   width: 300px;
   background: transparent;
@@ -43,11 +42,19 @@
   width: 100%;
 }
 
-.chat-line>span {
+.chat-line > span {
   color: #f85f6b;
   font-weight: bold;
   font-size: 14px;
   margin: 0 5px 0 0;
+}
+
+.chat-line > p {
+  display: inline-block;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  max-width: 200px;
 }
 
 .chat-input-container {
@@ -83,4 +90,7 @@
     margin: 12.5px 0 0 0;
     overflow-wrap: break-word;
   }
+}
+
+@media (min-width: 768px) {
 }
