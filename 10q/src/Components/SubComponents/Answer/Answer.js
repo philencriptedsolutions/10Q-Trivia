@@ -20,7 +20,7 @@ class Answer extends Component {
   }
 
   render() {
-    const { playerList } = this.props;
+    const { playerList, question = [] } = this.props;
     const { userChoice } = this.state;
     return (
       <div className="answer-main">
@@ -34,7 +34,7 @@ class Answer extends Component {
             size={62.5}
             className="host-avatar"
           />
-          <h4 className="answer-text">{this.props.question[0].question}</h4>
+          <h4 className="answer-text">{question.question}</h4>
           <div className="choices-container">
             {this.props.wrong ? (
               <div>You are incorrect </div>
