@@ -116,10 +116,11 @@ class Quiz extends Component {
         <Header />
 
         <div className="host-container">{host}</div>
+        <div className="chat-quiz-container">
         <div className="quiz-container">
           <div className="admin-control">
-           
-            {user.user_id === 1 &&
+
+            {user.user_id === 9 &&
               level < 10 && (
                 <div>
                   <button onClick={this.goToNextQuestion}>
@@ -127,12 +128,12 @@ class Quiz extends Component {
                   </button>
                 </div>
               )}
-            {user.user_id === 1 && (
+            {user.user_id === 9 && (
               <div>
                 <button onClick={this.startLiveStream}>
                   Start LiveStream
                 </button>
-                {user.user_id === 8 && level === 10 ? (
+                {user.user_id === 9 && level === 10 ? (
                   <button onClick={this.goToCompleted}>Finish</button>
                 ) : null}
               </div>
@@ -141,6 +142,8 @@ class Quiz extends Component {
           {whatShows}
         </div>
         <Chat socket={this.socket} />
+
+        </div>
       </div>
     );
   }

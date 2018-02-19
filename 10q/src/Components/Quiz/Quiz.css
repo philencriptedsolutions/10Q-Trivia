@@ -7,6 +7,9 @@
 .quiz-container {
   margin: 60px 0px 0px 0px;
   max-width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .host-container {
