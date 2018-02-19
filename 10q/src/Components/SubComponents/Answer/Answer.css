@@ -69,6 +69,8 @@
   justify-content: center;
   width: 100%;
   height: 250px;
+  color: #0e89f3;
+  font-weight: bolder;
 }
 
 .answer-button {
