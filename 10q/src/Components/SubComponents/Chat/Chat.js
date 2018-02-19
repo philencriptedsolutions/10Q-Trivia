@@ -75,8 +75,10 @@ class Chat extends Component {
           <div className="img-container">
             <img className="chat-img" src={message.img} alt="" />
           </div>
-          <span>{message.user} :</span>
-          <p>{message.message}</p>
+          <div className="chat-content">
+            <span>{message.user} </span>
+            <p>{message.message}</p>
+          </div>
         </div>
       );
     });

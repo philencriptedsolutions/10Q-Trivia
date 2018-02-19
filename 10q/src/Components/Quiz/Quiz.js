@@ -91,7 +91,7 @@ class Quiz extends Component {
   }
 
   render() {
-    const { isQuestion, isAnswer, question = [] } = this.props.quizReducer;
+    const { isQuestion, isAnswer, question = {} } = this.props.quizReducer;
     const { user } = this.props.loginReducer;
     const { level, playerList, isCompleted, live } = this.state;
     let whatShows, host;

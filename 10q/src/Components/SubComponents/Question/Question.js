@@ -1,7 +1,6 @@
 import Avatar from "material-ui/Avatar";
 import SocialPeople from "material-ui/svg-icons/social/people";
 import CircularProgress from "material-ui/CircularProgress";
-
 import { connect } from "react-redux";
 import { changeToWrong, handleAnswer } from "../../../ducks/quizReducer";
 import React, { Component } from "react";
@@ -37,13 +36,18 @@ class Question extends Component {
 
   render() {
     const {
-      question = [],
+      question = {},
       wrong,
       playerList,
       handleAnswer,
       userChoice
     } = this.props;
-    console.log(question);
+
+    //Animation one letter at a time(?)
+    let questionLetter = question.question.split("").map((letter, index) => {
+      return <span key={index}>{letter}</span>;
+    });
+    // console.log(question);
     return (
       <div className="question-main">
         <div className="question-card">
@@ -68,7 +72,7 @@ class Question extends Component {
           </div>
           {/* {this.state.currentCount} */}
 
-          <p className="question-text">{question.question}</p>
+          <div className="question-text">{questionLetter}</div>
           <div className="choices-container">
             <button
               disabled={userChoice || wrong}

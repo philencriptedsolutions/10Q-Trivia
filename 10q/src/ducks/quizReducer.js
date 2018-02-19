@@ -13,7 +13,7 @@ const initialState = {
   isAuthenticated: false,
   wrong: false,
   userChoice: "",
-  question: []
+  question: {}
 };
 
 //  ACTION CREATORS
