@@ -14,6 +14,7 @@
   background: transparent;
   margin: 10px 0 0 0;
   overflow-y: scroll;
+ 
 }
 
 .chat-line {
@@ -64,6 +65,7 @@
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
+  overflow-wrap: break-word;
 }
 
 .chat-send {
@@ -82,11 +84,11 @@
   }
   .chat-box {
     margin: auto;
-    height: 150px;
+    height: 125px;
     width: 400px;
     border: #fff;
     margin: 12.5px 0 0 0;
-    overflow-y: scroll;
+    overflow-wrap: break-word;
   }
 }
 

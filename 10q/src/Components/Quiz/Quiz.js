@@ -119,6 +119,7 @@ class Quiz extends Component {
         <Header />
 
         <div className="host-container">{host}</div>
+        <div className="chat-quiz-container">
         <div className="quiz-container">
           <div className="admin-control">
             {user.user_id === 8 &&
@@ -141,6 +142,8 @@ class Quiz extends Component {
           {whatShows}
         </div>
         <Chat socket={this.socket} />
+
+        </div>
       </div>
     );
   }

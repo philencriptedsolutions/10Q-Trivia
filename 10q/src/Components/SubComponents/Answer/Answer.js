@@ -24,11 +24,12 @@ class Answer extends Component {
     const { userChoice } = this.state;
     return (
       <div className="answer-main">
-        <div className="players-list">
-          <SocialPeople />
-          {playerList}
-        </div>
         <div className="answer-card">
+        <div className="players-list">
+          <SocialPeople className="people-icon"/>
+          <i className="player-list">{playerList}</i>
+      
+        </div>
           <Avatar
             src="https://pickaface.net/gallery/avatar/totage5611dac58af1e.png"
             size={62.5}
