@@ -1,78 +1,66 @@
-
-.completed{
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
+.completed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 400px;
+  margin: 10px 0 0 0;
+  padding: 0;
+  background: #ffffff;
+  border-radius: 15px;
 }
 
+.people-icon {
+  color: #0e89f3 !important;
+}
 
+.players-list {
+  height: 20px;
+  width: 90%;
+  margin: 10px 5% 0 5%;
+  display: flex;
+  align-self: flex-start;
+}
 
-.question-card {
-    display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-    width: 300px;
-    height: 375px;
-    margin: 10px 0 0 0 !important;
-    background: #ffffff !important;
-    border-radius: 20px !important;
+.completed-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 380px;
+  width: 300px;
+}
 
+.winner-wrapper {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-   }
+.winner-img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
 
-.winner{
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 175px;
-    width: 175px;
-    border-radius: 50%;
-    background-color: #fff;
-    border: 3px solid #0e89f3;
-    color: black;
+.winner-name {
+  font-size: 15px;
+  font-weight: bolder;
 }
 
 @media (min-width: 538px) {
-  .text{
+  .text {
     color: red;
   }
 
-  .question-card {
-    display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-    width: 425px ;
-    height: 400px ;
-    background: #ffffff;
-    border-radius: 20px;
-
-
-   }
-
-.winner{
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
-    background-color: #fff;
-    border: 3px solid #0e89f3;
-    color: black;
-}
+  .completed-card {
+    width: 425px;
+    height: 400px;
   }
+}
 
 @media (min-width: 768px) {
-
-
-    
-  }
-
-  
-
+}
