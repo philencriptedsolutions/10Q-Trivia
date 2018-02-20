@@ -12,7 +12,8 @@ const initialState = {
   isAnswer: false,
   isAuthenticated: false,
   wrong: false,
-  userChoice: ""
+  userChoice: "",
+  question: {}
 };
 
 //  ACTION CREATORS
@@ -56,7 +57,7 @@ export default function quizReducer(state = initialState, action) {
       return Object.assign({}, state, {
         isQuestion: action.payload.isQuestion,
         isAnswer: action.payload.isAnswer,
-        question: action.payload.question
+        question: action.payload.question[0]
       });
 
     case `${NEW_ANSWER}`:

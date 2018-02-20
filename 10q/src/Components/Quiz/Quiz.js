@@ -35,6 +35,10 @@ class Quiz extends Component {
   }
 
   componentDidMount() {
+    const { user = {} } = this.props.loginReducer;
+    if (!user.email) {
+      this.props.history.push("/");
+    }
     this.socket.emit("user connected", this.props.loginReducer.user.first_name);
 
     this.socket.on("new question", response => {
@@ -54,7 +58,7 @@ class Quiz extends Component {
       console.log(this.state.level);
       if (
         this.props.quizReducer.userChoice !==
-        this.props.quizReducer.question[0].correct_answer
+        this.props.quizReducer.question.correct_answer
       ) {
         this.props.changeToWrong();
       }
@@ -88,8 +92,8 @@ class Quiz extends Component {
   }
 
   render() {
-    const { isQuestion, isAnswer, question } = this.props.quizReducer;
-    const { user } = this.props.loginReducer;
+    const { isQuestion, isAnswer, question = {} } = this.props.quizReducer;
+    const { user = {} } = this.props.loginReducer;
     const { level, playerList, isCompleted, live } = this.state;
     let whatShows, host;
 
@@ -116,31 +120,32 @@ class Quiz extends Component {
         <Header />
 
         <div className="host-container">{host}</div>
-        <div className="quiz-container">
-          <div className="admin-control">
-           
-            {user.user_id === 1 &&
-              level < 10 && (
+        <div className="chat-quiz-container">
+          <div className="quiz-container">
+            <div className="admin-control">
+              {user.user_id === 8 &&
+                level < 10 && (
+                  <div>
+                    <button onClick={this.goToNextQuestion}>
+                      Go to Next Question
+                    </button>
+                  </div>
+                )}
+              {user.user_id === 8 && (
                 <div>
-                  <button onClick={this.goToNextQuestion}>
-                    Go to Next Question
+                  <button onClick={this.startLiveStream}>
+                    Start LiveStream
                   </button>
+                  {user.user_id === 8 && level === 10 ? (
+                    <button onClick={this.goToCompleted}>Finish</button>
+                  ) : null}
                 </div>
               )}
-            {user.user_id === 1 && (
-              <div>
-                <button onClick={this.startLiveStream}>
-                  Start LiveStream
-                </button>
-                {user.user_id === 8 && level === 10 ? (
-                  <button onClick={this.goToCompleted}>Finish</button>
-                ) : null}
-              </div>
-            )}
+            </div>
+            {whatShows}
           </div>
-          {whatShows}
+          <Chat socket={this.socket} />
         </div>
-        <Chat socket={this.socket} />
       </div>
     );
   }

@@ -20,21 +20,22 @@ class Answer extends Component {
   }
 
   render() {
-    const { playerList } = this.props;
+    const { playerList, question = {} } = this.props;
     const { userChoice } = this.state;
     return (
       <div className="answer-main">
-        <div className="players-list">
-          <SocialPeople />
-          {playerList}
-        </div>
         <div className="answer-card">
+        <div className="players-list">
+          <SocialPeople className="people-icon"/>
+          <i className="player-list">{playerList}</i>
+      
+        </div>
           <Avatar
             src="https://pickaface.net/gallery/avatar/totage5611dac58af1e.png"
             size={62.5}
             className="host-avatar"
           />
-          <h4 className="answer-text">{this.props.question[0].question}</h4>
+          <h4 className="answer-text">{question.question}</h4>
           <div className="choices-container">
             {this.props.wrong ? (
               <div>You are incorrect </div>
