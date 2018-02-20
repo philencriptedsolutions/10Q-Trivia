@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
+import EditProfile from '../EditProfile/EditProfile';
+import './DisplayProfile.css';
+import 'font-awesome/css/font-awesome.min.css';
+import { connect } from "react-redux";
 
-export default class CardExampleControlled extends React.Component {
+
+class DisplayProfile extends Component {
 
   constructor(props) {
     super(props);
@@ -29,12 +34,15 @@ export default class CardExampleControlled extends React.Component {
   };
 
   render() {
+    console.log(this.props);
+
     return (
-      <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+      <div className ="display-profile">
+      <Card  expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
         <CardHeader
-          title={this.props.user.username}
-          subtitle={`Email: ${this.props.user.email}`}
-          avatar={this.props.useruserimage}
+          title={this.props.loginReducer.user.first_name}
+          subtitle={`Email: ${this.props.loginReducer.user.email === undefined ? 'Yikes! You seem to not be logged in': this.props.loginReducer.user.email }`}
+          avatar={this.props.loginReducer.user.img}
           actAsExpander={true}
           showExpandableButton={true}
         />
@@ -43,27 +51,24 @@ export default class CardExampleControlled extends React.Component {
             toggled={this.state.expanded}
             onToggle={this.handleToggle}
             labelPosition="right"
-            label="This toggle controls the expanded state of the component."
+            label={ this.state.expanded ? null : `Click To Edit Your Profile` }
           />
         </CardText>
         <CardMedia
           expandable={true}
-          overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
+          
         >
-          <img src="images/nature-600-337.jpg" alt="" />
         </CardMedia>
-        <CardTitle title="Card title" subtitle="Card subtitle" expandable={true} />
+        <CardTitle title="Profile Editor " subtitle="click on anything below to change it" expandable={true} />
         <CardText expandable={true}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+          <EditProfile/>
         </CardText>
-        <CardActions>
-          <FlatButton label="Expand" onClick={this.handleExpand} />
-          <FlatButton label="Reduce" onClick={this.handleReduce} />
-        </CardActions>
       </Card>
+      </div>
     );
   }
 }
+
+const mapStateToProps = state => state;
+
+export default connect(mapStateToProps)(DisplayProfile);
