@@ -32,6 +32,7 @@ massive(CONNECTION_STRING)
 //BASIC MIDDLEWARES
 app.use(json());
 app.use(cors());
+app.use(express.static(`${__dirname}/../build`));
 
 io.on("connection", socket => {
   //client joined
