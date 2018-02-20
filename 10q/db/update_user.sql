@@ -1,5 +1,6 @@
 UPDATE users SET 
-    username = $1,
-    img = $2
-WHERE uid = $3
+    first_name = $1,
+    last_name = $2,
+    img = $3
+WHERE user_id= $4
 RETURNING *;

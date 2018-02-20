@@ -22,13 +22,15 @@ module.exports = {
       .catch(err => res.status(500).json(err));
   },
   updateUser: (req, res) => {
-    const { username, img, uid } = req.body;
+    const { first_name, last_name, img, uid } = req.body;
     const db = req.app.get("db");
     db
-      .update_user([username, img, uid])
+      .update_user([first_name, last_name, img, uid])
       .then(user => {
         res.status(200).json(user);
       })
-      .catch(err => res.status(500).json(err));
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err)});
   }
 };

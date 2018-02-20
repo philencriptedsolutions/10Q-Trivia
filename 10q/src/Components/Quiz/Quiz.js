@@ -110,7 +110,7 @@ class Quiz extends Component {
     } else {
       whatShows = null;
     }
-
+    console.log(this.props)
     return (
       <div className="Quiz">
         <Header />
