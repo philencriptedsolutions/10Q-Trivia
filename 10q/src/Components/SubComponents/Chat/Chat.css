@@ -82,6 +82,28 @@
   color: #f85f6b !important;
 }
 
+.modal-body {
+  width: 290px !important;
+  height: 150px !important;
+  padding: 0 0 0 0 !important;
+  margin: 0 0 0 0 !important;
+  overflow-y: scroll !important;
+}
+
+.modal-action {
+  padding: 0 0 0 0 !important;
+  margin: 0 0 0 0 !important;
+  width: 290px !important;
+}
+
+.modal-paper {
+  padding: 0 0 0 0 !important;
+  margin: 0 0 0 0 !important;
+  width: 290px !important;
+  background-color: transparent !important;
+  position: absolute !important;
+}
+
 @media (min-width: 538px) {
   .chat-input-container {
     width: 500px !important;
