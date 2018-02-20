@@ -11,8 +11,8 @@ class Question extends Component {
     super(props);
 
     this.state = {
-      currentCount: 100,
-      intervalId: 0
+      currentCount: 0,
+      intervalId: 100
     };
     this.timer = this.timer.bind(this);
   }
@@ -26,7 +26,7 @@ class Question extends Component {
 
   timer() {
     this.setState({
-      currentCount: this.state.currentCount - 10
+      currentCount: this.state.currentCount + 11
     });
   }
 
@@ -44,7 +44,7 @@ class Question extends Component {
     } = this.props;
 
     //Animation one letter at a time(?)
-    let questionLetter = question.question.split("").map((letter, index) => {
+    let questionLetter = question.question.split(" ").map((letter, index) => {
       return <span key={index}>{letter}</span>;
     });
     // console.log(question);
@@ -65,7 +65,11 @@ class Question extends Component {
               mode="determinate"
               value={this.state.currentCount}
               size={75}
-              style={{ position: "relative", fill: "none" }}
+              style={{
+                position: "relative",
+                fill: "none",
+                transform: "rotate(275deg)"
+              }}
               thickness={6}
               color="#0e89f3"
             />
