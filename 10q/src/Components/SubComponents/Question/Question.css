@@ -74,15 +74,6 @@
   outline: none;
 }
 
-/* .question-wrapper{
-  display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-items: baseline;
-	align-content: stretch;
-} */
-
 .question-button:active,
 .question-button:focus {
   background: #0e89f3;

@@ -20,7 +20,7 @@ class Answer extends Component {
   }
 
   render() {
-    const { playerList, question = [] } = this.props;
+    const { playerList, question = {} } = this.props;
     const { userChoice } = this.state;
     return (
       <div className="answer-main">
