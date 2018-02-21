@@ -11,21 +11,13 @@
 }
 
 .question-main {
-  margin: 0;
+  margin: 10px 0 0 0;
   padding: 0;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.question-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 300px;
   height: 400px;
-  margin: 10px 0 0 0;
   background: #ffffff;
   border-radius: 15px;
 }
@@ -73,15 +65,6 @@
   margin: 2.5px 0 2.5px 0;
   outline: none;
 }
-
-/* .question-wrapper{
-  display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-items: baseline;
-	align-content: stretch;
-} */
 
 .question-button:active,
 .question-button:focus {

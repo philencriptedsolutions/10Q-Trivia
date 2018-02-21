@@ -4,11 +4,11 @@ import axios from 'axios';
 
 const REGISTER_USER = 'REGISTER_USER';
 const LOGIN_USER = 'LOGIN_USER';
-
+const UPDATE_USER = 'UPDATE_USER';
 //  INITIAL STATE
 const initialState = {
     user :{
-        uid:1
+        user_id:1
     },
     isAuthenticated: false
 }
@@ -35,6 +35,18 @@ const initialState = {
             .catch(console.log)
         };
     }
+    export function updateProfile( first_name, last_name, img, uid) {
+        console.log( 'update profile reducer', first_name, last_name, img, uid )
+        return {
+          type: UPDATE_USER,
+          payload: axios
+            .put("/api/profile/update", { first_name, last_name, img, uid })
+            .then(response => {
+                console.log( response.data );
+               return response.data[0]})
+            .catch(console.log)
+        };
+    }
 
 //  REDUCER
 export default function loginReducer(state = initialState, action){
@@ -52,6 +64,13 @@ export default function loginReducer(state = initialState, action){
         case `${LOGIN_USER}_FULFILLED`:
             return Object.assign({}, state, { isLoading: false, user: action.payload, isAuthenticated: true });
         case `${LOGIN_USER}_REJECTED`:
+            return Object.assign({}, state, { isLoading: false, didErr: true });
+
+        case `${UPDATE_USER}_PENDING`:
+            return Object.assign({}, state, { isLoading: true });
+        case `${UPDATE_USER}_FULFILLED`:
+            return Object.assign({}, state, { isLoading: false, user: action.payload });
+        case `${UPDATE_USER}_REJECTED`:
             return Object.assign({}, state, { isLoading: false, didErr: true });
 
         default:

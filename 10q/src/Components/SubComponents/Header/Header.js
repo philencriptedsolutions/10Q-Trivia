@@ -28,7 +28,7 @@ class Header extends Component {
       .signOut()
       .then(
         () => {
-          window.location.href = "http://localhost:3000/";
+          window.location.href = "http://159.89.130.38/";
         },
         function(error) {
           console.error("Sign Out Error", error);
