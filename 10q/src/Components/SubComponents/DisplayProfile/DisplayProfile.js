@@ -4,9 +4,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import EditProfile from '../EditProfile/EditProfile';
 import './DisplayProfile.css';
-import 'font-awesome/css/font-awesome.min.css';
 import { connect } from "react-redux";
-
+import Header from '../Header/Header';
 
 class DisplayProfile extends Component {
 
@@ -38,13 +37,14 @@ class DisplayProfile extends Component {
 
     return (
       <div className ="display-profile">
-      <Card  expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+       <Header />
+      <Card  className="profile-card" expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
         <CardHeader
           title={this.props.loginReducer.user.first_name}
           subtitle={`Email: ${this.props.loginReducer.user.email === undefined ? 'Yikes! You seem to not be logged in': this.props.loginReducer.user.email }`}
           avatar={this.props.loginReducer.user.img}
-          actAsExpander={true}
-          showExpandableButton={true}
+          // actAsExpander={false}
+          // showExpandableButton={false}
         />
         <CardText>
           <Toggle
@@ -59,9 +59,9 @@ class DisplayProfile extends Component {
           
         >
         </CardMedia>
-        <CardTitle title="Profile Editor " subtitle="click on anything below to change it" expandable={true} />
+        <CardTitle title="Profile Editor " expandable={true} />
         <CardText expandable={true}>
-          <EditProfile/>
+          <EditProfile className="edit-profile"/>
         </CardText>
       </Card>
       </div>

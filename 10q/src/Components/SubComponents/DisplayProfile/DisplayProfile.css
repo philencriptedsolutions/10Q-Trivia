@@ -1,4 +1,9 @@
 .display-profile {
-    width: 400px !important;
-    height: 500px !important;
+  margin: auto;
+  max-width: 370px !important;
+  max-height: 500px !important;
+}
+
+.profile-card {
+  margin-top: 50px;
 }

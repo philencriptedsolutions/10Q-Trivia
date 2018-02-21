@@ -23,6 +23,10 @@
   margin: 0 0 40px 0;
 }
 
+#loginbutton:hover {
+  color:transparent;
+}
+
 @media (min-width: 538px) {
   .Logo {
     width: 230px;
