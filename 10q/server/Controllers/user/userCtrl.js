@@ -30,6 +30,8 @@ module.exports = {
       .then(user => {
         res.status(200).json(user);
       })
-      .catch(err => res.status(500).json(err));
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err)});
   }
 };

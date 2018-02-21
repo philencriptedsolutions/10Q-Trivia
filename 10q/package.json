@@ -11,6 +11,7 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "firebase": "^4.9.1",
+    "font-awesome": "^4.7.0",
     "massive": "^4.6.4",
     "material-ui": "^0.20.0",
     "react": "^16.2.0",
