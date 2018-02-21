@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./EditProfile.css";
 import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
-import "font-awesome/css/font-awesome.min.css";
+//import "font-awesome/css/font-awesome.min.css";
 import { fire as firebase } from "../../../fire";
 import { updateProfile } from "../../../ducks/reducer";
 

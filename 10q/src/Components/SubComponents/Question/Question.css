@@ -39,7 +39,8 @@
   width: 275px;
   color: #0e89f3;
   font-weight: bolder;
-  margin-bottom: 10px;
+  margin: 15px 15px 10px 15px;
+  padding: 0 20px 0 20px;
 }
 
 .choices-container {
@@ -95,9 +96,12 @@
     width: 550px !important;
   }
   .question-text {
-    width: 480px;
+    width: 550px;
   }
   .question-button {
     width: 475px;
+  }
+  .question-main {
+    width: 550px;
   }
 }

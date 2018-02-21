@@ -139,7 +139,7 @@ class Chat extends Component {
               />
             }
           >
-            <EmojiPicker onEmojiClick={this.handleEmoji} />
+            {/* <EmojiPicker onEmojiClick={this.handleEmoji} /> */}
           </Dialog>
           <ContentSend onClick={this.handleChat} className="chat-send" />
         </div>
