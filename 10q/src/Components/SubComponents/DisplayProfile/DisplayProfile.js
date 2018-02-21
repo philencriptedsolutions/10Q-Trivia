@@ -4,9 +4,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import EditProfile from '../EditProfile/EditProfile';
 import './DisplayProfile.css';
-//import 'font-awesome/css/font-awesome.min.css';
 import { connect } from "react-redux";
-
+import Header from '../Header/Header';
 
 class DisplayProfile extends Component {
 
@@ -37,33 +36,34 @@ class DisplayProfile extends Component {
     console.log(this.props);
 
     return (
-      <div className="display-profile">
-        <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
-          <CardHeader
-            title={this.props.loginReducer.user.first_name}
-            subtitle={`Email: ${this.props.loginReducer.user.email === undefined ? 'Yikes! You seem to not be logged in' : this.props.loginReducer.user.email}`}
-            avatar={this.props.loginReducer.user.img}
-            actAsExpander={true}
-            showExpandableButton={true}
+      <div className ="display-profile">
+       <Header />
+      <Card  className="profile-card" expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+        <CardHeader
+          title={this.props.loginReducer.user.first_name}
+          subtitle={`Email: ${this.props.loginReducer.user.email === undefined ? 'Yikes! You seem to not be logged in': this.props.loginReducer.user.email }`}
+          avatar={this.props.loginReducer.user.img}
+          // actAsExpander={false}
+          // showExpandableButton={false}
+        />
+        <CardText>
+          <Toggle
+            toggled={this.state.expanded}
+            onToggle={this.handleToggle}
+            labelPosition="right"
+            label={ this.state.expanded ? null : `Click To Edit Your Profile` }
           />
-          <CardText>
-            <Toggle
-              toggled={this.state.expanded}
-              onToggle={this.handleToggle}
-              labelPosition="right"
-              label={this.state.expanded ? null : `Click To Edit Your Profile`}
-            />
-          </CardText>
-          <CardMedia
-            expandable={true}
-
-          >
-          </CardMedia>
-          <CardTitle title="Profile Editor " subtitle="click on anything below to change it" expandable={true} />
-          <CardText expandable={true}>
-            <EditProfile />
-          </CardText>
-        </Card>
+        </CardText>
+        <CardMedia
+          expandable={true}
+          
+        >
+        </CardMedia>
+        <CardTitle title="Profile Editor " expandable={true} />
+        <CardText expandable={true}>
+          <EditProfile className="edit-profile"/>
+        </CardText>
+      </Card>
       </div>
     );
   }

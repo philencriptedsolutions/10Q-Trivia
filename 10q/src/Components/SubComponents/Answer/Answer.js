@@ -8,11 +8,18 @@ class Answer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userChoice: ""
+      userChoice: "",
+      hidden: false
     };
     this.handleChoice = this.handleChoice.bind(this);
   }
-
+  componentDidMount(){
+    setTimeout(() => {
+      this.setState({
+        hidden:true
+      })
+    }, 8000);
+  }
   handleChoice(val) {
     this.setState = {
       userChoice: val
@@ -23,7 +30,7 @@ class Answer extends Component {
     const { playerList, question = {} } = this.props;
     const { userChoice } = this.state;
     return (
-      <div className="answer-main">
+      <div className={ this.state.hidden? "hidden" : "answer-main" } >
         <div className="answer-card">
         <div className="players-list">
           <SocialPeople className="people-icon"/>

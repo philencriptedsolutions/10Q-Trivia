@@ -94,6 +94,10 @@
   color: #ffffff;
 }
 
+.hidden {
+  display: none;
+}
+
 @media (min-width: 538px) {
   .answer-card {
     width: 425px;

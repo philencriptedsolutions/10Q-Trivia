@@ -63,7 +63,7 @@ class Login extends Component {
       <div className="Login">
         <img src={Logo} className="Logo" alt="Logo" />
         <RaisedButton id="loginbutton" onClick={() => this.signInWithGoogle()}>
-          Login/ Register
+          Login / Register
         </RaisedButton>
       </div>
     );
