@@ -36,11 +36,16 @@ app.use(express.static(`${__dirname}/../build`));
 
 io.on("connection", socket => {
   //client joined
-  socket.on("user connected", username => {
+  socket.on("user connected", user => {
     playerCount++;
-    socket.username = username;
-    playerList.push(username);
+    socket.username = user.first_name;
+    playerList.push({
+      id: user.id,
+      user: user.first_name,
+      img: user.img
+    });
     io.emit("new user", playerCount);
+    console.log(playerList);
   });
 
   //onClick of button in front-end activate this.socket.emit("next question")
@@ -51,6 +56,7 @@ io.on("connection", socket => {
       .then(question => {
         io.emit("new question", {
           isQuestion: true,
+          isAnswer: false,
           question
         });
       })
@@ -75,6 +81,16 @@ io.on("connection", socket => {
     }
   });
 
+  socket.on("user loser", user => {
+    playerList = playerList.filter(winner => user.id !== winner.id);
+  });
+
+  socket.on("complete game", complete => {
+    io.emit("display complete", complete);
+    io.emit("winners", playerList);
+    console.log(playerList);
+  });
+
   socket.on("send message", message => {
     io.emit("receive message", message);
   });
@@ -82,7 +98,6 @@ io.on("connection", socket => {
   //client disconnected
   socket.on("disconnect", () => {
     playerCount--;
-    playerList = playerList.filter(user => user !== socket.username);
     io.emit("new user", playerCount);
   });
 });

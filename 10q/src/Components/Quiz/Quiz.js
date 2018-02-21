@@ -39,7 +39,11 @@ class Quiz extends Component {
     if (!user.email) {
       this.props.history.push("/");
     }
-    this.socket.emit("user connected", this.props.loginReducer.user.first_name);
+    this.socket.emit("user connected", {
+      id: this.props.loginReducer.user.user_id,
+      first_name: this.props.loginReducer.user.first_name,
+      img: this.props.loginReducer.user.img
+    });
 
     this.socket.on("new question", response => {
       if (response.isQuestion === true) {
@@ -61,6 +65,11 @@ class Quiz extends Component {
         this.props.quizReducer.question.correct_answer
       ) {
         this.props.changeToWrong();
+        this.socket.emit("user loser", {
+          id: this.props.loginReducer.user.user_id,
+          first_name: this.props.loginReducer.user.first_name,
+          img: this.props.loginReducer.user.img
+        });
       }
       this.props.handleAnswer("");
       this.props.changeToAnswerView(response.isQuestion, response.isAnswer);
@@ -71,6 +80,12 @@ class Quiz extends Component {
         playerList
       });
     });
+
+    this.socket.on("display complete", isCompleted => {
+      this.setState({
+        isCompleted
+      });
+    });
   }
 
   goToNextQuestion() {
@@ -78,9 +93,7 @@ class Quiz extends Component {
   }
 
   goToCompleted() {
-    this.setState({
-      isCompleted: true
-    });
+    this.socket.emit("complete game", true);
   }
 
   startLiveStream() {
@@ -104,7 +117,7 @@ class Quiz extends Component {
     }
 
     if (isCompleted) {
-      whatShows = <Completed playerList={playerList} />;
+      whatShows = <Completed socket={this.socket} playerList={playerList} />;
     } else if (isQuestion && !isAnswer) {
       whatShows = (
         <Question questionObject={question} playerList={playerList} />
@@ -123,22 +136,18 @@ class Quiz extends Component {
         <div className="chat-quiz-container">
           <div className="quiz-container">
             <div className="admin-control">
-              {user.user_id === 8 &&
-                level < 10 && (
-                  <div>
-                    <button onClick={this.goToNextQuestion}>
-                      Go to Next Question
-                    </button>
-                  </div>
-                )}
+              {user.user_id === 8 && level < 10 ? (
+                <button onClick={this.goToNextQuestion}>
+                  Go to Next Question
+                </button>
+              ) : user.user_id === 8 && level === 10 ? (
+                <button onClick={this.goToCompleted}>Finish</button>
+              ) : null}
               {user.user_id === 8 && (
                 <div>
                   <button onClick={this.startLiveStream}>
                     Start LiveStream
                   </button>
-                  {user.user_id === 8 && level === 10 ? (
-                    <button onClick={this.goToCompleted}>Finish</button>
-                  ) : null}
                 </div>
               )}
             </div>

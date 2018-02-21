@@ -50,83 +50,81 @@ class Question extends Component {
     // console.log(question);
     return (
       <div className="question-main">
-        <div className="question-card">
-          <div className="players-list">
-            <SocialPeople className="people-icon" />
-            <i className="player-list">{playerList}</i>
-          </div>
-          <div className="progress-wrapper">
-            <Avatar
-              src="https://pickaface.net/gallery/avatar/totage5611dac58af1e.png"
-              size={60}
-              className="host-avatar"
-            />
-            <CircularProgress
-              mode="determinate"
-              value={this.state.currentCount}
-              size={75}
-              style={{
-                position: "relative",
-                fill: "none",
-                transform: "rotate(275deg)"
-              }}
-              thickness={6}
-              color="#0e89f3"
-            />
-          </div>
-          {/* {this.state.currentCount} */}
+        <div className="players-list">
+          <SocialPeople className="people-icon" />
+          <i className="player-list">{playerList}</i>
+        </div>
+        <div className="progress-wrapper">
+          <Avatar
+            src="https://pickaface.net/gallery/avatar/totage5611dac58af1e.png"
+            size={60}
+            className="host-avatar"
+          />
+          <CircularProgress
+            mode="determinate"
+            value={this.state.currentCount}
+            size={75}
+            style={{
+              position: "relative",
+              fill: "none",
+              transform: "rotate(275deg)"
+            }}
+            thickness={6}
+            color="#0e89f3"
+          />
+        </div>
+        {/* {this.state.currentCount} */}
 
-          <div className="question-text">{questionLetter}</div>
-          <div className="choices-container">
-            <button
-              disabled={userChoice || wrong}
-              className="question-button"
-              style={
-                userChoice === question.first_answer
-                  ? {
-                      backgroundColor: "#0e89f3",
-                      color: "#ffffff"
-                    }
-                  : {}
-              }
-              value={question.first_answer}
-              onClick={e => handleAnswer(e.target.value)}
-            >
-              {question.first_answer}
-            </button>
-            <button
-              disabled={userChoice || wrong}
-              className="question-button"
-              style={
-                userChoice === question.second_answer
-                  ? {
-                      backgroundColor: "#0e89f3",
-                      color: "#ffffff"
-                    }
-                  : {}
-              }
-              value={question.second_answer}
-              onClick={e => handleAnswer(e.target.value)}
-            >
-              {question.second_answer}
-            </button>
-            <button
-              disabled={userChoice || wrong}
-              className="question-button"
-              style={
-                userChoice === question.third_answer
-                  ? {
-                      backgroundColor: "#0e89f3",
-                      color: "#ffffff"
-                    }
-                  : {}
-              }
-              value={question.third_answer}
-              onClick={e => handleAnswer(e.target.value)}
-            >
-              {question.third_answer}
-            </button>
-          </div>
+        <div className="question-text">{questionLetter}</div>
+        <div className="choices-container">
+          <button
+            disabled={userChoice || wrong}
+            className="question-button"
+            style={
+              userChoice === question.first_answer
+                ? {
+                    backgroundColor: "#0e89f3",
+                    color: "#ffffff"
+                  }
+                : {}
+            }
+            value={question.first_answer}
+            onClick={e => handleAnswer(e.target.value)}
+          >
+            {question.first_answer}
+          </button>
+          <button
+            disabled={userChoice || wrong}
+            className="question-button"
+            style={
+              userChoice === question.second_answer
+                ? {
+                    backgroundColor: "#0e89f3",
+                    color: "#ffffff"
+                  }
+                : {}
+            }
+            value={question.second_answer}
+            onClick={e => handleAnswer(e.target.value)}
+          >
+            {question.second_answer}
+          </button>
+          <button
+            disabled={userChoice || wrong}
+            className="question-button"
+            style={
+              userChoice === question.third_answer
+                ? {
+                    backgroundColor: "#0e89f3",
+                    color: "#ffffff"
+                  }
+                : {}
+            }
+            value={question.third_answer}
+            onClick={e => handleAnswer(e.target.value)}
+          >
+            {question.third_answer}
+          </button>
         </div>
       </div>
     );
