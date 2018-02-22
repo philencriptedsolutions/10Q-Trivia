@@ -25,13 +25,15 @@ class Quiz extends Component {
       playerList: 0,
       level: 0,
       isCompleted: false,
-      live: false
+      live: false,
+      videoNum: null
     };
 
     this.socket = openSocket();
     this.goToNextQuestion = this.goToNextQuestion.bind(this);
     this.goToCompleted = this.goToCompleted.bind(this);
     this.startLiveStream = this.startLiveStream.bind(this);
+    this.endLiveStream = this.endLiveStream.bind(this);
   }
 
   componentDidMount() {
@@ -84,6 +86,12 @@ class Quiz extends Component {
         isCompleted
       });
     });
+
+    this.socket.on("next video", videoNum => {
+      this.setState({
+        videoNum
+      })
+    });
   }
 
   goToNextQuestion() {
@@ -95,11 +103,12 @@ class Quiz extends Component {
   }
 
   startLiveStream() {
-    setTimeout(() => {
-      this.setState({
-        live: true
-      });
-    }, 6000);
+    this.socket.emit("start video");
+    this.setState({ live: true });
+    console.log('live streamin')
+  }
+  endLiveStream(){
+    this.setState({ live:false });
   }
 
   render() {
@@ -109,7 +118,7 @@ class Quiz extends Component {
     let whatShows, host;
 
     if (live) {
-      host = <Host>"This is where the Live Streaming is gonna happen"</Host>;
+      host = <Host videoNum={ this.state.videoNum }/>;
     } else {
       host = <p />;
     }
@@ -135,7 +144,7 @@ class Quiz extends Component {
             <div className="admin-control">
               {user.user_id === 1 && level < 10 ? (
                 <button onClick={this.goToNextQuestion}>
-                  Go to Next Question
+              Go to Next Question 
                 </button>
               ) : user.user_id === 1 && level === 10 ? (
                 <button onClick={this.goToCompleted}>Finish</button>
@@ -143,9 +152,13 @@ class Quiz extends Component {
               {user.user_id === 1 && (
                 <div>
                   <button onClick={this.startLiveStream}>
-                    Start LiveStream
+                    Start Video
                   </button>
+                <button onClick={this.endLiveStream}>
+                  Stop Video
+                </button>
                 </div>
+               
               )}
             </div>
             {whatShows}

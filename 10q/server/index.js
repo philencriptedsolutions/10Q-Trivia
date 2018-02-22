@@ -21,6 +21,7 @@ const io = require("socket.io")(http);
 let playerCount = 0;
 let playerList = [];
 let difficulty = 1;
+let videoNum = 0;
 
 //MASSIVE CONNECTION TO DB
 massive(CONNECTION_STRING)
@@ -83,7 +84,14 @@ io.on("connection", socket => {
   socket.on("user loser", user => {
     playerList = playerList.filter(winner => user !== winner.id);
   });
-
+//----
+  socket.on("start video", () => {
+    console.log(videoNum);
+    io.emit("next video", videoNum );
+    videoNum+=1;
+    console.log(videoNum);
+  });
+//----
   socket.on("complete game", complete => {
     io.emit("display complete", complete);
     io.emit("winners", playerList);
