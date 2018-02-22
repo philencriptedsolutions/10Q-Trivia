@@ -1,12 +1,12 @@
 import React, { Component } from "react";
+//Material-ui
 import ContentSend from "material-ui/svg-icons/content/send";
-import ImageTagFaces from "material-ui/svg-icons/image/tag-faces";
-import NavigationClose from "material-ui/svg-icons/navigation/close";
 import TextField from "material-ui/TextField";
-import Dialog from "material-ui/Dialog";
-import EmojiPicker from "emoji-picker-react";
-import Emojify from "react-emojione";
+//React-redux
 import { connect } from "react-redux";
+//Local
+import MessageList from "./MessageList/MessageList";
+import EmojiModal from "./EmojiModal/EmojiModal";
 import "./Chat.css";
 
 class Chat extends Component {
@@ -15,9 +15,7 @@ class Chat extends Component {
 
     this.state = {
       message: "",
-      emoji: "",
-      messageList: [],
-      open: false
+      messageList: []
     };
 
     this.userTyping = this.userTyping.bind(this);
@@ -25,7 +23,6 @@ class Chat extends Component {
     this.addMessage = this.addMessage.bind(this);
     this.confirmTyping = this.confirmTyping.bind(this);
     this.handleEmoji = this.handleEmoji.bind(this);
-    this.handleModal = this.handleModal.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +30,7 @@ class Chat extends Component {
       this.addMessage(messages);
     });
   }
+
   componentDidUpdate() {
     const height = this.divElement.scrollHeight;
     this.divElement.scrollTop = height;
@@ -51,9 +49,17 @@ class Chat extends Component {
   }
 
   handleEmoji(emojiName, emojiData) {
-    this.setState({
-      message: this.state.message.concat(`:${emojiData.name}:`)
-    });
+    if (emojiData.name.includes(":")) {
+      let emojiWord = emojiData.name.substring(0, emojiData.name.indexOf(":"));
+      this.setState({
+        message: `${this.state.message} :${emojiWord}: `
+      });
+    } else {
+      let emojiWord = emojiData.name;
+      this.setState({
+        message: `${this.state.message} :${emojiWord}: `
+      });
+    }
   }
 
   handleChat(val) {
@@ -81,28 +87,16 @@ class Chat extends Component {
     }
   }
 
-  handleModal() {
-    this.setState({
-      open: !this.state.open
-    });
-  }
-
   render() {
-    this.props.socket.emit("works");
-    console.log(this.state.messageList);
     let chatBox = this.state.messageList.map((message, index) => {
       return (
-        <div className="chat-line" key={index}>
-          <div className="img-container">
-            <img className="chat-img" src={message.img} alt="" />
-          </div>
-          <div className="chat-content">
-            <Emojify style={{ height: 18, width: 18, margin: "3px 0 0 0" }}>
-              <span>{message.user} </span>
-              <p>{message.message}</p>
-            </Emojify>
-          </div>
-        </div>
+        <MessageList
+          key={index}
+          user={message.user}
+          message={message.message}
+          img={message.img}
+          index={index}
+        />
       );
     });
 
@@ -125,22 +119,7 @@ class Chat extends Component {
             value={this.state.message}
             id="text-field"
           />
-          <ImageTagFaces onClick={this.handleModal} className="chat-send" />
-          <Dialog
-            bodyClassName="modal-body"
-            actionsContainerClassName="modal-action"
-            contentClassName="modal-content"
-            paperClassName="modal-paper"
-            open={this.state.open}
-            actions={
-              <NavigationClose
-                onClick={this.handleModal}
-                className="chat-send"
-              />
-            }
-          >
-            <EmojiPicker onEmojiClick={this.handleEmoji} />
-          </Dialog>
+          <EmojiModal handleEmoji={this.handleEmoji} />
           <ContentSend onClick={this.handleChat} className="chat-send" />
         </div>
       </div>
