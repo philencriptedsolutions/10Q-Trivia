@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./EditProfile.css";
 import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
-import "font-awesome/css/font-awesome.min.css";
+//import "font-awesome/css/font-awesome.min.css";
 import { fire as firebase } from "../../../fire";
 import { updateProfile } from "../../../ducks/reducer";
 
@@ -77,11 +77,13 @@ class EditProfile extends Component {
         <TextField
           floatingLabelText="Change your firstName Here"
           onChange={e => this.handleFirstNameChange(e.target.value)}
+          className="mui-text-field"
         />
-        <br />
+        <br /> <br/>
         <TextField
           floatingLabelText="Change your last name here"
           onChange={e => this.handleLastNameChange(e.target.value)}
+          className="mui-text-field"
         />
         <br />
         <br />
@@ -92,18 +94,18 @@ class EditProfile extends Component {
             this.processImageUpload(event);
           }}
           alt=""
-        />
+        /> 
         {this.state.imagePreviewUrl ? (
           <button
             type="submit"
             onClick={event => {
               this.uploadImage(event);
             }}
-          />
+          > Submit Photo </button>
         ) : null}
-        {this.state.downloadURL ? "uploaded!" : null}
+        {this.state.downloadURL ? " uploaded!" : null}
         <br />
-        <button onClick={ this.submitAllChanges}>Submit Changes</button>
+        <button id=""onClick={ this.submitAllChanges}>Submit Changes</button>
       </div>
     );
   }
