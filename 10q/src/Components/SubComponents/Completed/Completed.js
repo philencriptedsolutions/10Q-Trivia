@@ -20,6 +20,7 @@ class Completed extends Component {
     });
   }
   render() {
+    console.log(this.state.winnerList);
     let winner = this.state.winnerList.map((user, index) => {
       return (
         <div className="winner-wrapper">
@@ -34,16 +35,11 @@ class Completed extends Component {
       infinite: true,
       speed: 200,
       slidesToScroll: 1,
+      slidesToShow: 1,
       autoplay: true,
       pauseOnHover: false,
       arrows: false
     };
-
-    if (this.state.winnerList.length > 5) {
-      settings.slidesToShow = 4;
-    } else {
-      settings.slidesToShow = this.state.winnerList.length;
-    }
 
     const { playerList } = this.props;
     return (
