@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 //React-emojione
-import Emojify from "react-emojione";
+// import Emojify from "react-emojione";
 //Local
 import "../Chat.css";
 
@@ -11,10 +11,10 @@ const MessageList = props => {
         <img className="chat-img" src={props.img} alt="" />
       </div>
       <div className="chat-content">
-        <Emojify style={{ height: 18, width: 18, margin: "3px 0 0 0" }}>
-          <span>{props.user} </span>
-          <p>{props.message}</p>
-        </Emojify>
+        {/* <Emojify style={{ height: 18, width: 18, margin: "3px 0 0 0" }}> */}
+        <span>{props.user} </span>
+        <p>{props.message}</p>
+        {/* </Emojify> */}
       </div>
     </div>
   );
