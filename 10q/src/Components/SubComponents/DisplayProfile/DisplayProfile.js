@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import { Card, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import Toggle from 'material-ui/Toggle';
 import EditProfile from '../EditProfile/EditProfile';
 import './DisplayProfile.css';
 import { connect } from "react-redux";
-import Header from '../Header/Header';
+
 
 class DisplayProfile extends Component {
 
@@ -37,7 +36,6 @@ class DisplayProfile extends Component {
 
     return (
       <div className ="display-profile">
-       <Header />
       <Card  className="profile-card" expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
         <CardHeader
           title={this.props.loginReducer.user.first_name}
@@ -59,7 +57,7 @@ class DisplayProfile extends Component {
           
         >
         </CardMedia>
-        <CardTitle title="Profile Editor " expandable={true} />
+        <CardTitle expandable={true} />
         <CardText expandable={true}>
           <EditProfile className="edit-profile"/>
         </CardText>

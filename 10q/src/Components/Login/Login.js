@@ -4,7 +4,6 @@ import { login, register } from "../../ducks/reducer";
 import { connect } from "react-redux";
 import RaisedButton from "material-ui/RaisedButton";
 import "./Login.css";
-import placeHolder from "./placeHolder.png";
 import "../../App.css";
 import Logo from "./work3.png";
 
@@ -27,7 +26,6 @@ class Login extends Component {
           email,
           picture
         } = result.additionalUserInfo.profile;
-        let google_id = result.user.uid;
         let first_name = given_name;
         let last_name = family_name;
         let img = picture;

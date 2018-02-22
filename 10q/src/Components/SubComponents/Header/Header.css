@@ -37,3 +37,7 @@ h1 {
 .menu-item-wrapper:focus {
   cursor: pointer;
 }
+
+.side-bar {
+  margin-top:20px;
+}
