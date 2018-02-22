@@ -1,9 +1,15 @@
+import React, { Component } from "react";
+//Material-ui
 import Avatar from "material-ui/Avatar";
 import SocialPeople from "material-ui/svg-icons/social/people";
 import CircularProgress from "material-ui/CircularProgress";
+//React-animate-on-scroll
+import ScrollAnimation from "react-animate-on-scroll";
+import "animate.css/animate.min.css";
+//React-redux
 import { connect } from "react-redux";
 import { changeToWrong, handleAnswer } from "../../../ducks/quizReducer";
-import React, { Component } from "react";
+//Local
 import "./Question.css";
 
 class Question extends Component {
@@ -43,11 +49,14 @@ class Question extends Component {
       userChoice
     } = this.props;
 
-    //Animation one letter at a time(?)
-    let questionLetter = question.question.split("").map((letter, index) => {
-      return <span key={index}>{letter}</span>;
+    let questionLetter = question.question.split(" ").map((letter, index) => {
+      return (
+        <ScrollAnimation delay={index * 250} animateIn="fadeIn">
+          <span key={index}>{letter}&nbsp;</span>
+        </ScrollAnimation>
+      );
     });
-    // console.log(question);
+
     return (
       <div className="question-main">
         <div className="players-list">
@@ -73,58 +82,62 @@ class Question extends Component {
             color="#0e89f3"
           />
         </div>
-        {/* {this.state.currentCount} */}
-
         <div className="question-text">{questionLetter}</div>
         <div className="choices-container">
-          <button
-            disabled={userChoice || wrong}
-            className="question-button"
-            style={
-              userChoice === question.first_answer
-                ? {
-                  backgroundColor: "#0e89f3",
-                  color: "#ffffff"
-                }
-                : {}
-            }
-            value={question.first_answer}
-            onClick={e => handleAnswer(e.target.value)}
-          >
-            {question.first_answer}
-          </button>
-          <button
-            disabled={userChoice || wrong}
-            className="question-button"
-            style={
-              userChoice === question.second_answer
-                ? {
-                  backgroundColor: "#0e89f3",
-                  color: "#ffffff"
-                }
-                : {}
-            }
-            value={question.second_answer}
-            onClick={e => handleAnswer(e.target.value)}
-          >
-            {question.second_answer}
-          </button>
-          <button
-            disabled={userChoice || wrong}
-            className="question-button"
-            style={
-              userChoice === question.third_answer
-                ? {
-                  backgroundColor: "#0e89f3",
-                  color: "#ffffff"
-                }
-                : {}
-            }
-            value={question.third_answer}
-            onClick={e => handleAnswer(e.target.value)}
-          >
-            {question.third_answer}
-          </button>
+          <ScrollAnimation animateIn="flipInY" delay={500}>
+            <button
+              disabled={userChoice || wrong}
+              className="question-button"
+              style={
+                userChoice === question.first_answer
+                  ? {
+                      backgroundColor: "#0e89f3",
+                      color: "#ffffff"
+                    }
+                  : {}
+              }
+              value={question.first_answer}
+              onClick={e => handleAnswer(e.target.value)}
+            >
+              {question.first_answer}
+            </button>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="flipInY" delay={750}>
+            <button
+              disabled={userChoice || wrong}
+              className="question-button"
+              style={
+                userChoice === question.second_answer
+                  ? {
+                      backgroundColor: "#0e89f3",
+                      color: "#ffffff"
+                    }
+                  : {}
+              }
+              value={question.second_answer}
+              onClick={e => handleAnswer(e.target.value)}
+            >
+              {question.second_answer}
+            </button>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="flipInY" delay={900}>
+            <button
+              disabled={userChoice || wrong}
+              className="question-button"
+              style={
+                userChoice === question.third_answer
+                  ? {
+                      backgroundColor: "#0e89f3",
+                      color: "#ffffff"
+                    }
+                  : {}
+              }
+              value={question.third_answer}
+              onClick={e => handleAnswer(e.target.value)}
+            >
+              {question.third_answer}
+            </button>
+          </ScrollAnimation>
         </div>
       </div>
     );

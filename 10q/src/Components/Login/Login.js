@@ -1,10 +1,16 @@
 import React, { Component } from "react";
+//Firebase
 import { fire as firebase, provider } from "../../../src/fire";
+//React-redux
 import { login, register } from "../../ducks/reducer";
 import { connect } from "react-redux";
+//Material-ui
 import RaisedButton from "material-ui/RaisedButton";
+//React-animate-on-scroll
+import ScrollAnimation from "react-animate-on-scroll";
+import "animate.css/animate.min.css";
+//Local
 import "./Login.css";
-import placeHolder from "./placeHolder.png";
 import "../../App.css";
 import Logo from "./work3.png";
 
@@ -62,9 +68,14 @@ class Login extends Component {
     return (
       <div className="Login">
         <img src={Logo} className="Logo" alt="Logo" />
-        <RaisedButton id="loginbutton" onClick={() => this.signInWithGoogle()}>
-          Login / Register
-        </RaisedButton>
+        <ScrollAnimation animateIn="flipInX">
+          <RaisedButton
+            id="loginbutton"
+            onClick={() => this.signInWithGoogle()}
+          >
+            Login / Register
+          </RaisedButton>
+        </ScrollAnimation>
       </div>
     );
   }
