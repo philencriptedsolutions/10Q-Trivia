@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import EditProfile from '../EditProfile/EditProfile';
@@ -17,19 +17,19 @@ class DisplayProfile extends Component {
   }
 
   handleExpandChange = (expanded) => {
-    this.setState({expanded: expanded});
+    this.setState({ expanded: expanded });
   };
 
   handleToggle = (event, toggle) => {
-    this.setState({expanded: toggle});
+    this.setState({ expanded: toggle });
   };
 
   handleExpand = () => {
-    this.setState({expanded: true});
+    this.setState({ expanded: true });
   };
 
   handleReduce = () => {
-    this.setState({expanded: false});
+    this.setState({ expanded: false });
   };
 
   render() {

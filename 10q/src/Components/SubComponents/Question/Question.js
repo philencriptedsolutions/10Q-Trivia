@@ -44,7 +44,7 @@ class Question extends Component {
     } = this.props;
 
     //Animation one letter at a time(?)
-    let questionLetter = question.question.split(" ").map((letter, index) => {
+    let questionLetter = question.question.split("").map((letter, index) => {
       return <span key={index}>{letter}</span>;
     });
     // console.log(question);
@@ -83,9 +83,9 @@ class Question extends Component {
             style={
               userChoice === question.first_answer
                 ? {
-                    backgroundColor: "#0e89f3",
-                    color: "#ffffff"
-                  }
+                  backgroundColor: "#0e89f3",
+                  color: "#ffffff"
+                }
                 : {}
             }
             value={question.first_answer}
@@ -99,9 +99,9 @@ class Question extends Component {
             style={
               userChoice === question.second_answer
                 ? {
-                    backgroundColor: "#0e89f3",
-                    color: "#ffffff"
-                  }
+                  backgroundColor: "#0e89f3",
+                  color: "#ffffff"
+                }
                 : {}
             }
             value={question.second_answer}
@@ -115,9 +115,9 @@ class Question extends Component {
             style={
               userChoice === question.third_answer
                 ? {
-                    backgroundColor: "#0e89f3",
-                    color: "#ffffff"
-                  }
+                  backgroundColor: "#0e89f3",
+                  color: "#ffffff"
+                }
                 : {}
             }
             value={question.third_answer}
