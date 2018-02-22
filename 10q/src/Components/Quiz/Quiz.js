@@ -59,8 +59,8 @@ class Quiz extends Component {
       this.setState({
         level: this.state.level + 1
       });
-      console.log(this.props.quizReducer.userChoice);
-      console.log(this.props.quizReducer.question.correct_answer);
+      // console.log(this.props.quizReducer.userChoice);
+      // console.log(this.props.quizReducer.question.correct_answer);
 
       if (
         this.props.quizReducer.userChoice !==
