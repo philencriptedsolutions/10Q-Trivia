@@ -4,6 +4,7 @@ import { gameIsStarting, winnerList } from '../src/Components/Dashboard/Dashboar
 import { first_name } from '../src/Components/Login/Login';
 import { userChoice, hidden } from '../src/Components/SubComponents/Answer/Answer';
 
+import { changeToEndOfGame } from "./ducks/quizReducer";
 
 
 it("gameIsStarting initial value is set to false", () => {

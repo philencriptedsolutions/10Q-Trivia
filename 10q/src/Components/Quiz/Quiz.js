@@ -59,17 +59,15 @@ class Quiz extends Component {
       this.setState({
         level: this.state.level + 1
       });
-      console.log(this.state.level);
+      // console.log(this.props.quizReducer.userChoice);
+      // console.log(this.props.quizReducer.question.correct_answer);
+
       if (
         this.props.quizReducer.userChoice !==
         this.props.quizReducer.question.correct_answer
       ) {
         this.props.changeToWrong();
-        this.socket.emit("user loser", {
-          id: this.props.loginReducer.user.user_id,
-          first_name: this.props.loginReducer.user.first_name,
-          img: this.props.loginReducer.user.img
-        });
+        this.socket.emit("user loser", this.props.loginReducer.user.user_id);
       }
       this.props.handleAnswer("");
       this.props.changeToAnswerView(response.isQuestion, response.isAnswer);
@@ -113,7 +111,7 @@ class Quiz extends Component {
     if (live) {
       host = <Host>"This is where the Live Streaming is gonna happen"</Host>;
     } else {
-      host = <p>Game Starts in 4 seconds!</p>;
+      host = <p />;
     }
 
     if (isCompleted) {
@@ -127,23 +125,22 @@ class Quiz extends Component {
     } else {
       whatShows = null;
     }
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div className="Quiz">
         <Header />
-
         <div className="host-container">{host}</div>
         <div className="chat-quiz-container">
           <div className="quiz-container">
             <div className="admin-control">
-              {user.user_id === 9 && level < 10 ? (
+              {user.user_id === 8 && level < 10 ? (
                 <button onClick={this.goToNextQuestion}>
                   Go to Next Question
                 </button>
-              ) : user.user_id === 9 && level === 10 ? (
+              ) : user.user_id === 8 && level === 10 ? (
                 <button onClick={this.goToCompleted}>Finish</button>
               ) : null}
-              {user.user_id === 9 && (
+              {user.user_id === 8 && (
                 <div>
                   <button onClick={this.startLiveStream}>
                     Start LiveStream

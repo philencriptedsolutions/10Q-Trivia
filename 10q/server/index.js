@@ -35,17 +35,16 @@ app.use(cors());
 app.use(express.static(`${__dirname}/../build`));
 
 io.on("connection", socket => {
+  playerCount++;
+  io.emit("new user", playerCount);
   //client joined
   socket.on("user connected", user => {
-    playerCount++;
     socket.username = user.first_name;
     playerList.push({
       id: user.id,
       user: user.first_name,
       img: user.img
     });
-    io.emit("new user", playerCount);
-    console.log(playerList);
   });
 
   //onClick of button in front-end activate this.socket.emit("next question")
@@ -82,13 +81,13 @@ io.on("connection", socket => {
   });
 
   socket.on("user loser", user => {
-    playerList = playerList.filter(winner => user.id !== winner.id);
+    playerList = playerList.filter(winner => user !== winner.id);
   });
 
   socket.on("complete game", complete => {
     io.emit("display complete", complete);
     io.emit("winners", playerList);
-    console.log(playerList);
+    // console.log(playerList);
   });
 
   socket.on("send message", message => {
