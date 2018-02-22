@@ -23,4 +23,11 @@
 
 .admin-control {
   position: absolute;
+  
+}
+
+
+.chat-quiz-container {
+  max-width:100%;
+  margin-left: 20px;
 }
