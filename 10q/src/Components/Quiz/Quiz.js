@@ -59,8 +59,8 @@ class Quiz extends Component {
       this.setState({
         level: this.state.level + 1
       });
-      console.log(this.props.quizReducer.userChoice);
-      console.log(this.props.quizReducer.question.correct_answer);
+      // console.log(this.props.quizReducer.userChoice);
+      // console.log(this.props.quizReducer.question.correct_answer);
 
       if (
         this.props.quizReducer.userChoice !==
@@ -133,14 +133,14 @@ class Quiz extends Component {
         <div className="chat-quiz-container">
           <div className="quiz-container">
             <div className="admin-control">
-              {user.user_id === 9 && level < 10 ? (
+              {user.user_id === 8 && level < 10 ? (
                 <button onClick={this.goToNextQuestion}>
                   Go to Next Question
                 </button>
-              ) : user.user_id === 9 && level === 10 ? (
+              ) : user.user_id === 8 && level === 10 ? (
                 <button onClick={this.goToCompleted}>Finish</button>
               ) : null}
-              {user.user_id === 9 && (
+              {user.user_id === 8 && (
                 <div>
                   <button onClick={this.startLiveStream}>
                     Start LiveStream
