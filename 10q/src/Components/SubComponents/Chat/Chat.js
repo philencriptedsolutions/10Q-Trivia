@@ -6,7 +6,6 @@ import TextField from "material-ui/TextField";
 import { connect } from "react-redux";
 //Local
 import MessageList from "./MessageList/MessageList";
-// import EmojiModal from "./EmojiModal/EmojiModal";
 import "./Chat.css";
 
 class Chat extends Component {
@@ -119,7 +118,6 @@ class Chat extends Component {
             value={this.state.message}
             id="text-field"
           />
-          {/* <EmojiModal handleEmoji={this.handleEmoji} /> */}
           <ContentSend onClick={this.handleChat} className="chat-send" />
         </div>
       </div>

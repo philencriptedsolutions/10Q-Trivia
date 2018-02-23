@@ -47,12 +47,12 @@
   margin: 0 5px 0 5px;
 }
 
-.chat-content>span {
+.chat-content > span {
   color: #f85f6b;
   font-size: 12px;
 }
 
-.chat-content>p {
+.chat-content > p {
   display: inline-block;
   word-break: break-word;
   overflow-wrap: break-word;
@@ -125,4 +125,5 @@
   }
 }
 
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+}

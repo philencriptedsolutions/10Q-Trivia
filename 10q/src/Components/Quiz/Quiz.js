@@ -24,6 +24,7 @@ class Quiz extends Component {
     this.state = {
       playerList: 0,
       level: 0,
+      answersPicked: [],
       isCompleted: false,
       live: false
     };
@@ -56,11 +57,10 @@ class Quiz extends Component {
     });
 
     this.socket.on("new answer", response => {
+      this.socket.emit("picked choices");
       this.setState({
         level: this.state.level + 1
       });
-      // console.log(this.props.quizReducer.userChoice);
-      // console.log(this.props.quizReducer.question.correct_answer);
 
       if (
         this.props.quizReducer.userChoice !==
@@ -84,6 +84,12 @@ class Quiz extends Component {
         isCompleted
       });
     });
+
+    this.socket.on("display choices", answersPicked => {
+      this.setState({
+        answersPicked
+      });
+    });
   }
 
   goToNextQuestion() {
@@ -103,9 +109,10 @@ class Quiz extends Component {
   }
 
   render() {
+    console.log(this.state.answersPicked);
     const { isQuestion, isAnswer, question = {} } = this.props.quizReducer;
     const { user = {} } = this.props.loginReducer;
-    const { level, playerList, isCompleted, live } = this.state;
+    const { level, playerList, isCompleted, live, answersPicked } = this.state;
     let whatShows, host;
 
     if (live) {
@@ -118,10 +125,20 @@ class Quiz extends Component {
       whatShows = <Completed socket={this.socket} playerList={playerList} />;
     } else if (isQuestion && !isAnswer) {
       whatShows = (
-        <Question questionObject={question} playerList={playerList} />
+        <Question
+          socket={this.socket}
+          questionObject={question}
+          playerList={playerList}
+        />
       );
     } else if (isAnswer && !isQuestion) {
-      whatShows = <Answer answerObject={question} playerList={playerList} />;
+      whatShows = (
+        <Answer
+          answersPicked={answersPicked}
+          answerObject={question}
+          playerList={playerList}
+        />
+      );
     } else {
       whatShows = null;
     }
@@ -131,24 +148,18 @@ class Quiz extends Component {
         <Header />
         <div className="host-container">{host}</div>
         <div className="chat-quiz-container">
-          <div className="quiz-container">
-            <div className="admin-control">
-              {user.user_id === 8 && level < 10 ? (
-                <button onClick={this.goToNextQuestion}>
-                  Go to Next Question
-                </button>
-              ) : user.user_id === 8 && level === 10 ? (
-                <button onClick={this.goToCompleted}>Finish</button>
-              ) : null}
-              {user.user_id === 8 && (
-                <div>
-                  <button onClick={this.startLiveStream}>
-                    Start LiveStream
-                  </button>
-                </div>
-              )}
-            </div>
-            {whatShows}
+          {whatShows}
+          <div className="admin-control">
+            {user.user_id === 8 && level < 10 ? (
+              <button onClick={this.goToNextQuestion}>
+                Go to Next Question
+              </button>
+            ) : user.user_id === 8 && level === 10 ? (
+              <button onClick={this.goToCompleted}>Finish</button>
+            ) : null}
+            {user.user_id === 8 && (
+              <button onClick={this.startLiveStream}>Start LiveStream</button>
+            )}
           </div>
           <Chat socket={this.socket} />
         </div>

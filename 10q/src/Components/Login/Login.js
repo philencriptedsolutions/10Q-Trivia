@@ -47,7 +47,7 @@ class Login extends Component {
             .then(result => {
               firebase.auth().onAuthStateChanged(user => {
                 if (user) {
-                  this.props.history.push("/Quiz");
+                  this.props.history.push("/quiz");
                 }
               });
             });
@@ -55,7 +55,7 @@ class Login extends Component {
           this.props.login(uid).then(result => {
             firebase.auth().onAuthStateChanged(user => {
               if (user) {
-                this.props.history.push("/Quiz");
+                this.props.history.push("/quiz");
               }
             });
           });
@@ -68,7 +68,7 @@ class Login extends Component {
     return (
       <div className="Login">
         <img src={Logo} className="Logo" alt="Logo" />
-        <ScrollAnimation animateIn="flipInX">
+        <ScrollAnimation animateIn="flipInX" delay={1000}>
           <RaisedButton
             id="loginbutton"
             onClick={() => this.signInWithGoogle()}

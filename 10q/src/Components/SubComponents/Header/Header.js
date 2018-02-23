@@ -62,7 +62,7 @@ class Header extends Component {
           onRequestChange={this.toggleDrawer}
         >
           <MenuItem>
-            <NavLink to="/Quiz">
+            <NavLink to="/quiz">
               <HardwareVideogameAsset style={{ margin: "20px 0 0 0" }} />
             </NavLink>
           </MenuItem>
