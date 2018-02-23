@@ -35,14 +35,17 @@ class Answer extends Component {
             <SocialPeople className="people-icon" />
             <i className="player-list">{playerList}</i>
           </div>
-          <ScrollAnimation animateIn="wobble">
-            {wrong ? (
+          {wrong ? (
+            <ScrollAnimation delay={750} animateIn="wobble">
               <div className="answer-bubble">You are incorrect </div>
-            ) : (
+            </ScrollAnimation>
+          ) : (
+            <ScrollAnimation delay={900} animateIn="wobble">
               <div className="answer-bubble"> You got it correct</div>
-            )}
-          </ScrollAnimation>
-          <ScrollAnimation delay={750} animateIn="fadeIn">
+            </ScrollAnimation>
+          )}
+
+          <ScrollAnimation delay={900} animateIn="fadeIn">
             <h4 className="answer-text">{question.question}</h4>
           </ScrollAnimation>
           <ScrollAnimation animateIn="flipInY" delay={750}>
@@ -61,7 +64,7 @@ class Answer extends Component {
               <button
                 disabled={true}
                 className={
-                  question.correctAnswer === question.second_answer
+                  question.correct_answer === question.second_answer
                     ? "correct-button"
                     : "wrong-button"
                 }
@@ -72,7 +75,7 @@ class Answer extends Component {
               <button
                 disabled={true}
                 className={
-                  question.correctAnswer === question.third_answer
+                  question.correct_answer === question.third_answer
                     ? "correct-button"
                     : "wrong-button"
                 }
