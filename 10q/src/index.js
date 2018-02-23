@@ -14,7 +14,7 @@ import store from "./ducks/store";
 const muiTheme = getMuiTheme({
   palette: {
     //primary1color: changes NavBar Background & Primary Raised Button Background
-    primary1Color: "#AARRGGBB",
+    primary1Color: "transparent",
     //accent1color: changes Secondary Raised Button Background
     accent1Color: "#f85f6b",
     //textColor: changes Icon Color & Regular Text & Default Raised Button Text & Menu Text
@@ -28,7 +28,7 @@ const muiTheme = getMuiTheme({
     //alternateTextColor: changes Default Raised Button Background, Primary Raised Button Text, Secondary Raised Button Text
     alternateTextColor: "#0e89f3",
     //shadowColor: changes shadow color
-    shadowColor: "#AARRGGBB"
+    shadowColor: "transparent"
   }
 });
 

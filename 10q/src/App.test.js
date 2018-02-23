@@ -1,4 +1,3 @@
-import { saveNewQuestion, changeToEndOfGame } from "./ducks/quizReducer";
 import * as quizReducer from "./ducks/quizReducer";
 import {
   gameIsStarting,
@@ -10,23 +9,99 @@ import {
   hidden
 } from "../src/Components/SubComponents/Answer/Answer";
 
-test("should change the game to true", () => {
-  expect(changeToEndOfGame()).toBeTruthy();
+// Jin
+
+it("should change the game to true", () => {
+  expect(quizReducer.changeToEndOfGame()).toBeTruthy();
 });
 
-test("should bring in new question and set isAnswer false and isQuestion true", () => {
-  const questionSwitch = true;
-  const answerSwitch = false;
-  const question = {
-    question_id: 1,
-    difficulty: 1,
-    question: "What is Stevens favorite accessory?",
-    first_answer: "Backwards hat",
-    second_answer: "Monocle",
-    third_answer: "Tory Burch Purse",
-    correct_answer: "Backwards hat"
+describe("saveNewQuestion function runs as expected", () => {
+  it("should bring in new question and set isAnswer false and isQuestion true", () => {
+    const questionSwitch = true;
+    const answerSwitch = false;
+    const question = {
+      question_id: 1,
+      difficulty: 1,
+      question: "What is Stevens favorite accessory?",
+      first_answer: "Backwards hat",
+      second_answer: "Monocle",
+      third_answer: "Tory Burch Purse",
+      correct_answer: "Backwards hat"
+    };
+    const expectedAction = {
+      type: "NEW_QUESTION",
+      payload: {
+        isQuestion: true,
+        isAnswer: false,
+        question: {
+          question_id: 1,
+          difficulty: 1,
+          question: "What is Stevens favorite accessory?",
+          first_answer: "Backwards hat",
+          second_answer: "Monocle",
+          third_answer: "Tory Burch Purse",
+          correct_answer: "Backwards hat"
+        }
+      }
+    };
+    expect(
+      quizReducer.saveNewQuestion(questionSwitch, answerSwitch, question)
+    ).toEqual(expectedAction);
+  });
+
+  it("should create an action that matches type", () => {
+    const expectedType = { type: "NEW_QUESTION" };
+    expect(quizReducer.saveNewQuestion()).toMatchObject(expectedType);
+  });
+
+  it("should create an action that matches payload", () => {
+    const questionSwitch = true;
+    const answerSwitch = false;
+    const question = {
+      question_id: 1,
+      difficulty: 1,
+      question: "What is Stevens favorite accessory?",
+      first_answer: "Backwards hat",
+      second_answer: "Monocle",
+      third_answer: "Tory Burch Purse",
+      correct_answer: "Backwards hat"
+    };
+    const expectedPayload = {
+      payload: {
+        isQuestion: true,
+        isAnswer: false,
+        question: {
+          question_id: 1,
+          difficulty: 1,
+          question: "What is Stevens favorite accessory?",
+          first_answer: "Backwards hat",
+          second_answer: "Monocle",
+          third_answer: "Tory Burch Purse",
+          correct_answer: "Backwards hat"
+        }
+      }
+    };
+    expect(
+      quizReducer.saveNewQuestion(questionSwitch, answerSwitch, question)
+    ).toMatchObject(expectedPayload);
+  });
+});
+
+it("Should change isQuestion and isAnswer states according to the object brought in", () => {
+  const choice = {
+    isQuestion: false,
+    isAnswer: true
   };
-  expect(saveNewQuestion(questionSwitch, answerSwitch, question));
+
+  const expectedAction = {
+    type: "HANDLE_ANSWER",
+    payload: {
+      isQuestion: false,
+      isAnswer: true
+    }
+  };
+
+  expect(quizReducer.handleAnswer(choice)).toEqual(expectedAction);
 });
 
 // Josh

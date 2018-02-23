@@ -40,7 +40,7 @@ class Answer extends Component {
               <div className="answer-bubble">You are incorrect </div>
             </ScrollAnimation>
           ) : (
-            <ScrollAnimation delay={900} animateIn="wobble">
+            <ScrollAnimation delay={750} animateIn="bounce">
               <div className="answer-bubble"> You got it correct</div>
             </ScrollAnimation>
           )}

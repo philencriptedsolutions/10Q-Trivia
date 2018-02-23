@@ -17,7 +17,7 @@
 }
 
 .answer-main {
-  margin: 0 0 0 0;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -30,13 +30,13 @@
 }
 
 .answer-bubble {
-  width: 125px;
-  height: 30px;
-  padding: 10px 0 0 0;
+  width: 120px;
+  height: 25px;
+  line-height: 25px;
   border: 1px solid #f85f6b;
   border-radius: 25px;
   text-align: center;
-  font-size: 15px;
+  font-size: 12px;
 }
 
 .answer-text {
@@ -50,7 +50,7 @@
   color: #0e89f3;
   font-weight: bolder;
   margin: 0 0 10px 0;
-  padding: 0 0 0 0;
+  padding: 0;
 }
 
 .animated.flipInY {
@@ -65,8 +65,8 @@
   flex-direction: column;
   justify-content: center;
   width: 90%;
-  height: 200px;
-  padding: 5px 5px 15px 5px;
+  height: 170px;
+  padding: 5px 5px 5px 5px;
   color: #0e89f3;
   font-weight: bolder;
 }
@@ -101,34 +101,22 @@
   display: none;
 }
 
-@media (min-width: 538px) {
-  .answer-card {
-    width: 425px;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .answer-text {
-    width: 350px;
-  }
+@media (min-width: 650px) {
   .answer-main {
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 0 25px 0 0;
   }
 }
 
-@media (min-width: 768px) {
-  .answer-card {
-    width: 550px !important;
+@media (min-width: 750px) {
+  .answer-main {
+    width: 350px;
+    height: 400px;
   }
   .answer-text {
-    width: 480px;
-    align-items: center;
+    font-size: 17.5px;
+    width: 100%;
+  }
+  .answers-container {
+    width: 95%;
   }
 }
