@@ -35,6 +35,7 @@ class Quiz extends Component {
     this.goToCompleted = this.goToCompleted.bind(this);
     this.startLiveStream = this.startLiveStream.bind(this);
     this.endLiveStream = this.endLiveStream.bind(this);
+    this.resetEverything = this.resetEverything.bind(this);
   }
 
   componentDidMount() {
@@ -115,6 +116,12 @@ class Quiz extends Component {
   endLiveStream() {
     this.setState({ live: false });
   }
+  resetEverything() {
+    this.socket.emit("reset everything");
+    this.setState({
+      live: false
+    });
+  }
 
   render() {
     console.log(this.state.answersPicked);
@@ -158,17 +165,18 @@ class Quiz extends Component {
         <div className="chat-quiz-container">
           {whatShows}
           <div className="admin-control">
-            {user.user_id === 8 && level < 10 ? (
+            {user.user_id === 1 && level < 10 ? (
               <button onClick={this.goToNextQuestion}>
                 Go to Next Question
               </button>
-            ) : user.user_id === 8 && level === 10 ? (
+            ) : user.user_id === 1 && level === 10 ? (
               <button onClick={this.goToCompleted}>Finish</button>
             ) : null}
-            {user.user_id === 8 && (
+            {user.user_id === 1 && (
               <div>
                 <button onClick={this.startLiveStream}>Start Video</button>
-                <button onClick={this.endLiveStream}>Stop Video</button>
+                <button onClick={this.endLiveStream}>Stop Video</button>{"  "}
+                <button onClick={this.resetEverything}>RESET</button>
               </div>
             )}
           </div>
