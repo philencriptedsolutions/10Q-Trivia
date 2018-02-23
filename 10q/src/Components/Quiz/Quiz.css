@@ -25,6 +25,14 @@
   z-index: -1;
 }
 
+.admin-control > div > button {
+  outline: none;
+  border-radius: 25px;
+  border: 1px solid #f85f6b;
+  background: #f85f6b;
+  color: #ffffff;
+}
+
 .admin-control {
   position: absolute;
   bottom: 0;
@@ -47,5 +55,4 @@
 
 .chat-quiz-container {
   max-width: 100%;
-  margin-left: 20px;
 }
