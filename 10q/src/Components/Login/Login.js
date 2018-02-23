@@ -33,7 +33,6 @@ class Login extends Component {
           email,
           picture
         } = result.additionalUserInfo.profile;
-        let google_id = result.user.uid;
         let first_name = given_name;
         let last_name = family_name;
         let img = picture;

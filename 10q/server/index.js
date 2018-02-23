@@ -25,6 +25,7 @@ let currentQuestion = [];
 let answerOne = 0;
 let answerTwo = 0;
 let answerThree = 0;
+let videoNum = 0;
 
 //MASSIVE CONNECTION TO DB
 massive(CONNECTION_STRING)
@@ -115,7 +116,14 @@ io.on("connection", socket => {
     playerList.splice(i, 1);
     // playerList = playerList.filter(winner => user !== winner.id);
   });
-
+  //----
+  socket.on("start video", () => {
+    console.log(videoNum);
+    io.emit("next video", videoNum);
+    videoNum += 1;
+    console.log(videoNum);
+  });
+  //----
   socket.on("complete game", complete => {
     io.emit("display complete", complete);
     io.emit("winners", playerList);

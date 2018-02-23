@@ -44,3 +44,8 @@
   background: #f85f6b;
   color: #ffffff;
 }
+
+.chat-quiz-container {
+  max-width: 100%;
+  margin-left: 20px;
+}
