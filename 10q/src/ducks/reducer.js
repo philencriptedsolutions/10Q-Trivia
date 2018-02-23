@@ -15,14 +15,6 @@ const initialState = {
 
 //  ACTION CREATORS
 export function register(first_name, last_name, email, img, balance, uid) {
-  console.log(
-    "REGISTER FIRED" + first_name,
-    last_name,
-    email,
-    img,
-    balance,
-    uid
-  );
   return {
     type: REGISTER_USER,
     payload: axios
@@ -35,7 +27,6 @@ export function register(first_name, last_name, email, img, balance, uid) {
         uid
       })
       .then(response => {
-        console.log(response.data[0]);
         return response.data[0];
       })
       .catch(console.log)
@@ -57,7 +48,6 @@ export function updateProfile(first_name, last_name, img, uid) {
     payload: axios
       .put("/api/profile/update", { first_name, last_name, img, uid })
       .then(response => {
-        console.log(response.data);
         return response.data[0];
       })
       .catch(console.log)

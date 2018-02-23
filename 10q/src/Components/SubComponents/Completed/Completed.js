@@ -20,7 +20,6 @@ class Completed extends Component {
     });
   }
   render() {
-    console.log(this.state.winnerList);
     let winner = this.state.winnerList.map((user, index) => {
       return (
         <Slider {...settings}>

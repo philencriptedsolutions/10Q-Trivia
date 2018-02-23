@@ -62,19 +62,21 @@ class Chat extends Component {
   }
 
   handleChat(val) {
-    val.preventDefault();
-    this.props.socket.emit("send message", {
-      img: this.props.user.img,
-      user: this.props.user.first_name,
-      message: this.state.message
-    });
-    this.setState({
-      message: ""
-    });
+    if (this.state.message) {
+      val.preventDefault();
+      this.props.socket.emit("send message", {
+        img: this.props.user.img,
+        user: this.props.user.first_name,
+        message: this.state.message
+      });
+      this.setState({
+        message: ""
+      });
+    }
   }
 
   confirmTyping(event) {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && this.state.message) {
       this.props.socket.emit("send message", {
         img: this.props.user.img,
         user: this.props.user.first_name,
@@ -87,6 +89,7 @@ class Chat extends Component {
   }
 
   render() {
+    const { message } = this.state;
     let chatBox = this.state.messageList.map((message, index) => {
       return (
         <MessageList
@@ -101,11 +104,13 @@ class Chat extends Component {
 
     return (
       <div className="chat-main">
-        <div
-          className="chat-box"
-          ref={divElement => (this.divElement = divElement)}
-        >
-          {chatBox}
+        <div className="chat-box-container">
+          <div
+            className="chat-box"
+            ref={divElement => (this.divElement = divElement)}
+          >
+            {chatBox}
+          </div>
         </div>
         <div className="chat-input-container">
           <TextField
@@ -114,8 +119,8 @@ class Chat extends Component {
             type="text"
             underlineStyle={{ borderColor: "#ffffff" }}
             underlineFocusStyle={{ borderColor: "#f85f6b" }}
-            inputStyle={{ color: "#ffffff" }}
-            value={this.state.message}
+            inputStyle={{ color: "#ffffff", background: "transparent" }}
+            value={message}
             id="text-field"
           />
           <ContentSend onClick={this.handleChat} className="chat-send" />
