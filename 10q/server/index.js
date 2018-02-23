@@ -145,9 +145,9 @@ app.post("/api/register", userCtrl.addUser);
 app.post("/api/login", userCtrl.getUser);
 app.put("/api/profile/update", userCtrl.updateUser);
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "/../build/index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/../build/index.html"));
+});
 
 http.listen(PORT || 3001, () => {
   console.log(`Listening on port: ${PORT}`);
