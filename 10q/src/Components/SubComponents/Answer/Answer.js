@@ -18,11 +18,11 @@ class Answer extends Component {
   }
 
   componentDidMount() {
-    // setTimeout(() => {
-    //   this.setState({
-    //     hidden: true
-    //   });
-    // }, 8000);
+    setTimeout(() => {
+      this.setState({
+        hidden: true
+      });
+    }, 8000);
   }
 
   render() {
