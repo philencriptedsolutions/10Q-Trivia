@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+//Material-ui
 import SocialPeople from "material-ui/svg-icons/social/people";
 import Avatar from "material-ui/Avatar";
+//React-animate-on-scroll
+import ScrollAnimation from "react-animate-on-scroll";
+import "animate.css/animate.min.css";
+//Local
 import "./Answer.css";
 import { connect } from "react-redux";
 
@@ -8,75 +13,80 @@ class Answer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userChoice: "",
       hidden: false
     };
-    this.handleChoice = this.handleChoice.bind(this);
   }
-  componentDidMount(){
+
+  componentDidMount() {
     setTimeout(() => {
       this.setState({
-        hidden:true
-      })
+        hidden: true
+      });
     }, 8000);
-  }
-  handleChoice(val) {
-    this.setState = {
-      userChoice: val
-    };
   }
 
   render() {
-    const { playerList, question = {} } = this.props;
-    const { userChoice } = this.state;
+    const { playerList, question = {}, answersPicked, wrong } = this.props;
+    const { hidden } = this.state;
     return (
-      <div className={ this.state.hidden? "hidden" : "answer-main" } >
-        <div className="answer-card">
-        <div className="players-list">
-          <SocialPeople className="people-icon"/>
-          <i className="player-list">{playerList}</i>
-      
-        </div>
-          <Avatar
-            src="https://pickaface.net/gallery/avatar/totage5611dac58af1e.png"
-            size={62.5}
-            className="host-avatar"
-          />
-          <h4 className="answer-text">{question.question}</h4>
-          <div className="choices-container">
-            {this.props.wrong ? (
-              <div>You are incorrect </div>
-            ) : (
-              <div> You got it correct</div>
-            )}
-
-            {/* <button
-              className="answer-button"
-              onClick={() => this.handleChoice("Tory Burch Purse")}
-            > */}
-            {/* Backwards hat */}
-            {/* label={this.props.question.first_answer} */}
-            {/* onClick={()=>this.handleChoice(this.props.question.first_answer)} */}
-            {/* </button>
-            <button
-              className="answer-button"
-              onClick={() => this.handleChoice("Tory Burch Purse")}
-            >
-              Monocle */}
-            {/* label={this.props.question.second_answer} */}
-            {/* onClick={()=>this.handleChoice(this.props.question.second_answer)} */}
-            {/* </button>
-            <button
-              className="answer-button"
-              onClick={() => this.handleChoice("Tory Burch Purse")}
-            >
-              Tory Burch Purse */}
-            {/* label={this.props.question.third_answer} */}
-            {/* onClick={()=>this.handleChoice(this.props.question.third_answer)} */}
-            {/* </button> */}
+      <ScrollAnimation animateIn="fadeIn" delay={500}>
+        <div className={hidden ? "hidden" : "answer-main"}>
+          <div className="players-list">
+            <SocialPeople className="people-icon" />
+            <i className="player-list">{playerList}</i>
           </div>
+          {wrong ? (
+            <ScrollAnimation delay={750} animateIn="wobble">
+              <div className="answer-bubble">You are incorrect </div>
+            </ScrollAnimation>
+          ) : (
+            <ScrollAnimation delay={900} animateIn="wobble">
+              <div className="answer-bubble"> You got it correct</div>
+            </ScrollAnimation>
+          )}
+
+          <ScrollAnimation delay={900} animateIn="fadeIn">
+            <h4 className="answer-text">{question.question}</h4>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn="flipInY" delay={750}>
+            <div className="answers-container">
+              <button
+                disabled={true}
+                className={
+                  question.correct_answer === question.first_answer
+                    ? "correct-button"
+                    : "wrong-button"
+                }
+              >
+                <span>{question.first_answer}</span>
+                <span>{answersPicked.answerOne}</span>
+              </button>
+              <button
+                disabled={true}
+                className={
+                  question.correct_answer === question.second_answer
+                    ? "correct-button"
+                    : "wrong-button"
+                }
+              >
+                <span>{question.second_answer}</span>
+                <span>{answersPicked.answerTwo}</span>
+              </button>
+              <button
+                disabled={true}
+                className={
+                  question.correct_answer === question.third_answer
+                    ? "correct-button"
+                    : "wrong-button"
+                }
+              >
+                <span> {question.third_answer}</span>
+                <span>{answersPicked.answerThree}</span>
+              </button>
+            </div>
+          </ScrollAnimation>
         </div>
-      </div>
+      </ScrollAnimation>
     );
   }
 }

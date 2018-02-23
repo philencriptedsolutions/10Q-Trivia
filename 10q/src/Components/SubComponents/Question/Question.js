@@ -21,6 +21,7 @@ class Question extends Component {
       intervalId: 100
     };
     this.timer = this.timer.bind(this);
+    this.handleUserChoice = this.handleUserChoice.bind(this);
   }
 
   componentDidMount() {
@@ -36,110 +37,108 @@ class Question extends Component {
     });
   }
 
+  handleUserChoice(val) {
+    const { handleAnswer, socket } = this.props;
+    handleAnswer(val);
+    socket.emit("user choice", val);
+  }
+
   componentWillUnmount() {
     clearInterval(this.state.intervalId);
   }
 
   render() {
-    const {
-      question = {},
-      wrong,
-      playerList,
-      handleAnswer,
-      userChoice
-    } = this.props;
+    const { question = {}, wrong, playerList, userChoice } = this.props;
 
     let questionLetter = question.question.split(" ").map((letter, index) => {
       return (
-        <ScrollAnimation delay={index * 250} animateIn="fadeIn">
-          <span key={index}>{letter}&nbsp;</span>
+        <ScrollAnimation key={index} delay={index * 200} animateIn="fadeIn">
+          <span>{letter}&nbsp;</span>
         </ScrollAnimation>
       );
     });
 
     return (
-      <div className="question-main">
-        <div className="players-list">
-          <SocialPeople className="people-icon" />
-          <i className="player-list">{playerList}</i>
+      <ScrollAnimation animateIn="fadeIn">
+        <div className="question-main">
+          <div className="players-list">
+            <SocialPeople className="people-icon" />
+            <i className="player-list">{playerList}</i>
+          </div>
+          <div className="progress-wrapper">
+            <Avatar
+              src="https://pickaface.net/gallery/avatar/totage5611dac58af1e.png"
+              size={60}
+              className="host-avatar"
+            />
+            <CircularProgress
+              mode="determinate"
+              value={this.state.currentCount}
+              size={75}
+              className="circle-timer"
+              thickness={6}
+              color="#0e89f3"
+            />
+          </div>
+          <div className="question-text">{questionLetter}</div>
+          <div className="choices-container">
+            <ScrollAnimation animateIn="flipInY" delay={400}>
+              <button
+                disabled={userChoice || wrong}
+                className="question-button"
+                style={
+                  userChoice === question.first_answer
+                    ? {
+                        backgroundColor: "#0e89f3",
+                        color: "#ffffff"
+                      }
+                    : {}
+                }
+                value={question.first_answer}
+                onClick={e => this.handleUserChoice(e.target.value)}
+              >
+                {question.first_answer}
+              </button>
+            </ScrollAnimation>
+            <ScrollAnimation animateIn="flipInY" delay={600}>
+              <button
+                disabled={userChoice || wrong}
+                className="question-button"
+                style={
+                  userChoice === question.second_answer
+                    ? {
+                        backgroundColor: "#0e89f3",
+                        color: "#ffffff"
+                      }
+                    : {}
+                }
+                value={question.second_answer}
+                onClick={e => this.handleUserChoice(e.target.value)}
+              >
+                {question.second_answer}
+              </button>
+            </ScrollAnimation>
+            <ScrollAnimation animateIn="flipInY" delay={800}>
+              <button
+                disabled={userChoice || wrong}
+                className="question-button"
+                style={
+                  userChoice === question.third_answer
+                    ? {
+                        backgroundColor: "#0e89f3",
+                        color: "#ffffff"
+                      }
+                    : {}
+                }
+                value={question.third_answer}
+                onClick={e => this.handleUserChoice(e.target.value)}
+              >
+                {question.third_answer}
+              </button>
+            </ScrollAnimation>
+          </div>
         </div>
-        <div className="progress-wrapper">
-          <Avatar
-            src="https://pickaface.net/gallery/avatar/totage5611dac58af1e.png"
-            size={60}
-            className="host-avatar"
-          />
-          <CircularProgress
-            mode="determinate"
-            value={this.state.currentCount}
-            size={75}
-            style={{
-              position: "relative",
-              fill: "none",
-              transform: "rotate(275deg)"
-            }}
-            thickness={6}
-            color="#0e89f3"
-          />
-        </div>
-        <div className="question-text">{questionLetter}</div>
-        <div className="choices-container">
-          <ScrollAnimation animateIn="flipInY" delay={500}>
-            <button
-              disabled={userChoice || wrong}
-              className="question-button"
-              style={
-                userChoice === question.first_answer
-                  ? {
-                      backgroundColor: "#0e89f3",
-                      color: "#ffffff"
-                    }
-                  : {}
-              }
-              value={question.first_answer}
-              onClick={e => handleAnswer(e.target.value)}
-            >
-              {question.first_answer}
-            </button>
-          </ScrollAnimation>
-          <ScrollAnimation animateIn="flipInY" delay={750}>
-            <button
-              disabled={userChoice || wrong}
-              className="question-button"
-              style={
-                userChoice === question.second_answer
-                  ? {
-                      backgroundColor: "#0e89f3",
-                      color: "#ffffff"
-                    }
-                  : {}
-              }
-              value={question.second_answer}
-              onClick={e => handleAnswer(e.target.value)}
-            >
-              {question.second_answer}
-            </button>
-          </ScrollAnimation>
-          <ScrollAnimation animateIn="flipInY" delay={900}>
-            <button
-              disabled={userChoice || wrong}
-              className="question-button"
-              style={
-                userChoice === question.third_answer
-                  ? {
-                      backgroundColor: "#0e89f3",
-                      color: "#ffffff"
-                    }
-                  : {}
-              }
-              value={question.third_answer}
-              onClick={e => handleAnswer(e.target.value)}
-            >
-              {question.third_answer}
-            </button>
-          </ScrollAnimation>
-        </div>
-      </div>
+      </ScrollAnimation>
     );
   }
 }

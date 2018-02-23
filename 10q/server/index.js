@@ -21,6 +21,10 @@ const io = require("socket.io")(http);
 let playerCount = 0;
 let playerList = [];
 let difficulty = 1;
+let currentQuestion = [];
+let answerOne = 0;
+let answerTwo = 0;
+let answerThree = 0;
 let videoNum = 0;
 
 //MASSIVE CONNECTION TO DB
@@ -54,6 +58,8 @@ io.on("connection", socket => {
       .get("db")
       .get_questions([difficulty])
       .then(question => {
+        currentQuestion.push(question);
+        console.log(currentQuestion);
         io.emit("new question", {
           isQuestion: true,
           isAnswer: false,
@@ -81,17 +87,43 @@ io.on("connection", socket => {
     }
   });
 
-  socket.on("user loser", user => {
-    playerList = playerList.filter(winner => user !== winner.id);
+  socket.on("user choice", choice => {
+    if (choice === currentQuestion[0][0].first_answer) {
+      answerOne++;
+    } else if (choice === currentQuestion[0][0].second_answer) {
+      answerTwo++;
+    } else if (choice === currentQuestion[0][0].third_answer) {
+      answerThree++;
+    }
   });
-//----
+
+  socket.on("picked choices", () => {
+    io.emit("display choices", {
+      answerOne,
+      answerTwo,
+      answerThree
+    });
+    setTimeout(() => {
+      currentQuestion.splice(0, 1);
+      answerOne = 0;
+      answerTwo = 0;
+      answerThree = 0;
+    }, 5000);
+  });
+
+  socket.on("user loser", user => {
+    let i = playerList.indexOf(user === playerList.id);
+    playerList.splice(i, 1);
+    // playerList = playerList.filter(winner => user !== winner.id);
+  });
+  //----
   socket.on("start video", () => {
     console.log(videoNum);
-    io.emit("next video", videoNum );
-    videoNum+=1;
+    io.emit("next video", videoNum);
+    videoNum += 1;
     console.log(videoNum);
   });
-//----
+  //----
   socket.on("complete game", complete => {
     io.emit("display complete", complete);
     io.emit("winners", playerList);

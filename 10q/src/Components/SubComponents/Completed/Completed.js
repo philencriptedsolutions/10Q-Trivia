@@ -23,10 +23,12 @@ class Completed extends Component {
     console.log(this.state.winnerList);
     let winner = this.state.winnerList.map((user, index) => {
       return (
-        <div className="winner-wrapper">
-          <img className="winner-img" src={user.img} alt="" />
-          <div className="winner-name">{user.user}</div>
-        </div>
+        <Slider {...settings}>
+          <div className="winner-wrapper">
+            <img className="winner-img" src={user.img} alt="" />
+            <div className="winner-name">{user.user}</div>
+          </div>
+        </Slider>
       );
     });
 
@@ -48,9 +50,7 @@ class Completed extends Component {
           <SocialPeople className="people-icon" />
           <i className="player-list">{playerList}</i>
         </div>
-        <div className="completed-card">
-          <Slider {...settings}>{winner}</Slider>
-        </div>
+        <div className="completed-card">{winner}</div>
       </div>
     );
   }

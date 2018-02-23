@@ -6,7 +6,6 @@ import TextField from "material-ui/TextField";
 import { connect } from "react-redux";
 //Local
 import MessageList from "./MessageList/MessageList";
-// import EmojiModal from "./EmojiModal/EmojiModal";
 import "./Chat.css";
 
 class Chat extends Component {

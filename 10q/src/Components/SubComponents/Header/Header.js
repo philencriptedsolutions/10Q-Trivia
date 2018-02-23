@@ -105,9 +105,7 @@ class Header extends Component {
           className="sidebar"
         >
           <MenuItem>
-            <div onClick={this.handleClick}>
-              <ActionAccountCircle />
-            </div>
+            <ActionAccountCircle onClick={this.handleClick} />
           </MenuItem>
           <MenuItem>
             <ActionExitToApp onClick={this.signOut} />
