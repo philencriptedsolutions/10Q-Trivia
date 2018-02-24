@@ -1,19 +1,35 @@
 .chat-main {
   margin: 0 0 10px 0;
   padding: 0;
-  width: 100%;
+  width: 300px;
   background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.chat-box {
-  height: 100px;
+.chat-box-container {
+  height: 90px;
   width: 300px;
   background: transparent;
   margin: 10px 0 0 0;
+  overflow: hidden;
+}
+
+.chat-box {
+  height: 100%;
+  width: 300px;
+  background: transparent;
   overflow-y: scroll;
+}
+
+.chat-box::-webkit-scrollbar {
+  width: 0px;
+}
+
+.chat-box::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+  border-radius: 6px;
 }
 
 .chat-line {
@@ -23,7 +39,6 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
 }
@@ -57,8 +72,7 @@
   word-break: break-word;
   overflow-wrap: break-word;
   word-wrap: break-word;
-  margin: 0 0 0 0;
-  /* max-width: 200px; */
+  margin: 0;
 }
 
 .chat-input-container {
@@ -92,38 +106,49 @@
 .modal-body {
   width: 290px !important;
   height: 150px !important;
-  padding: 0 0 0 0 !important;
-  margin: 0 0 0 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
   overflow-y: scroll !important;
 }
 
 .modal-action {
-  padding: 0 0 0 0 !important;
-  margin: 0 0 0 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
   width: 290px !important;
 }
 
 .modal-paper {
-  padding: 0 0 0 0 !important;
-  margin: 0 0 0 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
   width: 290px !important;
   background-color: transparent !important;
   position: absolute !important;
 }
 
-@media (min-width: 538px) {
-  .chat-input-container {
-    width: 500px !important;
+@media (min-width: 650px) {
+  .chat-main {
+    margin: 0;
+    width: 350px;
+    height: 415px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .chat-box-container {
+    height: 90%;
+    width: 100%;
+    margin: 0;
+    padding: 7.5px 0 0 0;
   }
   .chat-box {
-    margin: auto;
-    height: 125px;
-    width: 400px;
-    border: #fff;
-    margin: 12.5px 0 0 0;
-    overflow-wrap: break-word;
+    width: 100%;
   }
-}
-
-@media (min-width: 768px) {
+  .chat-input-container {
+    width: 100%;
+    font-size: 12px;
+    margin: 0;
+  }
+  .chat-send {
+    padding: 0 0 0 15px !important;
+  }
 }

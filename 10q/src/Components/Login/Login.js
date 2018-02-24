@@ -67,7 +67,7 @@ class Login extends Component {
     return (
       <div className="Login">
         <img src={Logo} className="Logo" alt="Logo" />
-        <ScrollAnimation animateIn="flipInX" delay={1000}>
+        <ScrollAnimation animateIn="flipInX" delay={500}>
           <RaisedButton
             id="loginbutton"
             onClick={() => this.signInWithGoogle()}

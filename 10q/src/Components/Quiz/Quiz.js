@@ -111,7 +111,6 @@ class Quiz extends Component {
   startLiveStream() {
     this.socket.emit("start video");
     this.setState({ live: true });
-    console.log("live streamin");
   }
   endLiveStream() {
     this.setState({ live: false });
@@ -124,7 +123,6 @@ class Quiz extends Component {
   }
 
   render() {
-    console.log(this.state.answersPicked);
     const { isQuestion, isAnswer, question = {} } = this.props.quizReducer;
     const { user = {} } = this.props.loginReducer;
     const { level, playerList, isCompleted, live, answersPicked } = this.state;
@@ -157,7 +155,6 @@ class Quiz extends Component {
     } else {
       whatShows = null;
     }
-    // console.log(this.props)
     return (
       <div className="Quiz">
         <Header />
