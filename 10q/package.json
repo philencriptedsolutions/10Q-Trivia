@@ -14,6 +14,7 @@
     "font-awesome": "^4.7.0",
     "massive": "^4.6.4",
     "material-ui": "^0.20.0",
+    "path": "^0.12.7",
     "react": "^16.2.0",
     "react-animate-on-scroll": "^2.0.0",
     "react-dom": "^16.2.0",
