@@ -7,7 +7,7 @@ const { PORT, CONNECTION_STRING, SECRET } = process.env;
 const { json } = require("body-parser");
 const session = require("express-session");
 const cors = require("cors");
-
+const path = require("path");
 // DATABASE DEP
 const massive = require("massive");
 const userCtrl = require("./Controllers/user/userCtrl");
