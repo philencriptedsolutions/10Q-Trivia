@@ -16,7 +16,7 @@ class Dashboard extends Component {
   }
 
   handleProfileClick(){
-    this.props.history.push(`/Profile/`);
+    this.props.history.push(`/Profile`);
   }
 
   handleGameClick(){
