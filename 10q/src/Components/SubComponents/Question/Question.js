@@ -38,7 +38,6 @@ class Question extends Component {
   }
 
   handleUserChoice(val) {
-    console.log(val);
     const { handleAnswer, socket } = this.props;
     handleAnswer(val);
     socket.emit("user choice", val);

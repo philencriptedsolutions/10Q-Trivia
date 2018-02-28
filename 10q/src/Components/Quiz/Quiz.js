@@ -117,19 +117,15 @@ class Quiz extends Component {
   endLiveStream() {
     this.setState({ live: false });
   }
-  resetEverything() {
-    this.socket.emit("reset everything");
-    this.setState({
-      live: false
-    });
-  }
 
   handleReset() {
     this.setState(
       {
         level: 0,
         answersPicked: [],
-        isCompleted: false
+        isCompleted: false,
+        videoNum: 0,
+        live: false
       },
       () => {
         this.socket.emit("reset game");
@@ -178,14 +174,14 @@ class Quiz extends Component {
         <div className="chat-quiz-container">
           {whatShows}
           <div className="admin-control">
-            {user.user_id === 8 && level < 10 ? (
+            {user.user_id === 1 && level < 10 ? (
               <div>
                 <button onClick={this.handleReset}>Reset Game</button>
                 <button onClick={this.goToNextQuestion}>
                   Go to Next Question
                 </button>
               </div>
-            ) : user.user_id === 8 && level === 10 ? (
+            ) : user.user_id === 1 && level === 10 ? (
               <div>
                 <button onClick={this.handleReset}>Reset Game</button>
                 <button onClick={this.goToCompleted}>Finish</button>
@@ -195,8 +191,6 @@ class Quiz extends Component {
               <div>
                 <button onClick={this.startLiveStream}>Start Video</button>
                 <button onClick={this.endLiveStream}>Stop Video</button>
-                {"  "}
-                <button onClick={this.resetEverything}>RESET</button>
               </div>
             )}
           </div>
