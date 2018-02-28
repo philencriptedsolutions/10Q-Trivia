@@ -117,6 +117,12 @@ class Quiz extends Component {
   endLiveStream() {
     this.setState({ live: false });
   }
+  resetEverything() {
+    this.socket.emit("reset everything");
+    this.setState({
+      live: false
+    });
+  }
 
   handleReset() {
     this.setState(
@@ -185,10 +191,12 @@ class Quiz extends Component {
                 <button onClick={this.goToCompleted}>Finish</button>
               </div>
             ) : null}
-            {user.user_id === 8 && (
+            {user.user_id === 1 && (
               <div>
                 <button onClick={this.startLiveStream}>Start Video</button>
                 <button onClick={this.endLiveStream}>Stop Video</button>
+                {"  "}
+                <button onClick={this.resetEverything}>RESET</button>
               </div>
             )}
           </div>

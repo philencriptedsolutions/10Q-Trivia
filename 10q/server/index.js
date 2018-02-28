@@ -96,6 +96,11 @@ io.on("connection", socket => {
     }
   });
 
+  socket.on("reset everything", () => {
+    difficulty =1;
+    videoNum = 0;
+  })
+
   socket.on("user choice", choice => {
     if (choice === currentQuestion[0][0].first_answer) {
       answerOne++;
