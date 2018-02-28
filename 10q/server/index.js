@@ -18,6 +18,7 @@ const app = express();
 //SOCKET.IO
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
+
 let playerCount = 0;
 let playerList = [];
 let difficulty = 1;
@@ -39,8 +40,17 @@ app.use(json());
 app.use(cors());
 app.use(express.static(`${__dirname}/../build`));
 
+app.post("/api/register", userCtrl.addUser);
+app.post("/api/login", userCtrl.getUser);
+app.put("/api/profile/update", userCtrl.updateUser);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/../build/index.html"));
+});
+
 io.on("connection", socket => {
   playerCount++;
+
   io.emit("new user", playerCount);
   //client joined
   socket.on("user connected", user => {
@@ -59,7 +69,6 @@ io.on("connection", socket => {
       .get_questions([difficulty])
       .then(question => {
         currentQuestion.push(question);
-        console.log(currentQuestion);
         io.emit("new question", {
           isQuestion: true,
           isAnswer: false,
@@ -86,11 +95,6 @@ io.on("connection", socket => {
       }, 10000);
     }
   });
-
-  socket.on("reset everything", () => {
-    difficulty =1;
-    videoNum = 0;
-  })
 
   socket.on("user choice", choice => {
     if (choice === currentQuestion[0][0].first_answer) {
@@ -119,24 +123,29 @@ io.on("connection", socket => {
   socket.on("user loser", user => {
     let i = playerList.indexOf(user === playerList.id);
     playerList.splice(i, 1);
-    // playerList = playerList.filter(winner => user !== winner.id);
   });
   //----
   socket.on("start video", () => {
-    console.log(videoNum);
     io.emit("next video", videoNum);
     videoNum += 1;
-    console.log(videoNum);
   });
   //----
   socket.on("complete game", complete => {
     io.emit("display complete", complete);
     io.emit("winners", playerList);
-    // console.log(playerList);
   });
 
   socket.on("send message", message => {
     io.emit("receive message", message);
+  });
+
+  socket.on("reset game", () => {
+    difficulty = 1;
+    currentQuestion = [];
+    answerOne = 0;
+    answerTwo = 0;
+    answerThree = 0;
+    videoNum = 0;
   });
 
   //client disconnected
@@ -144,14 +153,6 @@ io.on("connection", socket => {
     playerCount--;
     io.emit("new user", playerCount);
   });
-});
-
-app.post("/api/register", userCtrl.addUser);
-app.post("/api/login", userCtrl.getUser);
-app.put("/api/profile/update", userCtrl.updateUser);
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/../build/index.html"));
 });
 
 http.listen(PORT || 3001, () => {

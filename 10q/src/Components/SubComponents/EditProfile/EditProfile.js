@@ -24,7 +24,6 @@ class EditProfile extends Component {
   }
 
   handleFirstNameChange(val) {
-    console.log(this.state.firstName);
     this.setState({
       firstName: val
     });
@@ -65,47 +64,55 @@ class EditProfile extends Component {
     const { firstName, lastName, downloadURL } = this.state;
     let first_name = firstName;
     let last_name = lastName;
-    let img = downloadURL; 
+    let img = downloadURL;
     let uid = this.props.loginReducer.user.user_id;
-    console.log( first_name, last_name, img, uid);
-    this.props.updateProfile( first_name, last_name, img, uid)
+    this.props.updateProfile(first_name, last_name, img, uid);
   }
 
   render() {
     return (
       <div className="EditProfile">
         <TextField
-          floatingLabelText="Change your firstName Here"
+          floatingLabelText="Change your first name here"
+          floatingLabelStyle={{ color: "#ffffff" }}
           onChange={e => this.handleFirstNameChange(e.target.value)}
-          className="mui-text-field"
+          underlineStyle={{ borderColor: "#ffffff" }}
+          fullWidth={true}
         />
-        <br /> <br/>
+        <br /> <br />
         <TextField
           floatingLabelText="Change your last name here"
+          floatingLabelStyle={{ color: "#ffffff" }}
           onChange={e => this.handleLastNameChange(e.target.value)}
-          className="mui-text-field"
+          underlineStyle={{ borderColor: "#ffffff" }}
+          fullWidth={true}
         />
-        <br />
-        <br />
-        <br />
-        <input
-          type="file"
-          onChange={event => {
-            this.processImageUpload(event);
-          }}
-          alt=""
-        /> 
-        {this.state.imagePreviewUrl ? (
-          <button
-            type="submit"
-            onClick={event => {
-              this.uploadImage(event);
+        <div className="choose-file-wrapper">
+          <input
+            className="choose-file"
+            type="file"
+            onChange={event => {
+              this.processImageUpload(event);
             }}
-          > Submit Photo </button>
-        ) : null}
-        {this.state.downloadURL ? " uploaded!" : null}
-        <br />
-        <button id=""onClick={ this.submitAllChanges}>Submit Changes</button>
+            alt=""
+          />
+          {this.state.imagePreviewUrl ? (
+            <button
+              type="submit"
+              className="file-submit"
+              onClick={event => {
+                this.uploadImage(event);
+              }}
+            >
+              {" "}
+              Submit Photo{" "}
+            </button>
+          ) : null}
+          {this.state.downloadURL ? " uploaded!" : null}
+        </div>
+        <button className="submit-changes" onClick={this.submitAllChanges}>
+          Submit Changes
+        </button>
       </div>
     );
   }

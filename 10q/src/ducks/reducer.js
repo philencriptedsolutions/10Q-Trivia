@@ -56,7 +56,6 @@ export function updateProfile(first_name, last_name, img, uid) {
 
 //  REDUCER
 export default function loginReducer(state = initialState, action) {
-  console.log(action.type);
   switch (action.type) {
     case `${REGISTER_USER}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
@@ -68,7 +67,6 @@ export default function loginReducer(state = initialState, action) {
       });
     case `${REGISTER_USER}_REJECTED`:
       return Object.assign({}, state, { isLoading: false, didErr: true });
-
     case `${LOGIN_USER}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
     case `${LOGIN_USER}_FULFILLED`:
@@ -79,7 +77,6 @@ export default function loginReducer(state = initialState, action) {
       });
     case `${LOGIN_USER}_REJECTED`:
       return Object.assign({}, state, { isLoading: false, didErr: true });
-
     case `${UPDATE_USER}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
     case `${UPDATE_USER}_FULFILLED`:
@@ -89,7 +86,6 @@ export default function loginReducer(state = initialState, action) {
       });
     case `${UPDATE_USER}_REJECTED`:
       return Object.assign({}, state, { isLoading: false, didErr: true });
-
     default:
       return state;
   }

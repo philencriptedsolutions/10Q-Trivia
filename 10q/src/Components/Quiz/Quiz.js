@@ -6,7 +6,8 @@ import {
   changeToAnswerView,
   changeToEndOfGame,
   changeToWrong,
-  handleAnswer
+  handleAnswer,
+  gameReset
 } from "../../ducks/quizReducer";
 import "./Quiz.css";
 
@@ -20,7 +21,6 @@ import Chat from "../SubComponents/Chat/Chat";
 class Quiz extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       playerList: 0,
       level: 0,
@@ -35,7 +35,7 @@ class Quiz extends Component {
     this.goToCompleted = this.goToCompleted.bind(this);
     this.startLiveStream = this.startLiveStream.bind(this);
     this.endLiveStream = this.endLiveStream.bind(this);
-    this.resetEverything = this.resetEverything.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +50,7 @@ class Quiz extends Component {
     });
 
     this.socket.on("new question", response => {
+      this.props.handleAnswer("");
       if (response.isQuestion === true) {
         this.props.saveNewQuestion(
           response.isQuestion,
@@ -64,15 +65,14 @@ class Quiz extends Component {
       this.setState({
         level: this.state.level + 1
       });
-
       if (
         this.props.quizReducer.userChoice !==
+          this.props.quizReducer.question.correct_answer &&
         this.props.quizReducer.question.correct_answer
       ) {
         this.props.changeToWrong();
         this.socket.emit("user loser", this.props.loginReducer.user.user_id);
       }
-      this.props.handleAnswer("");
       this.props.changeToAnswerView(response.isQuestion, response.isAnswer);
     });
 
@@ -93,6 +93,7 @@ class Quiz extends Component {
         answersPicked
       });
     });
+
     this.socket.on("next video", videoNum => {
       this.setState({
         videoNum
@@ -112,14 +113,25 @@ class Quiz extends Component {
     this.socket.emit("start video");
     this.setState({ live: true });
   }
+
   endLiveStream() {
     this.setState({ live: false });
   }
-  resetEverything() {
-    this.socket.emit("reset everything");
-    this.setState({
-      live: false
-    });
+
+  handleReset() {
+    this.setState(
+      {
+        level: 0,
+        answersPicked: [],
+        isCompleted: false,
+        videoNum: 0,
+        live: false
+      },
+      () => {
+        this.socket.emit("reset game");
+        this.props.gameReset();
+      }
+    );
   }
 
   render() {
@@ -163,17 +175,22 @@ class Quiz extends Component {
           {whatShows}
           <div className="admin-control">
             {user.user_id === 1 && level < 10 ? (
-              <button onClick={this.goToNextQuestion}>
-                Go to Next Question
-              </button>
+              <div>
+                <button onClick={this.handleReset}>Reset Game</button>
+                <button onClick={this.goToNextQuestion}>
+                  Go to Next Question
+                </button>
+              </div>
             ) : user.user_id === 1 && level === 10 ? (
-              <button onClick={this.goToCompleted}>Finish</button>
+              <div>
+                <button onClick={this.handleReset}>Reset Game</button>
+                <button onClick={this.goToCompleted}>Finish</button>
+              </div>
             ) : null}
             {user.user_id === 1 && (
               <div>
                 <button onClick={this.startLiveStream}>Start Video</button>
-                <button onClick={this.endLiveStream}>Stop Video</button>{"  "}
-                <button onClick={this.resetEverything}>RESET</button>
+                <button onClick={this.endLiveStream}>Stop Video</button>
               </div>
             )}
           </div>
@@ -191,5 +208,6 @@ export default connect(mapStateToProps, {
   changeToAnswerView,
   changeToWrong,
   changeToEndOfGame,
-  handleAnswer
+  handleAnswer,
+  gameReset
 })(Quiz);

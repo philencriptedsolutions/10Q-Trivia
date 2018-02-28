@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
 import SocialPeople from "material-ui/svg-icons/social/people";
-import Header from "../../SubComponents/Header/Header";
 import "./Completed.css";
 
 class Completed extends Component {

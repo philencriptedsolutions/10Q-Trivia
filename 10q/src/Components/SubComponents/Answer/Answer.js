@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 //Material-ui
 import SocialPeople from "material-ui/svg-icons/social/people";
-import Avatar from "material-ui/Avatar";
 //React-animate-on-scroll
 import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";

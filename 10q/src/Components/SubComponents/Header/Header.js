@@ -18,7 +18,7 @@ class Header extends Component {
     this.state = {
       opened: false,
       anchorOrigin: {
-        horizontal: "left",
+        horizontal: "right",
         vertical: "bottom"
       },
       targetOrigin: {
@@ -29,40 +29,43 @@ class Header extends Component {
 
     this.signOut = this.signOut.bind(this);
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.setAnchor = this.setAnchor.bind(this);
+    this.setTarget = this.setTarget.bind(this);
   }
 
-  handleClick = event => {
-    // This prevents ghost click.
+  handleClick(event) {
     event.preventDefault();
     this.setState({
       open: true,
       anchorEl: event.currentTarget
     });
-  };
+  }
 
-  handleRequestClose = () => {
+  handleRequestClose() {
     this.setState({
       open: false
     });
-  };
+  }
 
-  setAnchor = (positionElement, position) => {
+  setAnchor(positionElement, position) {
     const { anchorOrigin } = this.state;
     anchorOrigin[positionElement] = position;
 
     this.setState({
       anchorOrigin: anchorOrigin
     });
-  };
+  }
 
-  setTarget = (positionElement, position) => {
+  setTarget(positionElement, position) {
     const { targetOrigin } = this.state;
     targetOrigin[positionElement] = position;
 
     this.setState({
       targetOrigin: targetOrigin
     });
-  };
+  }
 
   signOut() {
     firebase
@@ -102,9 +105,8 @@ class Header extends Component {
           docked={false}
           width={60}
           onRequestChange={this.toggleDrawer}
-          className="sidebar"
         >
-          <MenuItem>
+          <MenuItem className="sidebar-item">
             <ActionAccountCircle onClick={this.handleClick} />
           </MenuItem>
           <MenuItem>
@@ -117,6 +119,8 @@ class Header extends Component {
           anchorOrigin={this.state.anchorOrigin}
           targetOrigin={this.state.targetOrigin}
           onRequestClose={this.handleRequestClose}
+          canAutoPosition={false}
+          className="popover-header"
         >
           <DisplayProfile />
         </Popover>

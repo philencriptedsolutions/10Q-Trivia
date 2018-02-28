@@ -1,13 +1,8 @@
-import { createStore, applyMiddleware } from 'redux';
-import reduxPromiseMiddleware from 'redux-promise-middleware';
-import loginReducer from './reducer';
-import quizReducer from './quizReducer';
-
-import { combineReducers } from 'redux'
-
-// const store = createStore(loginReducer, applyMiddleware(promiseMiddleware())); 
-// export default store;
+import { createStore, applyMiddleware, combineReducers } from "redux";
+import promiseMiddleware from "redux-promise-middleware";
+import loginReducer from "./reducer";
+import quizReducer from "./quizReducer";
 
 const reducers = combineReducers({ loginReducer, quizReducer });
 
-export default createStore(reducers, applyMiddleware(reduxPromiseMiddleware()));
+export default createStore(reducers, applyMiddleware(promiseMiddleware()));

@@ -1,9 +1,14 @@
-.display-profile {
-  margin: auto;
-  max-width: 370px !important;
-  max-height: 500px !important;
+.profile-card {
+  margin: 2.5px 0 0 -7.5px;
+  overflow-x: hidden !important;
 }
 
-.profile-card {
-  margin-top: 50px;
+.edit-container {
+  padding: 0 16px 0 16px !important;
+}
+
+@media (min-width: 342px) {
+  .profile-card {
+    margin: 5px 0 0 -7.5px;
+  }
 }

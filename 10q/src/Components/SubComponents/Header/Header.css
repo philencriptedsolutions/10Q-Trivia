@@ -14,37 +14,28 @@
   border: none !important;
 }
 
-h1 {
-  height: 30px !important;
-  line-height: 0 !important;
-}
-
 .logo-img {
   width: 30px;
   height: 25px;
 }
 
-.menu-item-container {
-  text-decoration: none;
+.sidebar-item {
+  margin-top: 15px !important;
 }
 
-.menu-item {
-  font-size: 20px;
-  color: #ffffff;
-  font-weight: lighter;
-}
-
-.menu-item-wrapper:focus {
-  cursor: pointer;
-}
-
-.side-bar {
-  margin-top: 20px;
+.popover-header {
+  left: 62.5px !important;
+  top: 2.5px !important;
+  width: 270px !important;
 }
 
 @media (min-width: 650px) {
   .header-main {
     margin: 22.5px 0 0 0;
+  }
+  .popover-header {
+    padding: 0 12.5px 0 12.5px !important;
+    width: 345px !important;
   }
 }
 
