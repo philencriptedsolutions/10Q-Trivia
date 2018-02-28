@@ -1,4 +1,18 @@
-.mui-text-field {
-    border: 1px solid whitesmoke !important;
+.EditProfile {
+  width: 100%;
+  margin: 0 0 10px 0;
 }
 
+.choose-file {
+  margin: 7.5px 0 7.5px 0;
+}
+
+.submit-changes {
+  margin: 7.5px 0 0 0;
+}
+
+@media (min-width: 650px) {
+  .EditProfile {
+    width: 292.5px;
+  }
+}

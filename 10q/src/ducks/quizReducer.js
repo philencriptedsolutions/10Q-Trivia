@@ -5,6 +5,7 @@ const NEW_ANSWER = "NEW_ANSWER";
 const END_OF_GAME = "END_OF_GAME";
 const CHANGE_WRONG = "CHANGE_WRONG";
 const HANDLE_ANSWER = "HANDLE_ANSWER";
+const GAME_RESET = "GAME_RESET";
 
 //  INITIAL STATE
 const initialState = {
@@ -23,12 +24,14 @@ export function saveNewQuestion(isQuestion, isAnswer, question) {
     payload: { isQuestion, isAnswer, question }
   };
 }
+
 export function changeToAnswerView(isQuestion, isAnswer) {
   return {
     type: NEW_ANSWER,
     payload: { isQuestion, isAnswer }
   };
 }
+
 export function changeToEndOfGame() {
   return {
     type: END_OF_GAME,
@@ -50,6 +53,19 @@ export function handleAnswer(choice) {
   };
 }
 
+export function gameReset() {
+  return {
+    type: GAME_RESET,
+    payload: {
+      isQuestion: false,
+      isAnswer: false,
+      wrong: false,
+      userChoice: "",
+      question: {}
+    }
+  };
+}
+
 //  REDUCER
 export default function quizReducer(state = initialState, action) {
   switch (action.type) {
@@ -59,13 +75,11 @@ export default function quizReducer(state = initialState, action) {
         isAnswer: action.payload.isAnswer,
         question: action.payload.question[0]
       });
-
     case `${NEW_ANSWER}`:
       return Object.assign({}, state, {
         isQuestion: action.payload.isQuestion,
         isAnswer: action.payload.isAnswer
       });
-
     case `${END_OF_GAME}`:
       return Object.assign({}, state, {
         endOfGame: true,
@@ -78,7 +92,14 @@ export default function quizReducer(state = initialState, action) {
       return Object.assign({}, state, {
         userChoice: action.payload
       });
-
+    case `${GAME_RESET}`:
+      return Object.assign({}, state, {
+        isQuestion: action.payload.isQuestion,
+        isAnswer: action.payload.isAnswer,
+        wrong: action.payload.wrong,
+        userChoice: action.payload.userChoice,
+        question: action.payload.question
+      });
     default:
       return state;
   }

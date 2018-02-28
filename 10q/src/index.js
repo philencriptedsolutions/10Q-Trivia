@@ -13,21 +13,13 @@ import store from "./ducks/store";
 
 const muiTheme = getMuiTheme({
   palette: {
-    //primary1color: changes NavBar Background & Primary Raised Button Background
     primary1Color: "transparent",
-    //accent1color: changes Secondary Raised Button Background
     accent1Color: "#f85f6b",
-    //textColor: changes Icon Color & Regular Text & Default Raised Button Text & Menu Text
     textColor: "#ffffff",
-    //canvasColor: regular page background color
     canvasColor: "#f85f6b",
-    //borderColor: Text Field underline color
     borderColor: "#f85f6b",
-    //secondaryTextColor: changes Sub Text Color
     secondaryTextColor: "#f85f6b",
-    //alternateTextColor: changes Default Raised Button Background, Primary Raised Button Text, Secondary Raised Button Text
     alternateTextColor: "#0e89f3",
-    //shadowColor: changes shadow color
     shadowColor: "transparent"
   }
 });

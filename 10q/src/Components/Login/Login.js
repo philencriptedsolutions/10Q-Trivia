@@ -26,7 +26,6 @@ class Login extends Component {
       .auth()
       .signInWithPopup(provider)
       .then(result => {
-        console.log(result);
         const {
           given_name,
           family_name,
