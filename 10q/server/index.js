@@ -54,7 +54,7 @@ io.on("connection", socket => {
   io.emit("new user", playerCount);
   //client joined
   socket.on("user connected", user => {
-    socket.username = user.first_name;
+    // socket.username = user.first_name;
     playerList.push({
       id: user.id,
       user: user.first_name,
@@ -121,8 +121,8 @@ io.on("connection", socket => {
   });
 
   socket.on("user loser", user => {
-    let i = playerList.indexOf(user === playerList.id);
-    playerList.splice(i, 1);
+    playerList = playerList.filter(e => e.id !== user);
+    console.log(playerList);
   });
   //----
   socket.on("start video", () => {

@@ -174,20 +174,20 @@ class Quiz extends Component {
         <div className="chat-quiz-container">
           {whatShows}
           <div className="admin-control">
-            {user.user_id === 1 && level < 10 ? (
+            {user.user_id === 8 && level < 10 ? (
               <div>
                 <button onClick={this.handleReset}>Reset Game</button>
                 <button onClick={this.goToNextQuestion}>
                   Go to Next Question
                 </button>
               </div>
-            ) : user.user_id === 1 && level === 10 ? (
+            ) : user.user_id === 8 && level === 10 ? (
               <div>
                 <button onClick={this.handleReset}>Reset Game</button>
                 <button onClick={this.goToCompleted}>Finish</button>
               </div>
             ) : null}
-            {user.user_id === 1 && (
+            {user.user_id === 8 && (
               <div>
                 <button onClick={this.startLiveStream}>Start Video</button>
                 <button onClick={this.endLiveStream}>Stop Video</button>
