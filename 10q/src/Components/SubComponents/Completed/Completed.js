@@ -12,9 +12,9 @@ class Completed extends Component {
     };
   }
   componentDidMount() {
-    this.props.socket.on("winners", winners => {
+    this.props.socket.on("winners", winnerList => {
       this.setState({
-        winnerList: winners
+        winnerList
       });
     });
   }
@@ -31,7 +31,7 @@ class Completed extends Component {
     });
 
     let settings = {
-      dots: false,
+      dots: true,
       infinite: true,
       speed: 200,
       slidesToScroll: 1,
@@ -48,6 +48,7 @@ class Completed extends Component {
           <SocialPeople className="people-icon" />
           <i className="player-list">{playerList}</i>
         </div>
+        <div className="completed-text">WINNERS:</div>
         <div className="completed-card">{winner}</div>
       </div>
     );
