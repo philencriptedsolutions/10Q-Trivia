@@ -122,7 +122,6 @@ io.on("connection", socket => {
 
   socket.on("user loser", user => {
     playerList = playerList.filter(e => e.id !== user);
-    console.log(playerList);
   });
   //----
   socket.on("start video", () => {

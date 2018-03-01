@@ -3,12 +3,12 @@ import VideoCover from "react-video-cover";
 import "./Host.css";
 
 class Host extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
     this.state = {
-      videos : [ 
-        "https://firebasestorage.googleapis.com/v0/b/qtrivia-4dbfa.appspot.com/o/newIntroduction.mp4?alt=media&token=69d56f3f-0ba4-45fc-b57e-5a545dce0350", 
+      videos: [
+        "https://firebasestorage.googleapis.com/v0/b/qtrivia-4dbfa.appspot.com/o/newIntroduction.mp4?alt=media&token=69d56f3f-0ba4-45fc-b57e-5a545dce0350",
         "https://firebasestorage.googleapis.com/v0/b/qtrivia-4dbfa.appspot.com/o/lindseyax.mp4?alt=media&token=ca496fea-6386-44e2-ac13-32ce887f067e",
         "https://firebasestorage.googleapis.com/v0/b/qtrivia-4dbfa.appspot.com/o/Trees.mp4?alt=media&token=d647ae5d-0901-4b2c-864e-d04ffd13d006",
         "https://firebasestorage.googleapis.com/v0/b/qtrivia-4dbfa.appspot.com/o/olympicsfinal.mp4?alt=media&token=f29eaabe-6ea2-450d-819f-4cee6ac6d5dd",
@@ -19,18 +19,17 @@ class Host extends Component {
         "https://firebasestorage.googleapis.com/v0/b/qtrivia-4dbfa.appspot.com/o/newalanturing.mp4?alt=media&token=3f159758-0c2a-4f3f-9128-126e2c451cdc",
         "https://firebasestorage.googleapis.com/v0/b/qtrivia-4dbfa.appspot.com/o/jurassic%20park.mp4?alt=media&token=6e907576-b7fe-416c-82c9-b4b2b5312c4c",
         "https://firebasestorage.googleapis.com/v0/b/qtrivia-4dbfa.appspot.com/o/jaylanEnding.mp4?alt=media&token=eb2e32a9-753f-4478-b372-de9ab73de4d7"
-        
       ]
-    }
+    };
   }
   render() {
-    console.log(this.props.videoNum)
+    console.log(this.props.videoNum);
     return (
       <div className="Host">
         <VideoCover
           className="hero-video"
           videoOptions={{
-            src:  this.state.videos[this.props.videoNum],
+            src: this.state.videos[this.props.videoNum],
             autoPlay: true,
             loop: false,
             muted: false
