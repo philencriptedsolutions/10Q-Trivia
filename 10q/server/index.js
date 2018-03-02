@@ -129,6 +129,10 @@ io.on("connection", socket => {
     videoNum += 1;
   });
   //----
+  socket.on("stop video", () => {
+    io.emit("halt");
+  });
+
   socket.on("complete game", complete => {
     io.emit("display complete", complete);
     io.emit("winners", playerList);
