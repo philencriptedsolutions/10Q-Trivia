@@ -96,7 +96,8 @@ class Quiz extends Component {
 
     this.socket.on("next video", videoNum => {
       this.setState({
-        videoNum
+        videoNum, 
+        live:true
       });
     });
   }

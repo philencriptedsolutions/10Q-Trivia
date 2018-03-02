@@ -23,7 +23,7 @@ class Host extends Component {
     };
   }
   render() {
-    console.log(this.props.videoNum);
+    
     return (
       <div className="Host">
         <VideoCover
