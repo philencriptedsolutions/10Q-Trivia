@@ -96,8 +96,14 @@ class Quiz extends Component {
 
     this.socket.on("next video", videoNum => {
       this.setState({
-        videoNum, 
-        live:true
+        videoNum,
+        live: true
+      });
+    });
+
+    this.socket.on("halt", () => {
+      this.setState({
+        live: false
       });
     });
   }
@@ -116,6 +122,7 @@ class Quiz extends Component {
   }
 
   endLiveStream() {
+    this.socket.emit("stop video");
     this.setState({ live: false });
   }
 
